@@ -1,0 +1,351 @@
+\documentclass[11pt, a4paper]{article}
+
+% Setup
+\usepackage[margin=2.4cm, top=3.5cm]{geometry}
+\usepackage[utf8]{inputenc}
+\usepackage[ngerman]{babel}
+
+% Package imports
+\usepackage{amsfonts}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsthm}
+\usepackage{mathtools}
+\usepackage{setspace}
+\usepackage{float}
+\usepackage{enumitem}
+\usepackage{hyperref}
+\usepackage[pagestyles]{titlesec}
+\usepackage{fancyhdr}
+\usepackage{colonequals}
+\usepackage{caption}
+\usepackage{tikz}
+\usepackage{marginnote}
+\usepackage{etoolbox}
+\usepackage{mdframed}
+\usepackage{aligned-overset}
+\usepackage{esint}
+\usepackage{scalerel}
+
+% Font-Encoding
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+
+% TikZ packages
+\usetikzlibrary{patterns}
+
+% Theorems
+\newtheoremstyle{plain}{}{}{}{}{\bfseries}{.}{ }{}
+\theoremstyle{plain}
+\newtheorem{blockelement}{Blockelement}[subsection]
+\newtheorem{bemerkung}[blockelement]{Bemerkung}
+\newtheorem{definition}[blockelement]{Definition}
+\newtheorem{lemma}[blockelement]{Lemma}
+\newtheorem{satz}[blockelement]{Satz}
+\newtheorem{notation}[blockelement]{Notation}
+\newtheorem{korollar}[blockelement]{Korollar}
+\newtheorem{uebung}[blockelement]{Übung}
+\newtheorem{beispiel}[blockelement]{Beispiel}
+\newtheorem{folgerung}[blockelement]{Folgerung}
+\newtheorem{axiom}[blockelement]{Axiom}
+\newtheorem{beobachtung}[blockelement]{Beobachtung}
+\newtheorem{konzept}[blockelement]{Konzept}
+\newtheorem{konstruktion}[blockelement]{Konstruktion}
+\newtheorem{visualisierung}[blockelement]{Visualisierung}
+\newtheorem{anwendung}[blockelement]{Anwendung}
+\newtheorem{skizze}[blockelement]{Skizze}
+\newtheorem{konvention}[blockelement]{Konvention}
+\newtheorem{genv}[blockelement]{}
+
+% Numbering (equations and conditions)
+\numberwithin{equation}{subsection}
+\newcommand{\numbereq}[1]{\addtocounter{equation}{1}\tag{\theequation}\label{#1}}
+\newcounter{condition}
+\renewcommand{\thecondition}{V\arabic{condition}}
+\newcommand{\condition}[1]{\hypertarget{#1}{\refstepcounter{condition}(\label{#1}\thecondition})}
+
+\DeclareMathAlphabet{\altmathbb}{U}{BOONDOX-ds}{m}{n}
+
+% Long equations
+\allowdisplaybreaks
+
+% \left \right
+\newcommand{\set}[1]{\left\{#1\right\}}
+\newcommand{\pair}[1]{\left(#1\right)}
+\newcommand{\of}[1]{\mathopen{}\mathclose{}\bgroup\left(#1\aftergroup\egroup\right)}
+\newcommand{\abs}[1]{\left\lvert#1\right\rvert}
+\newcommand{\norm}[1]{\left\lVert#1\right\rVert}
+\newcommand{\linterv}[1]{\left[#1\right)}
+\newcommand{\rinterv}[1]{\left(#1\right]}
+\newcommand{\interv}[1]{\left[#1\right]}
+\newcommand{\scalprod}[1]{\left<#1\right>}
+
+% Shorten commands
+\newcommand{\equivalent}[0]{\Leftrightarrow{}}
+\newcommand{\impl}[0]{\Rightarrow{}}
+\newcommand{\definedasequiv}[0]{\ratio\Leftrightarrow{}}
+\renewcommand{\emptyset}{\varnothing}
+\newcommand{\dif}{\mathop{}\!\mathrm{d}}
+\newcommand{\Dif}{\mathop{}\!\mathrm{D}}
+\newcommand{\dsty}{\displaystyle}
+\newcommand{\charfunc}{\altmathbb{1}}
+
+\newcommand{\toinf}{\to\infty}
+\newcommand{\fa}{\;\forall}
+\newcommand{\ex}{\;\exists}
+\newcommand{\conj}[1]{\overline{#1}}
+\newcommand{\comp}[1]{{#1}^{\mathrm{C}}}
+
+\newcommand{\annot}[3][]{\overset{\text{#3}}#1{#2}}
+\newcommand{\anf}[1]{\glqq{}#1\grqq}
+\newcommand{\OBDA}{o.B.d.A. }
+\newcommand{\theoremescape}{\leavevmode}
+\newcommand{\aligntoright}[2]{\hfill#1\hspace{#2\textwidth}~}
+\newcommand{\horizontalline}[0]{\par\noindent\rule{0.05\textwidth}{0.1pt}\\}
+\newcommand{\rgbcolor}[3]{rgb,255:red,#1;green,#2;blue,#3}
+\newcommand{\fixedspace}[2]{\makebox[#1][l]{#2}}
+
+\let\Re\relax
+\let\Im\relax
+
+% MathOperators
+\DeclareMathOperator{\grad}{Grad}
+\DeclareMathOperator{\bild}{Bild}
+\DeclareMathOperator{\Re}{Re}
+\DeclareMathOperator{\Im}{Im}
+\DeclareMathOperator{\arcsinh}{arcsinh}
+\DeclareMathOperator{\arccosh}{arccosh}
+\DeclareMathOperator{\diam}{diam}
+\DeclareMathOperator{\fehler}{Fehler}
+\DeclareMathOperator{\D}{D\!}
+\DeclareMathOperator{\Id}{Id}
+\DeclareMathOperator{\op}{op}
+\DeclareMathOperator{\rank}{rk}
+\DeclareMathOperator{\spann}{Spann}
+\DeclareMathOperator{\flaeche}{Fläche}
+\DeclareMathOperator{\bew}{Bew}
+\DeclareMathOperator{\diag}{diag}
+\DeclareMathOperator{\fdiv}{div}
+
+% Mengenbezeichner
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\K}{\mathbb{K}}
+
+\newcommand{\mA}{\mathcal{A}}
+\newcommand{\mB}{\mathcal{B}}
+\newcommand{\mC}{\mathcal{C}}
+\newcommand{\mD}{\mathcal{D}}
+\newcommand{\mE}{\mathcal{E}}
+\newcommand{\mF}{\mathcal{F}}
+\newcommand{\mG}{\mathcal{G}}
+\newcommand{\mH}{\mathcal{H}}
+\newcommand{\mJ}{\mathcal{J}}
+\newcommand{\mK}{\mathcal{K}}
+\newcommand{\mL}{\mathcal{L}}
+\newcommand{\mM}{\mathcal{M}}
+\newcommand{\mO}{\mathcal{O}}
+\newcommand{\mP}{\mathcal{P}}
+\newcommand{\mQ}{\mathcal{Q}}
+\newcommand{\mR}{\mathcal{R}}
+\newcommand{\mS}{\mathcal{S}}
+\newcommand{\mPC}{\mathcal{PC}}
+
+\reversemarginpar
+
+% Spezielle Symbole
+\NewDocumentCommand{\Tau}{e{^_}}{
+    \scalerel*{\tau}{X}
+    \IfValueT{#1}{^{#1}}
+    \IfValueT{#2}{_{\!\!#2}}
+}
+
+% Spezielle Commands
+\newcommand\imaginarysubsection[1]{
+    \refstepcounter{subsection}
+    \subsectionmark{#1}
+}
+
+% Envs
+\newenvironment{induktionsanfang}{
+    \rule{0pt}{3ex}\noindent
+    \begin{minipage}[t]{0.11\textwidth}
+    {I-Anfang}
+    \end{minipage}
+    \hfill
+    \begin{minipage}[t]{0.89\textwidth}
+    }
+    {
+    \end{minipage}
+}
+\newenvironment{induktionsvoraussetzung}{
+    \rule{0pt}{3ex}\noindent
+    \begin{minipage}[t]{0.11\textwidth}
+    {I-Vor.}
+    \end{minipage}
+    \hfill
+    \begin{minipage}[t]{0.89\textwidth}
+    }
+    {
+    \end{minipage}
+}
+\newenvironment{induktionsschritt}{
+    \rule{0pt}{3ex}\noindent
+    \begin{minipage}[t]{0.11\textwidth}
+    {I-Schritt}
+    \end{minipage}
+    \hfill
+    \begin{minipage}[t]{0.89\textwidth}
+    }
+    {
+    \end{minipage}
+}
+
+% Section style
+\titleformat*{\section}{\LARGE\bfseries}
+\titleformat*{\subsection}{\large\bfseries}
+
+% Page styles
+\newpagestyle{sectionpage}{
+    \sethead{}{}{}
+    \setfoot{}{\thepage}{Version: \today}
+}
+\newpagestyle{headfootdefault}{
+    \sethead{\thesection~\textit{\sectiontitle}}{}{\thesubsection~\textit{\subsectiontitle}}
+    \setfoot{}{\thepage}{Version: \today}
+}
+\pagestyle{headfootdefault}
+
+\begin{document}
+    \title{\vspace{3cm} Skript zur Vorlesung\\Analysis IV\\bei Prof. Dr. Dirk Hundertmark}
+    \author{Karlsruher Institut für Technologie}
+    \date{Sommersemester 2025}
+    \maketitle
+    \begin{center}
+        Dieses Skript ist inoffiziell. Es besteht kein\\Anspruch auf Vollständigkeit oder Korrektheit.
+    \end{center}
+    \newpage
+    \thispagestyle{sectionpage}
+
+    \tableofcontents
+    ~\\
+    Alle mit [*] markierten Kapitel sind noch nicht Korrektur gelesen und bedürfen eventuell noch Änderungen.
+
+    \newpage
+
+
+    \section{[*] Erinnerungen/Rückblick}
+    \thispagestyle{sectionpage}
+
+    \subsection{Komplexe Zahlen $\C$}
+
+    \begin{bemerkung}[$\C$ ist ein Körper]
+        \marginnote{[22. Apr]}
+        Wir kennen bereits die komplexen Zahlen. Wir betrachten eine komplexe Zahl als Tupel $\pair{a,b} \in\R\times\R$ mit Addition
+        \begin{align*}
+            \pair{a,b} + \pair{c,d} &\coloneqq \pair{a+c, b+d}
+            \intertext{sowie Multiplikation}
+            \pair{a, b}\cdot\pair{c,d} &\coloneqq \pair{ac - bd, ad+bc}
+        \end{align*}
+        Durch Nachrechnen zeigt sich, dass $\C$ so die Körperaxiome erfüllt, wobei $\pair{0, 0}$ bzw. $\pair{1, 0}$ die neutralen Elemente bezüglich Addition bzw. Multiplikation sind. Für die herkömmliche Darstellung der komplexen Zahlen definieren wir außerdem $i \coloneqq \pair{0, 1}$. Visualisieren lässt sich das dann in der \textit{Gaußschen Zahlenebene}.
+    \end{bemerkung}
+
+    \begin{bemerkung}
+        Sei $z = \pair{a, b} \in\R\times\R$. Dann gilt $z = \pair{a, 0} + \pair{0, b} = a + bi$. Wir können also alle komplexen Zahlen in der Form $a + bi$ schreiben.
+    \end{bemerkung}
+
+    \begin{definition}[Komplexe Konjugation]
+        Wir definieren außerdem die komplexe Konjugation: Sei wieder $z = a + bi$. Dann ist die komplexe Konjugation von $z$ definiert durch $\conj{z} \coloneqq a - bi$. Damit ergibt sich die multiplikative Inverse $z^{-1} = \frac{\conj{z}}{\abs{z}^2}$, die sich leicht durch Nachrechnen bestätigen lässt. Die additive Inverse $\pair{-a, -b}$ ergibt sich direkt aus der Definition der Addition.
+    \end{definition}
+
+    \begin{definition}[Real- und Komplexteil]
+        Sei $z = a + bi$, $a, b\in\R$. Dann schreiben wir $\Re\of{z} = a$ sowie $\Im\of{z} = b$. Außerdem gilt dann
+        \begin{align*}
+            \Re\of{z} &= \frac{1}{2}\pair{z+\conj{z}}\\
+            \Im\of{z} &= \frac{1}{i}\pair{z-\conj{z}}
+        \end{align*}
+    \end{definition}
+
+    \begin{satz}[Cauchy-Schwarz für $\C$]
+        Seien $z, w\in\C$. Dann gilt $\Re\of{\conj{z}w} \leq \abs{z}\abs{w}$.
+
+        \begin{proof}
+
+        \end{proof}
+    \end{satz}
+
+    \subsection{Konvergenz}
+    \begin{definition}[Konvergenz]
+        Sei $(z_n)_n \subseteq\C$ eine Folge. Dann konvergiert diese gegen $z$, falls
+        \begin{align*}
+            \lim_{n\toinf} \abs{z - z_n} &= 0
+            \intertext{Wir schreiben dann $\lim_{n\toinf} z_n = z$ oder $z_n \to z$ für $n\toinf$. Äquivalent dazu ist die Bedingung}
+            \forall \varepsilon > 0 \ex N_{\varepsilon}\in\N\colon \abs{z - z_n} &< \varepsilon\quad\forall n\geq N_{\varepsilon}
+        \end{align*}
+    \end{definition}
+
+    \begin{definition}[Cauchy-Folgen]
+        Wir nennen $(z_n)_n$ eine Cauchy-Folge, falls
+        \begin{align*}
+            \forall\varepsilon > 0\ex N_{\varepsilon}\in\N\colon \abs{z_n - z_m} < \varepsilon\quad\forall n,m > N_{\varepsilon}
+        \end{align*}
+    \end{definition}
+
+    \begin{satz}[Vollständigkeit von $\C$]
+        Die Folge $(z_n)_n$ konvergiert genau dann, wenn $(z_n)_n$ eine Cauchy-Folge ist.
+        \begin{proof}
+        (Nicht hier, siehe Ana 3)
+            .
+        \end{proof}
+    \end{satz}
+
+    \begin{bemerkung}[Konvergenz von Reihen]
+        Eine Reihe $ \sum_{n=1}^{\infty} z_n$ konvergiert per Definition, wenn die Folge der Partialsummen $(s_n)_n$, $s_n \coloneqq \sum_{j=1}^{n} z_j$ konvergiert. Notwendig für die Konvergenz von $ \sum_{j=1}^{\infty} z_j$ ist dabei, dass $z_n \to 0$. Hinreichend ist z.B., dass $ \sum_{n=1}^{\infty} \abs{z_n}$ konvergiert. In diesem Fall sprechen wir von absoluter Konvergenz.
+    \end{bemerkung}
+
+    \subsection{Ein paar Definitionen}
+
+    \begin{definition}[Topologische Grundlagen: Offene und abgeschlossene Mengen, Rand und Abschluss]
+        Wir definieren die (offene) $\varepsilon$-Scheibe um $z$
+        \begin{align*}
+            D_{\varepsilon}\of{z} &\coloneqq \set{w\in\C: \abs{z-w} < \varepsilon}
+            \intertext{sowie den $\varepsilon$-Kreis um $z$}
+            C_{\varepsilon}\of{z} &\coloneqq \set{w: \abs{z-w} = \varepsilon}
+            \intertext{Eine Menge $S\subseteq\C$ heißt damit offen, falls}
+            \forall z\in S\ex r > 0\colon &D_{r}\of{z} \subseteq S
+            \intertext{Es sei $\comp{S} \coloneqq \C\setminus S$. Dann nennen wir $S$ abgeschlossen, falls $\comp{S}$ offen ist. Wir definieren außerdem noch den Rand von $S$}
+            \partial S &\coloneqq \set{z\in\C: \forall \varepsilon > 0\colon S \cap D_{\varepsilon}\of{z} \neq \emptyset \land \comp{S}\cap D_{\varepsilon}\of{z} \neq \emptyset}
+            \intertext{Damit definieren wir außerdem den Abschluss von $S$}
+            \overline{S} &\coloneqq S \cup \partial S
+        \end{align*}
+        Wir sagen $S$ ist beschränkt, falls $S \subseteq D_{R}\of{0}$ für ein $R > 0$. Außerdem ist $S$ kompakt, falls $S$ sowohl abgeschlossen als auch beschränkt ist.\endgraf\noindent $S$ ist nicht-zusammenhängend, falls es offene disjunkte Mengen $A, B$ gibt mit $S \subseteq A \cup B$ mit $S \cap A \neq \emptyset$, $S\cap B \neq \emptyset$. $S$ ist zusammenhängend, falls es nicht nicht-zusammenhängend ist.
+    \end{definition}
+
+    \begin{definition}
+        Sei $z, w \in\C$. Dann definieren wir $\interv{z, w} \coloneqq \set{\pair{1- \Theta}z + \Theta w: 0 \leq \Theta \leq 1}$ als die Strecke zwischen $z$ und $w$. Wir sagen eine Menge $S\subseteq\C$ ist polygonal zusammenhängend, falls es einen polygonalen Weg zwischen jeder Kombination von zwei Punkten $a, b \in S$ gibt. Das heißt es gibt $z_{1, \ldots, n}$ sodass
+        \begin{align*}
+            \interv{a, z_1} \cup \interv{z_1, z_2} \cup \dots \cup \interv{z_{n-1}, z_{n}}\cup \interv{z_n, b} \subseteq S
+        \end{align*}
+    \end{definition}
+
+    \begin{definition}
+        Eine offene, zusammenhängende Menge heißt Gebiet.
+    \end{definition}
+
+    \begin{satz} % Satz 5
+        Sei $U$ offen. Dann ist $U$ genau dann zusammenhängend, wenn es polygonal zusammenhängend ist.
+    \end{satz}
+
+
+    \newpage
+
+
+    \section{[*] Analytische Polynome}
+    \thispagestyle{sectionpage}
+
+    \textbf{Motivation.} Sei $P\of{x, y} = \dsty\sum_{r=0}^{N_1} \sum_{k=0}^{N_2} \alpha_{r, s} x^r y ^s$ mit $x, y\in\R$. Wir sagen $P$ ist analytisch, wenn es ein Polynom in $x + yi$ ist. Das heißt $P\of{x, y} = \dsty\sum_{n=0}^{L} \alpha_n \pair{x+ iy}^n = f\of{x+yi}$. Frage: Wann ist ein Polynom analytisch?
+
+\end{document}
