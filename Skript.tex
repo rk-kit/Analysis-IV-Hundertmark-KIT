@@ -164,9 +164,8 @@
 }
 
 % Spezielle Commands
-\newcommand\imaginarysubsection[1]{
+\newcommand\subseccount[0]{
     \refstepcounter{subsection}
-    \subsectionmark{#1}
 }
 
 % Envs
@@ -345,7 +344,160 @@
 
     \section{[*] Analytische Polynome}
     \thispagestyle{sectionpage}
+    \subseccount
 
-    \textbf{Motivation.} Sei $P\of{x, y} = \dsty\sum_{r=0}^{N_1} \sum_{k=0}^{N_2} \alpha_{r, s} x^r y ^s$ mit $x, y\in\R$. Wir sagen $P$ ist analytisch, wenn es ein Polynom in $x + yi$ ist. Das heißt $P\of{x, y} = \dsty\sum_{n=0}^{L} \alpha_n \pair{x+ iy}^n = f\of{x+yi}$. Frage: Wann ist ein Polynom analytisch?
+    \textbf{Motivation.} Sei $P\of{x, y} = \dsty\sum_{r=0}^{N_1} \sum_{s=0}^{N_2} \alpha_{r, s} x^r y ^s$ mit $x, y\in\R$, $a_n\in\C$. Wir sagen $P$ ist analytisch, wenn es ein Polynom in $x + yi$ ist. Das heißt $P\of{x, y} = \dsty\sum_{n=0}^{L} \alpha_n \pair{x+ iy}^n = f\of{x+yi}$ für passende $a_n$. Frage: Wann ist ein Polynom analytisch?
+
+    \begin{beispiel}
+        \marginnote{[28. Apr]}
+        \label{beispiel:polynom-1}
+        \theoremescape
+        \begin{enumerate}[label=(\roman*)]
+            \item Das Polynom $P(x,y) = x^2 - y^2 + 2ixy$ ist analytisch, da $P(x,y) = \pair{x+iy}^2$.
+            \item $P(x,y) = x^2-y^2- 2ixy$ ist nicht analytisch.
+        \end{enumerate}
+        \begin{proof}[Beweis für (ii)]
+            Angenommen
+            \begin{align*}
+                x^2 - y^2 -2ixy &= \sum_{k=0}^{N} a_k\pair{x+iy}^k
+                \intertext{Dann gilt für $y = 0$}
+                x^2 &= \sum_{k=0}^{N} a_k x^k\\
+                \intertext{Damit gilt nach Koeffizientenvergleich}
+                \impl \alpha_0 = \alpha_1 &= 0 = \alpha_3 = \ldots = \alpha_N\\
+                \alpha_2 &= 1\qedhere
+            \end{align*}
+        \end{proof}
+    \end{beispiel}
+
+    \begin{definition}[Parteielle Ableitung]
+        Es sei $f: \R^2 \to \C$ mit
+        \begin{align*}
+            f\of{x,y} &= \begin{pmatrix}
+                             u\of{x,y} \\
+                             v\of{x,y}
+            \end{pmatrix} = u\of{x,y} + v\of{x,y}i
+            \intertext{Dann definieren wir die partiellen Ableitungen von $f$ wie folgt}
+            f_{x} &\coloneqq \partial_x f = \partial_x u + i \partial_x v = u_x + i v_x\\
+            f_y &\coloneqq \partial_y f = \partial_y u + i \partial_y v = u_y + i v_y
+        \end{align*}
+    \end{definition}
+
+    \begin{satz} % Satz 2
+        \label{satz:analytisch-diff}
+        Ein Polynom $P\of{x,y}$ ist genau dann analytisch, wenn $\partial_y P = i\partial_x P$.
+
+        \begin{proof}
+            \anf{$\impl$}
+            \begin{align*}
+                P\of{x,y} &= \sum_{n=0}^{N} a_n \pair{x+iy}^n\\
+                \partial_x P &= \sum_{n=0}^{N} \alpha_n \partial_x\pair{x+iy}^n = \sum_{n=0}^{N} \alpha_n n\pair{x+iy}^{n-1}\\
+                \partial_y P &= \sum_{n=0}^{N} \alpha_n \partial_y\pair{x+iy}^n = \sum_{n=0}^{N} \alpha_n ni \pair{x+iy}^{n-1}
+            \end{align*}
+            \anf{$\Leftarrow$} Sei $\partial_x P = i\partial_y P$. Dann ist
+            \begin{align*}
+                P\of{x,y} &= \sum_{r=0}^{N_1} \sum_{s=0}^{N_2} \alpha_{r,s} x^r y^s\\
+                &= \sum_{n=0}^{N_1 + N_2} \sum_{0\leq r \leq N_1,~0\leq s \leq N_2,~s+r = n}^{} \alpha_{r,s} x^r y^s\\
+                &= \sum_{n=0}^{N_1 + N_2} \underbrace{\sum_{0\leq t \leq L}^{} \alpha_{n,t} x^{n-t} y^t}_{\eqqcolon G_n\of{x,y}}\\
+                \impl G_n\of{\lambda x, \lambda y} &= \lambda^n G\of{x,y}
+                \intertext{Nach unserer Voraussetzung gilt für die $G_n$ auch die Gleichung über die partiellen Ableitungen. Das heißt für festes $n$}
+                \partial_y G_n\of{x, y} &= \sum_{t=1}^{n} t \alpha_t x^{n-t} y^{t-1}\\
+                i \partial_x G_n\of{x,y} &= i \pair{ \sum_{t=0}^{n-1} \pair{n-t} \alpha_t x^{n-t-1} y^t}\\
+                \intertext{Da die linken Seiten der Gleichungen übereinstimmen, gilt auch}
+                c_1 x^{n-1} + 2c_2 x^{n-2}y + \ldots + nc_n y^{n-1} &= i\pair{nc_0 x^{n-1} + \pair{n-1}c_1 x^{n-2}y + \ldots + c_{n-1}y^{n-1}}
+                \intertext{Nach Koeffizientenvergleich gilt damit}
+                c_1 &= i n c_0 = i\binom{n}{1}c_0\\
+                c_2 &= i^2 \frac{n\pair{n-1}}{2}c_0 = i^2 \binom{i^2}{2}c_0
+                \intertext{Induktiv setzt sich das fort zu}
+                c_k &= i^k \binom{n}{k}c_0
+                \intertext{Damit gilt}
+                G_n\of{x,y} &= \sum_{k=0}^{n} c_k x^{n-k} y^k = \sum_{k=0}^{n} i^k \binom{n}{k}c_0 x^{n-k}y^k\\
+                &= c_0 \sum_{k=0}^{n} \binom{n}{k}x^{n-k}\pair{iy}^k = c_k \pair{x+iy}^n\\
+                \impl P\of{x,y} &= \sum_{n=0}^{N} G_n\of{x,y} = \sum_{n=0}^{N} \alpha_{n,0} \pair{x+iy}^n
+            \end{align*}
+            Das heißt $P$ ist analytisch.\qedhere
+        \end{proof}
+    \end{satz}
+
+    \begin{bemerkung}
+        Beispiel~\ref{beispiel:polynom-1} lässt sich jetzt mit Satz~\ref{satz:analytisch-diff} auch direkter ohne Koeffizientenvergleich nachrechnen.
+    \end{bemerkung}
+    \newpage
+
+
+    \section{[*] Stenographische Projektion}
+    \thispagestyle{sectionpage}
+    \subseccount
+
+    \textbf{Motivation.} Es sei $\sum \coloneqq \set{ \pair{\xi, \eta, \zeta}\in\R^3: \xi^2 + \eta^2 + \pair{\zeta - \frac{1}{2}}^2 = \frac{1}{4}}$ die Sphäre im $\R^3$ mit Radius $\frac{1}{2}$ um den Punkt $\pair{0, 0, \frac{1}{2}}$. Dann lässt sich eine Abbildung $\pair{\xi, \eta, \zeta} \in \sum \setminus\set{\pair{0, 0, 1}} \mapsto z\in\C = \R^2$ definieren. Wobei $z$ der Schnittpunkt der Geraden durch Nordpol und $\pair{\xi, \eta, \zeta}$ ist.\\
+    Sei
+    \begin{align*}
+        \lambda \pair{\pair{\xi, \eta, \zeta} - \pair{0, 0, 1}} &= \pair{x, y, 0} - \pair{0, 0, 1} = \pair{x,y,-1}
+        \intertext{Dann gilt}
+        \lambda\xi = x,~\lambda\eta = y, \lambda\pair{\zeta - 1} &= -1\\
+        \impl \lambda &= \frac{1}{1-\zeta}\\
+        \impl \frac{x}{\xi} = \lambda &= \frac{y}{\eta}\\
+        \impl x &= \frac{\xi}{1-\zeta},~y= \frac{\eta}{1-\zeta}
+        \intertext{Sind $x,y$ gegeben. Dann gilt}
+        \xi &= \frac{x}{x^2+y^2+1}\tag{1}\\
+        \eta &= \frac{y}{x^2+y^2+1}\tag{2}\\
+        \zeta &= \frac{x^2+y^2}{x^2+y^2+1}\tag{3}
+    \end{align*}
+    (Selber machen).
+
+    \begin{definition}
+        Sei $(z_n)_n \subseteq \C$. Wir schreiben $z_n \toinf$, falls $\abs{z_n}\toinf$ für $n\toinf$ sowie $f\of{z_n}\toinf$, falls $\abs{f\of{z_n}}\toinf$ für $n\toinf$.
+    \end{definition}
+
+    \begin{bemerkung}[Zusammenhang von Kreisen in $\sum$ und $\C$]
+        Ein Kreis in $\sum$ ist ein Schnitt von $\sum$ mit einer Ebene im $\R^3$ der Form $A\xi + B\eta + C\xi = D$. Dann folgt nach (1)-(3)
+        \begin{align*}
+            D &= A \frac{x}{x^2+y^2+1} + B \frac{y}{x^2+y^2+1} + C \frac{x^2+y^2}{x^2+y^2+1}\\
+            \equivalent D &= \pair{C - D}\pair{x^2+y^2} + Ax + By
+        \end{align*}
+        \textsc{Fall 1}: $C = D$. Dann ist $Ax + By = D$ eine Linie in $\C$.\\
+        \textsc{Fall 2}: $C \neq D$ $\impl$ Kreis in $\R^2 = \C$.
+    \end{bemerkung}
+    Damit wäre der folgende Satz bewiesen:
+    \begin{satz}
+        (\textit{Sinngemäß: Kreise in $\sum$ werden stenographisch auf Geraden projeziert.})
+    \end{satz}
+
+    \newpage
+
+
+    \section{[*] Komplexe Differenzierbarkeit}
+    \thispagestyle{sectionpage}
+    \subseccount
+
+    \begin{definition}
+        Wir sagen $f: \C \to \C$ ist (komplex) differenzierbar in $z_0$, falls
+        \begin{align*}
+            \lim_{h\to 0} \frac{f\of{z_0 + h} - f\of{z_0}}{h} &\eqqcolon f'\of{z_0}
+        \end{align*}
+        existiert. (Dabei ist zu beachten, dass $h$ in $\C$ gegen $0$ konvergiert)
+    \end{definition}
+
+    \begin{folgerung}[Cauchy-Riemannsche Differentialgleichung]
+        \theoremescape
+        \begin{enumerate}
+            \item Setze $h = t \in\R\setminus\set{0}$ (das heißt wir wählen eine Folge von $h$, die in den reellen Zahlen gegen $0$ konvergiert) und $z_0 = x_0 + iy_0$
+            \begin{align*}
+                \frac{f\of{z_0 + h } - f\of{z_0}}{h} &= \frac{f\of{z_0 + t} - f\of{z_0}}{t} = \frac{f\of{x_0 + t + iy_0} - f\of{x_0 + iy_0}}{t}\\
+                &= \frac{f\of{x_0 + t, y_0} - f\of{x_0, y_0}}{t} \to \partial_x f\of{x_0, y_0} = f_x\of{x_0, y_0} = f_x\of{z_0}
+            \end{align*}
+            \item Setze $h= it$, $t\in\R\setminus\set{0}$
+            \begin{align*}
+                \frac{f\of{z_0+h} - f\of{z_0}}{h} &= \frac{f\of{x_0 + iy + it} - f\of{x_0 + y_0}}{it}\\
+                &= \frac{1}{i} \frac{f\of{x_0, y_ + t} - f\of{x_0, y_0}}{t} \to \frac{1}{i} \partial_y f\of{z_0}
+            \end{align*}
+        \end{enumerate}
+        Ist die Funktion $f$ (komplex) diffbar, dann müssen die Grenzwerte übereinstimmen und es muss gelten
+        \begin{align*}
+            \partial_y f\of{z_0} &= i \partial_x f\of{z_0}
+            \intertext{Wenn $f= u + iv$ für Funktionen $u$ und $v$, dann lässt sich äquivalent auch fordern}
+            \partial_y u = -\partial_x v \quad\text{und}&\quad \partial_y v = \partial_x u
+        \end{align*}
+    \end{folgerung}
+
 
 \end{document}
