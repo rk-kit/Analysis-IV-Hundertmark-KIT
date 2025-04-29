@@ -104,6 +104,8 @@
 \newcommand{\horizontalline}[0]{\par\noindent\rule{0.05\textwidth}{0.1pt}\\}
 \newcommand{\rgbcolor}[3]{rgb,255:red,#1;green,#2;blue,#3}
 \newcommand{\fixedspace}[2]{\makebox[#1][l]{#2}}
+\newcommand{\verteq}{\rotatebox{-90}{$~=$}}
+\newcommand{\equalto}[2]{\underset{\scriptstyle\overset{\mkern4mu\verteq}}{#1}}
 
 \let\Re\relax
 \let\Im\relax
@@ -346,7 +348,7 @@
     \thispagestyle{sectionpage}
     \subseccount
 
-    \textbf{Motivation.} Sei $P\of{x, y} = \dsty\sum_{r=0}^{N_1} \sum_{s=0}^{N_2} \alpha_{r, s} x^r y ^s$ mit $x, y\in\R$, $a_n\in\C$. Wir sagen $P$ ist analytisch, wenn es ein Polynom in $x + yi$ ist. Das heißt $P\of{x, y} = \dsty\sum_{n=0}^{L} \alpha_n \pair{x+ iy}^n = f\of{x+yi}$ für passende $a_n$. Frage: Wann ist ein Polynom analytisch?
+    \textbf{Motivation.} Sei $P\of{x, y} = \dsty\sum_{r=0}^{N_1} \sum_{s=0}^{N_2} \alpha_{r, s} x^r y ^s$ mit $x, y\in\R$, $a_n\in\C$. Wir sagen $P$ ist analytisch, wenn es ein Polynom in $x + yi$ ist. Das heißt $P\of{x, y} = \dsty\sum_{n=0}^{L} \alpha_n \pair{x+ iy}^n \eqqcolon f\of{x+yi}$ für passende $a_n$. Frage: Wann ist ein Polynom analytisch?
 
     \begin{beispiel}
         \marginnote{[28. Apr]}
@@ -369,7 +371,7 @@
         \end{proof}
     \end{beispiel}
 
-    \begin{definition}[Parteielle Ableitung]
+    \begin{definition}[Partielle Ableitung]
         Es sei $f: \R^2 \to \C$ mit
         \begin{align*}
             f\of{x,y} &= \begin{pmatrix}
@@ -384,7 +386,10 @@
 
     \begin{satz} % Satz 2
         \label{satz:analytisch-diff}
-        Ein Polynom $P\of{x,y}$ ist genau dann analytisch, wenn $\partial_y P = i\partial_x P$.
+        Ein Polynom $P\of{x,y}$ ist genau dann analytisch, wenn
+        \begin{align*}
+            \partial_y P = i\partial_x P\numbereq{eq:analytisch-diff}
+        \end{align*}
 
         \begin{proof}
             \anf{$\impl$}
@@ -396,17 +401,19 @@
             \anf{$\Leftarrow$} Sei $\partial_x P = i\partial_y P$. Dann ist
             \begin{align*}
                 P\of{x,y} &= \sum_{r=0}^{N_1} \sum_{s=0}^{N_2} \alpha_{r,s} x^r y^s\\
-                &= \sum_{n=0}^{N_1 + N_2} \sum_{0\leq r \leq N_1,~0\leq s \leq N_2,~s+r = n}^{} \alpha_{r,s} x^r y^s\\
-                &= \sum_{n=0}^{N_1 + N_2} \underbrace{\sum_{0\leq t \leq L}^{} \alpha_{n,t} x^{n-t} y^t}_{\eqqcolon G_n\of{x,y}}\\
-                \impl G_n\of{\lambda x, \lambda y} &= \lambda^n G\of{x,y}
-                \intertext{Nach unserer Voraussetzung gilt für die $G_n$ auch die Gleichung über die partiellen Ableitungen. Das heißt für festes $n$}
+                &= \sum_{n=0}^{N_1 + N_2} \sum_{\substack{0\leq r \leq N_1\\ 0\leq s \leq N_2\\ s+r = n}}^{} \alpha_{r,s} x^r y^s\\
+                &= \sum_{n=0}^{N_1 + N_2} \underbrace{\sum_{t=0}^{N_1 + N_2} \alpha_{n,t} x^{n-t} y^t}_{\eqqcolon G_n\of{x,y}}\\
+                \impl G_n\of{\lambda x, \lambda y} &= \lambda^n G_n\of{x,y}
+                \intertext{Nach unserer Voraussetzung gilt (\ref{eq:analytisch-diff}) auch für die $G_n$. Das heißt für festes $n$}
                 \partial_y G_n\of{x, y} &= \sum_{t=1}^{n} t \alpha_t x^{n-t} y^{t-1}\\
+                \vspace{-2cm}
+                \verteq \quad\quad &\\
                 i \partial_x G_n\of{x,y} &= i \pair{ \sum_{t=0}^{n-1} \pair{n-t} \alpha_t x^{n-t-1} y^t}\\
                 \intertext{Da die linken Seiten der Gleichungen übereinstimmen, gilt auch}
                 c_1 x^{n-1} + 2c_2 x^{n-2}y + \ldots + nc_n y^{n-1} &= i\pair{nc_0 x^{n-1} + \pair{n-1}c_1 x^{n-2}y + \ldots + c_{n-1}y^{n-1}}
                 \intertext{Nach Koeffizientenvergleich gilt damit}
                 c_1 &= i n c_0 = i\binom{n}{1}c_0\\
-                c_2 &= i^2 \frac{n\pair{n-1}}{2}c_0 = i^2 \binom{i^2}{2}c_0
+                c_2 &= i^2 \frac{n\pair{n-1}}{2}c_0 = i^2 \binom{n}{2}c_0
                 \intertext{Induktiv setzt sich das fort zu}
                 c_k &= i^k \binom{n}{k}c_0
                 \intertext{Damit gilt}
@@ -421,6 +428,7 @@
     \begin{bemerkung}
         Beispiel~\ref{beispiel:polynom-1} lässt sich jetzt mit Satz~\ref{satz:analytisch-diff} auch direkter ohne Koeffizientenvergleich nachrechnen.
     \end{bemerkung}
+
     \newpage
 
 
@@ -459,15 +467,16 @@
     \end{bemerkung}
     Damit wäre der folgende Satz bewiesen:
     \begin{satz}
-        (\textit{Sinngemäß: Kreise in $\sum$ werden stenographisch auf Geraden projeziert.})
+    (\textit{Sinngemäß: Kreise in $\sum$ werden stenographisch auf Geraden projeziert.})
     \end{satz}
 
     \newpage
 
 
     \section{[*] Komplexe Differenzierbarkeit}
+
+    \subsection{Die Cauchy-Riemannsche Differentialgleichung}
     \thispagestyle{sectionpage}
-    \subseccount
 
     \begin{definition}
         Wir sagen $f: \C \to \C$ ist (komplex) differenzierbar in $z_0$, falls
@@ -497,7 +506,204 @@
             \intertext{Wenn $f= u + iv$ für Funktionen $u$ und $v$, dann lässt sich äquivalent auch fordern}
             \partial_y u = -\partial_x v \quad\text{und}&\quad \partial_y v = \partial_x u
         \end{align*}
+        Wir formulieren das nochmal formal als Satz:
     \end{folgerung}
+
+    \begin{satz} % Satz 4
+        \marginnote{[29. Apr]}
+        \label{satz:cauchy-riemann}
+        Sei $U\subseteq\C$ offen. Ist $f$ in $z\in U$ (komplex) differenzierbar, so existiert die partielle Ableitung $f_x\of{z}$ und $f_y\of{z}$ und es gilt
+        \begin{align*}
+            f_y\of{z} &= i f_x\of{z}
+        \end{align*}
+    \end{satz}
+
+    \begin{bemerkung}
+        Die Umkehrung von Satz~\ref{satz:cauchy-riemann} gilt nicht. Als Beispiel betrachten wir
+        \begin{align*}
+            f\of{x,y} &= \begin{cases}
+                             \frac{xy\pair{x+iy}}{x^2+y^2} &z=x+iy\neq 0\\
+                             0 & z=0
+            \end{cases}
+            \intertext{Dann gilt}
+            f\of{x+i0} &= 0 = f\of{0+iy}\\
+            \partial_x f\of{0} &= 0 = \partial_y f\of{0}
+            \intertext{Allerdings gilt}
+            \frac{f\of{x+\alpha ix} - f\of{0}}{x + \alpha ix} &= \ldots = \frac{\alpha}{1+\alpha^2}
+        \end{align*}
+    \end{bemerkung}
+
+    \begin{satz}[Ableitung von Kompositionen komplexe Funktionen]
+        Sei $U\subseteq\C$ offen, $z\in U$ und $f,g$ in $z$ differenzierbar. Dann sind auch $f+g$, $f\cdot g$, $\frac{f}{g}$ (falls $g\of{z}\neq 0$) in $z$ differenzierbar und es gilt
+        \begin{align*}
+            \pair{f+g}'\of{z} &= f'\of{z} + g'\of{z}\\
+            \pair{fg}'\of{z} &= f'\of{z}g\of{z} + f\of{z}g'\of{z}\\
+            \pair{\frac{f}{g}}'\of{z} &= \frac{g\of{z}f'\of{z} - f\of{z}g'\of{z}}{g\of{z}^2}
+        \end{align*}
+        \begin{proof}
+        (Lässt sich mit Differenzenquotient nachrechnen, siehe Analysis 1)
+            .
+        \end{proof}
+    \end{satz}
+
+    \begin{satz}[Ableitung von komplexen Polynomen]
+        \label{satz:polynome-ableitung}
+        Sei $P\of{z} = \sum_{j=0}^{n} a_j z^j$ ein Polynom in $\C$. Dann gilt $P'\of{z} = \sum_{j=1}^{n} j a_j z^{j-1}$.
+        \begin{proof}
+            Wir betrachten nur die Monome. Es gilt
+            \begin{align*}
+                \pair{z+h}^n &= \sum_{k=0}^{n} \binom{n}{k} z^{n-k}h^k\\
+                \impl\pair{z+h}^{n} - z^n &= \sum_{k=1}^{n} \binom{n}{k}z^{n-k}h^k = nz^{n-1}h + \sum_{k=2}^{n} \binom{n}{k}z^{n-k}h^k\\
+                \impl\lim_{h\to 0} \frac{\pair{z+h}^n-z^n}{h} &= \lim_{h\to 0} \pair{nz^{n-1} + \sum_{k=2}^{n} \binom{n}{k}z^{n-k}h^{k-1}} = nz^{n-1}\qedhere
+            \end{align*}
+        \end{proof}
+    \end{satz}
+
+    \begin{bemerkung}[Ableitung von komplexen Potenzreihen]
+        Satz~\ref{satz:polynome-ableitung} überträgt sich auch auf komplexe Potenzreihen. Das heißt sei $f\of{z} = \sum_{n=0}^{\infty} a_n z^n$ eine Potenzreihe mit Konvergenzradius $R$. Dann ist $f$ differenzierbar innerhalb der Kreisscheibe mit $f'\of{z} = \sum_{n=1}^{\infty} n a_n z^{n-1}$.
+    \end{bemerkung}
+
+    \begin{bemerkung}[Alternative Herleitung von Cauchy-Riemann]
+        Es sei $f: U \to \C$ eine komplexe Funktion mit $U\subseteq\C$ offen. Dann können wir diese auch intepretieren als Funktion $f: U \to\R^2$ mit $U\subseteq\R^2$ offen. Wir erinnern uns, dass $f$ dann im Punkt $\pair{x,y}$ differenzierbar ist, sofern es eine Abbildung $A: \R^2\to\R^2$ gibt mit
+        \begin{align*}
+            f\of{x+h_1, g+h_2} &= f\of{x,y} + Ah + \underbrace{\varepsilon\of{h}}_{\to 0\text{ für } h\to 0}\cdot h\tag{$h\coloneqq\begin{pmatrix}
+                                                                                                                                       h_1 \\
+                                                                                                                                       h_2
+            \end{pmatrix}$}
+            \intertext{Wir spalten $f$ zwei Funktionen auf. Das heißt es sei}
+            f &= \begin{pmatrix}
+                     u \\
+                     v
+            \end{pmatrix}
+            \intertext{Dann gilt (sofern $f$ differenzierbar ist)}
+            A &= \pair{\partial_x f, \partial_y f} = \begin{pmatrix}
+                                                         \partial_x u & \partial_y u \\
+                                                         \partial_x v & \partial_y v
+            \end{pmatrix} = \begin{pmatrix}
+                                u_x & u_y \\
+                                v_x & v_y
+            \end{pmatrix}
+            \intertext{Frage: Wann entspricht $A$ der Multiplikation mit einer komplexen Zahl?}
+            \begin{pmatrix}
+                \alpha & \beta  \\
+                \gamma & \delta
+            \end{pmatrix}\begin{pmatrix}
+                             h_1 \\
+                             h_2
+            \end{pmatrix} &= Ah = f'\of{z}\cdot h = \pair{a+ib}\pair{h_1 + ih_2} = ah_1 -bh_2 + i\pair{bh_1 + ah_2}\\
+            \intertext{Das entspricht gerade}
+            \begin{pmatrix}
+                ah_1 - bh_2 \\
+                bh_1 + ah_2
+            \end{pmatrix} &= \begin{pmatrix}
+                                 a & -b \\
+                                 b & a
+            \end{pmatrix}\begin{pmatrix}
+                             h_1 \\
+                             h_2
+            \end{pmatrix}
+            \intertext{Insgesamt muss für (komplexe) Differenzierbarkeit also gelten}
+            \begin{pmatrix}
+                a & -b \\
+                b & a
+            \end{pmatrix} &= \begin{pmatrix}
+                                 u_x & u_y \\
+                                 v_x & v_y
+            \end{pmatrix}\\
+            \impl u_x = v_y \quad&\text{und}\quad u_y = -v_x
+        \end{align*}
+    \end{bemerkung}
+
+    \begin{satz} % Satz 5
+        Angenommen die partiellen Ableitungen $f_x, f_y$ in einer Umgebung von $z$ existieren und sind stetig (und erfüllen damit die Cauchy-Riemann'sche-Differentialgleichung). Dann ist $f$ komplex differenzierbar in $z$ und es gilt
+        \begin{align*}
+            f'\of{z} &= f_x\of{z}
+        \end{align*}
+
+        \begin{proof}
+            Sei $f = u+iv$ und $h= \xi + i\eta$. Wir müssen zeigen, dass
+            \begin{align*}
+                \frac{f\of{z+h} - f\of{z}}{h} &\to f_x\of{z} \text{ für } h\to 0\\
+                u\of{z} = u\of{x,y}\quad&\quad v\of{z} = v\of{x,y}\\
+                f\of{z+h} - f\of{z} &= u\of{x+\xi, y+\eta} - u\of{x,y} + i\pair{v\of{x+\xi, y+\eta} - v\of{x,y}}\\
+                \frac{u\of{z+h} - u\of{z}}{h} &= \frac{u\of{x+\xi, y+\eta} - u\of{x,y}}{\xi + i\eta}\\
+                &= \frac{u\of{x+\xi, y+\eta} - u\of{x+\xi, y} + u\of{x+\xi, y} - u\of{x,y}}{\xi + i\eta}\\
+                &= \frac{u\of{x+\xi, y+\eta} - u\of{x+\xi, y}}{\xi + i\eta} + \frac{u\of{x+\xi, y} - u\of{x,y}}{\xi + i\eta}\\
+                &= \frac{\eta}{\xi + i\eta} u_y\underbrace{\of{x+\xi, y+\Theta_1\eta}}_{\eqqcolon z_1} + \frac{\xi}{\xi + i\eta} u_x\underbrace{\of{x+\Theta_2 \xi, y}}_{\eqqcolon z_3}\tag{$0<\Theta_i<1$}
+                \intertext{Analog}
+                \frac{v\of{x+\xi, y+\eta} - v\of{x,y}}{\xi + i\eta} &= \frac{\eta}{\xi+i\eta} v_y\underbrace{\of{x+\xi, y+\Theta_3 \eta}}_{\eqqcolon z_2} + \frac{\xi}{\xi+i\eta}v_x\underbrace{\of{x+\Theta_4\eta\xi, y}}_{\eqqcolon z_4}\\
+                \impl \frac{f\of{z+h} - f\of{z}}{h} &= \frac{u\of{x+\xi, y+\eta} - u\of{x,y}}{\xi+i\eta} + i \frac{v\of{x+\xi, y+\eta} - v\of{x,y}}{\xi+i\eta}\\
+                &= \frac{\eta}{\xi+i\eta}\pair{u_y\of{z_1} + iv_y\of{z_2}} + \frac{\xi}{\xi+i\eta}\pair{u_x\of{z_3} + iv_x\of{z_4}}
+                \intertext{Außerdem}
+                f_x\of{z} &= \frac{h}{h}f_x\of{z} = \frac{\xi + i\eta}{\xi + i\eta}f_x\of{z} = \frac{\xi}{\xi+i\eta} f_x\of{z} + \frac{\eta}{\xi+i\eta} if_x\of{z}
+                \intertext{Nach der Cauchy-Riemann'schen-DG gilt jetzt}
+                &= \frac{\xi}{\xi+i\eta} f_x\of{z} + \frac{\eta}{\xi+i\eta} f_y\of{z}\\
+                \impl \frac{f\of{z+h} - f\of{z}}{h} - f_x\of{z} &= \frac{\eta}{\xi+i\eta}\underbrace{\pair{u_x\of{z_1} + i v_y\of{z_2} - f_y\of{z}}}_{\to 0} + \frac{\xi}{\xi - i\eta}\underbrace{\pair{u_x\of{z_3} + iv_x\of{z_4} - f_x\of{z}}}_{\to 0}
+                \intertext{Wobei die beiden Konvergenzen gegen 0 die Stetigkeit der partiellen Ableitungen benötigt. Zusätzlich gilt}
+                \abs{\frac{\xi}{\xi + i\eta}} \leq \abs{\frac{\xi}{\xi}} = 1 \quad&\text{und}\quad \abs{\frac{\eta}{\xi+i\eta}} \leq \abs{\frac{\eta}{i\eta}} = 1
+                \intertext{Das heißt die Vorfaktoren sind begrenzt und damit folgt}
+                \frac{f\of{z+h} - f\of{z}}{h} - f_x\of{z} &\to 0
+            \end{align*}
+            Womit wir die Behauptung gezeigt haben.
+        \end{proof}
+    \end{satz}
+
+    \begin{beispiel}
+        Es sei $f\of{z} = x^2 + y^2 = z\conj{z}$. Dann gilt $f_x = 2x$ sowie $f_y = 2y$. Das heißt $f_y = if_x$ gilt nur für $z = 0$. Ist $f$ dann differenzierbar?
+    \end{beispiel}
+
+    \begin{definition}
+        Wir sagen $f$ ist analytisch in $z$, falls $f$ (komplex) differenzierbar ist in einer Umgebung von $z$. $f$ ist außerdem analytisch auf $S\subseteq\C$, falls $f$ (komplex) differenzierbar ist in einer offenen Umgebung von $S$.
+    \end{definition}
+
+    \begin{satz} % Satz 7
+        Sei $f = u + iv$ analytisch in einer offenen zusammenhängenden Menge $D$ ($D$ Umgebung). Ist $u$ konstant auf $D$, so ist $f$ konstant.
+
+        \begin{proof}
+            $u$ ist konstant auf $D$. Das heißt $u_x = u_y = 0$ auf $D$. Nach Satz~\ref{satz:cauchy-riemann} ist auch $v_x = v_y = 0$ auf $D$. Da $D$ zusammenhängend ist, ist also auch $v$ konstant und damit ist $f = u + iv$ konstant.
+        \end{proof}
+    \end{satz}
+
+    \begin{satz} % Satz 8
+        Sei $f = u+iv$ analytisch auf einer Umgebung $D$. Ist $\abs{f}$ konstant auf $D$, so ist $f$ konstant.
+
+        \begin{proof}
+            Sei \OBDA $\abs{f} > 0$. Dann gilt $\abs{f}^2 = u^2 + v^2 = C > 0$
+            \begin{align*}
+                0 &= \partial_x\pair{u^2+v^2} = 2uv_x + 2vu_x\\
+                0 &= \partial_y\pair{u^2+v^2} = 2uu_x + 2vv_y
+                \intertext{Nach Cauchy-Riemann folgt}
+                \impl &\begin{cases}
+                           0 = u u_x - v u_y\\
+                           0 = u u_y + v u_x
+                \end{cases}\\
+                \impl &\begin{cases}
+                           0 = u^2 u_x - uvu_y\\
+                           0 = uvu_y + v^2 u_x
+                \end{cases}\\
+                \impl 0 &= \pair{u^2+v^2}u_x = C\cdot u_x\\
+                \impl u_x &= 0\\
+                \impl v_y &= u_x = 0
+            \end{align*}
+            Analog zeigt man $u_y = -v_x = 0$. Damit sind $u,v$ und somit $f$ konstant.
+        \end{proof}
+    \end{satz}
+
+    \subsection{Die Funktionen $e^z, \cos z, \sin z$}
+
+    Wir hatten bereits
+    \begin{align*}
+        e^z &= \sum_{n=0}^{\infty} \frac{z^n}{n!}\\
+        \frac{\dif}{\dif z}e^z &= e^z\\
+        e^{i\varphi} &= \sum_{n \text{ gerade}}^{} \frac{(-1)^n\varphi^n}{n!} + \sum_{n\text{ ungerade}}^{} \frac{\pair{-1}^{n}\varphi^n}{n!}\\
+        &= \cos\varphi + \sin\varphi\\
+        \conj{e^{z}} &= e^{\conj{z}}\\
+        \cos \varphi &= \frac{1}{2}\pair{e^{i\varphi} + e^{-i\varphi}}\\
+        \sin\varphi &= \frac{1}{2i}\pair{e^{i\varphi} + e^{-i\varphi}}
+        \intertext{Definiere}
+        \cos\varphi &\coloneqq \sum_{k=0}^{\infty} \pair{-1}^{k} \frac{z^{2k}}{(2k)!} = \frac{1}{2}\pair{e^{iz} + e^{-iz}}\\
+        \sin\varphi &\coloneqq \sum_{k=0}^{\infty} \pair{-1}^{k} \frac{z^{2k+1}}{(2k+1)!} = \frac{1}{2i}\pair{e^{iz} - e^{-iz}}
+    \end{align*}
 
 
 \end{document}
