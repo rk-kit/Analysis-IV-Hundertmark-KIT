@@ -521,19 +521,20 @@
     \begin{bemerkung}
         Die Umkehrung von Satz~\ref{satz:cauchy-riemann} gilt nicht. Als Beispiel betrachten wir
         \begin{align*}
-            f\of{x,y} &= \begin{cases}
-                             \frac{xy\pair{x+iy}}{x^2+y^2} &z=x+iy\neq 0\\
-                             0 & z=0
+            f\of{z} &= \begin{cases}
+                           \frac{xy\pair{x+iy}}{x^2+y^2} &z=x+iy\neq 0\\
+                           0 & z=0
             \end{cases}
             \intertext{Dann gilt}
             f\of{x+i0} &= 0 = f\of{0+iy}\\
             \partial_x f\of{0} &= 0 = \partial_y f\of{0}
-            \intertext{Allerdings gilt}
-            \frac{f\of{x+\alpha ix} - f\of{0}}{x + \alpha ix} &= \ldots = \frac{\alpha}{1+\alpha^2}
+            \intertext{Man rechnet allerdings nach, dass}
+            \frac{f\of{x+\alpha ix} - f\of{0}}{x + \alpha ix} &= \frac{\alpha}{1+\alpha^2}
         \end{align*}
+        Das heißt für $x\to 0$ kriegen wir einen anderen Grenzwert als 0.
     \end{bemerkung}
 
-    \begin{satz}[Ableitung von Kompositionen komplexe Funktionen]
+    \begin{satz}[Ableitung von Kompositionen komplexer Funktionen]
         Sei $U\subseteq\C$ offen, $z\in U$ und $f,g$ in $z$ differenzierbar. Dann sind auch $f+g$, $f\cdot g$, $\frac{f}{g}$ (falls $g\of{z}\neq 0$) in $z$ differenzierbar und es gilt
         \begin{align*}
             \pair{f+g}'\of{z} &= f'\of{z} + g'\of{z}\\
@@ -566,11 +567,11 @@
     \begin{bemerkung}[Alternative Herleitung von Cauchy-Riemann]
         Es sei $f: U \to \C$ eine komplexe Funktion mit $U\subseteq\C$ offen. Dann können wir diese auch intepretieren als Funktion $f: U \to\R^2$ mit $U\subseteq\R^2$ offen. Wir erinnern uns, dass $f$ dann im Punkt $\pair{x,y}$ differenzierbar ist, sofern es eine Abbildung $A: \R^2\to\R^2$ gibt mit
         \begin{align*}
-            f\of{x+h_1, g+h_2} &= f\of{x,y} + Ah + \underbrace{\varepsilon\of{h}}_{\to 0\text{ für } h\to 0}\cdot h\tag{$h\coloneqq\begin{pmatrix}
-                                                                                                                                       h_1 \\
-                                                                                                                                       h_2
+            f\of{x+h_1, g+h_2} &= f\of{x,y} + Ah + \varepsilon\of{h}\cdot h\tag{$h\coloneqq\begin{pmatrix}
+                                                                                               h_1 \\
+                                                                                               h_2
             \end{pmatrix}$}
-            \intertext{Wir spalten $f$ zwei Funktionen auf. Das heißt es sei}
+            \intertext{und $\varepsilon\of{h}\to 0$ für $h\to 0$. Wir spalten $f$ außerdem in zwei Funktionen auf. Das heißt es sei}
             f &= \begin{pmatrix}
                      u \\
                      v
@@ -704,6 +705,174 @@
         \cos\varphi &\coloneqq \sum_{k=0}^{\infty} \pair{-1}^{k} \frac{z^{2k}}{(2k)!} = \frac{1}{2}\pair{e^{iz} + e^{-iz}}\\
         \sin\varphi &\coloneqq \sum_{k=0}^{\infty} \pair{-1}^{k} \frac{z^{2k+1}}{(2k+1)!} = \frac{1}{2i}\pair{e^{iz} - e^{-iz}}
     \end{align*}
+
+    \newpage
+
+
+    \section{[*] Linienintegrale}
+    \thispagestyle{sectionpage}
+    \subseccount
+
+    \begin{definition}
+        \marginnote{[05. Mai]}
+        Sei $f: \interv{a,b} \to\C$ eine Funktion auf $I=\interv{a,b}$. Dann gilt
+        \begin{align*}
+            \int_{I}^{} f \dif t &= \int_{a}^{b} f\of{t} \dif t \coloneqq \int_{a}^{b} Re\of{f\of{t}} \dif t + i \int_{a}^{b} \Im\of{f\of{t}} \dif t
+        \end{align*}
+    \end{definition}
+
+    \begin{definition}[Glatte Kurven]
+        \theoremescape
+        \begin{enumerate}[label=(\roman*)]
+            \item Sei $z\of{t} \coloneqq x\of{t} + i y\of{t}$ ($a \leq t \leq b$). Die Kurve $C: z\of{t},~a\leq t \leq b$ ist bestimmt durch $z\of{t}$ und heißt stückweise differenzierbar und wir setzen
+            \begin{align*}
+                \dot z\of{t} &= \frac{\dif}{\dif t}z\of{t} = \dot x\of{t} + i \dot y \of{t} = \frac{\dif x\of{t}}{\dif t} + i \frac{\dif y\of{t}}{\dif t}
+                \intertext{falls die Funktionen $x, y, : \interv{a,b}\to \R$ stetig auf $\interv{a,b}$ sind und es eine Partition}
+                \interv{a,b} &= \interv{t_0, t_1 } \cup \ldots \cup \interv{t_{n-1}, t_n}\tag{$t_i \leq t_{i+1}, t_0 = a, t_n = b$}
+            \end{align*}
+            gibt, sodass $x\of{t}, y\of{t}$ stetig differenzierbar auf $\interv{t_{j-1}, t_j}$ sind
+            \item Die Kurve heißt glatt, falls $\dot z\of{t} \neq 0$ bis auf endlich viele $t\in\interv{a,b}$
+        \end{enumerate}
+    \end{definition}
+
+    \begin{definition}[Kurvenintegral]
+        Sei $C: z\of{t},~a\leq t \leq b$ eine (glatte) Kurve. Das Linienintegral von $f$ (definiert in einer Umgebung von $C$ oder nur auf $C$) ist definiert durch
+        \begin{align*}
+            \int_{C}^{} f \dif z &= \int_{C}^{} f\of{z} \dif z \coloneqq \int_{a}^{b} f\of{z\of{t}}\dot z\of{t} \dif t
+        \end{align*}
+    \end{definition}
+
+    \begin{definition}[Zwei Kurven]
+        Zwei Kurven $C_1 \coloneqq z\of{t},~a\leq t \leq b$, $C_2: w\of{t},~c\leq t\leq d$ sind (glatt) äquivalent, falls es eine bijektive $\mC^1$-Abbildung $\lambda: \interv{c,d}\to\interv{a,b}$ gibt mit $\lambda\of{c} = a$, $\lambda\of{d} = b$, $\lambda'\of{t} \geq 0$ und $w\of{t} = z\of{\lambda\of{t}}$ (für $c \leq t \leq d$).
+    \end{definition}
+
+    \begin{satz}
+        Sind die Kurven $C_1, C_2$ äquivalent, so folgt
+        \begin{align*}
+            \int_{C_1}^{} f \dif z &= \int_{C_2}^{} f \dif z
+        \end{align*}
+
+        \begin{proof}
+            Es gilt die Kettenregel
+            \begin{align*}
+                \frac{\dif}{\dif t} F\of{z\of{t}} &= F'\of{z\of{t}} \dot z\of{t}
+                \intertext{Nach den Substitutionsregeln folgt also}
+                \int_{c}^{d} h\of{z\of{\lambda\of{t}}} \dot z\of{\lambda\of{t}}\dot\lambda\of{t} \dif t &= \int_{a}^{b} h\of{z\of{s}}\dot z\of{s}\dif s\qedhere
+            \end{align*}
+        \end{proof}
+    \end{satz}
+
+    \begin{satz}
+        Es gilt
+        \begin{align*}
+            \int_{C}^{} f \dif t &= - \int_{-C}^{} f \dif t
+        \end{align*}
+        wobei $-C: z\of{a+b-t},~a\leq t \leq b$.
+
+        \begin{proof}
+            Wir setzen $w\of{t} = z\of{a+b-t}$. Dann gilt $\dot w\of{t} = - \dot z\of{a+b-t}$. Dann ist
+            \begin{align*}
+                \int_{-C}^{} f\of{w} \dif w &= \int_{a}^{b} f\of{w\of{t}}\dot w\of{t} \dif t = - \int_{a}^{b} f\of{z\of{a+b-t}}\dot z\of{a+b-t} \dif t\\
+                &= \int_{b}^{a} f\of{z\of{s}}\dot z\of{s} \dif s = - \int_{a}^{b} f\of{z\of{s}}\dot z\of{s} \dif s = -\int_{C}^{} f\of{z} \dif z\qedhere
+            \end{align*}
+        \end{proof}
+    \end{satz}
+
+    \begin{beispiel}
+        Sei $f\of{z} = x^2 + i y^2$ mit $z = x + iy$ sowie $C= z\of{t} = \pair{1+i}t$ für $0\leq t \leq 1$.
+        \begin{align*}
+            \int_{C}^{} f\of{z} \dif z &= \int_{0}^{1} f\of{1+it}\pair{1+i} \dif t\\
+            &= \pair{1+i}^2 \int_{0}^{1} t^2 \dif t = \frac{2i}{3}
+        \end{align*}
+    \end{beispiel}
+
+    \begin{beispiel}
+        Sei $f\of{z} = \frac{1}{z} = \frac{1}{x+iy} = \frac{x}{x + y^2} - i \frac{y}{x^2+y^2}$ mit $C: z\of{t} = R\pair{\cos t + i \sin t}$
+        \begin{align*}
+            \int_{C}^{} \frac{1}{z} \dif z &= \int_{0}^{2\pi} \pair{\frac{R\cos t}{R^2} - \frac{R \sin t}{R^2}} \dif t\\
+            &= i \int_{0}^{2\pi} \pair{\cos^2 t + \sin^2 t} \dif 2\pi t
+            \intertext{Alternativ}
+            z\of{t} &= R e^{it}\\
+            \dot z\of{t} &= i R e^{it}\\
+            \int_{C}^{} \frac{\dif z}{z} \dif t &= \int_{0}^{2\pi} \frac{1}{R e^{it}}\cdot R e^{it} \dif t\\
+            &= i \int_{0}^{2\pi}  \dif t = 2\pi i
+        \end{align*}
+    \end{beispiel}
+
+    \begin{beispiel}
+        Sei $f = 1$ und $C$ eine beliebige Kurve
+        \begin{align*}
+            \int_{C}^{}  \dif z &= \int_{a}^{b} \dot z\of{t} \dif t = z\of{b} - z\of{a}
+        \end{align*}
+    \end{beispiel}
+
+    \begin{satz}[$C$-glatte Kurve]
+        Seinen $f, g$ stetige Funktionen auf $\C$. Sei $\alpha\in\C$. Dann gilt
+        \begin{align*}
+            \int_{C}^{} f+g \dif z &= \int_{C}^{} f \dif z + \int_{C}^{} g \dif z\\
+            \int_{C}^{} \alpha f \dif z &= \alpha \int_{C}^{} f \dif z
+        \end{align*}
+        \begin{proof}
+        (Selber machen)
+            .
+        \end{proof}
+    \end{satz}
+
+    \begin{definition}
+        Seien $\alpha, \beta\in\C$. Wir schreiben $\alpha \ll \beta$, falls $\abs{\alpha} \leq \abs{\beta}$.
+    \end{definition}
+
+    \begin{lemma}
+        Sei $G: \interv{a,b}\to\C$ stetig. Dann folgt
+        \begin{align*}
+            \int_{a}^{b} G\of{t} \dif t &\ll \int_{a}^{b} \abs{G\of{t}} \dif t\\
+            \impl \int_{a}^{b} G\of{t} \dif t &\leq \int_{a}^{b} \abs{G\of{t}} \dif t
+            \intertext{Beweise $G\of{t} = \Re\of{G\of{t}} - i \sin\of{G\of{t}}$. Trick:}
+            \int_{a}^{b} G\of{t} \dif t &= R e^{i\varphi}\tag{$R >0, \varphi\in\R$}\\
+            \int_{1}^{b} G\of{t} \dif t &= R = \conj{e} \int_{a}^{b} G\of{t} \dif t = \int_{a}^{b} e^{-i\varphi}G\of{t} \dif t\\
+            \Re\of{ \int_{a}^{b} e^{-i\varphi} G\of{t}\dif t} = \int_{a}^{b} \Re\of{e^{-i\varphi} G\of{t}} \dif t\\
+            &\leq \int_{a}^{b} \abs{G\of{t}} \dif t\qedhere
+        \end{align*}
+    \end{lemma}
+
+    \begin{satz}
+        Sei $C$ eine Kurve der Länge $L$ auf $f$, stetig auf $\C$ und $\abs{f\of{z}} \leq M~\forall z\in\C$. Dann folgt
+        \begin{align*}
+            \int_{C}^{} f\of{z} \dif z &\ll M \cdot L
+        \end{align*}
+        \begin{proof}
+        (Fehlt)
+        \end{proof}
+    \end{satz}
+
+    \begin{korollar}
+        Sei $(f_n)_n$ eine Folge stetiger Funktionen und $f_n \to f$ . Dann folgt
+        \begin{align*}
+            \int_{C}^{} f \dif z &= \lim_{h\toinf} \int_{C}^{} f_n \dif z
+        \end{align*}
+
+        \begin{proof}
+            \begin{align*}
+                \abs{ \int_{C}^{} f\of{z} \dif z - \int_{C}^{} f_n \dif z} &= \abs{ \int_{C}^{} \pair{f\of{z} - f_n\of{z}} \dif z}\\
+                &\leq \int_{a}^{b} \dif f\of{z}of{h} - f_n\of{z\of{t}} \dif t = \underbrace{\sup_{z\in\C} \abs{f\of{z} - f_n\of{z}}}_{\to 0} \cdot L_z\qedhere
+            \end{align*}
+        \end{proof}
+    \end{korollar}
+
+    \begin{lemma}
+        Angenommen $f = F'$, $F$ analytisch auch eine Kurve $C$ mit Analysepunkt $z\of{a}$, Endpunkt $z\of{b}$. Dann folgt
+        \begin{align*}
+            \int_{C}^{} f \dif z &= F\of{z\of{b}} - F\of{z\of{a}}
+        \end{align*}
+
+        \begin{proof}
+            \begin{align*}
+                F\of{z\of{t}} &= F'\of{z\of{t}}\dot z\of{t} = f\of{z\of{t}}z\of{t}\\
+                \int_{C}^{} f \dif z &= \int_{a}^{b} f\of{z\of{t}}\dot z\of{t} \dif t\\
+                &= \int_{a}^{b} \gamma\of{t}  \dif t = \gamma\of{b} - \gamma\of{a} = F\of{z\of{b}} - F\of{z\of{a}}\qedhere
+            \end{align*}
+        \end{proof}
+    \end{lemma}
 
 
 \end{document}
