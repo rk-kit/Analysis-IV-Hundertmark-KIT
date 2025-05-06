@@ -710,8 +710,9 @@
 
 
     \section{[*] Linienintegrale}
+
+    \subsection{Definition und Berechnung}
     \thispagestyle{sectionpage}
-    \subseccount
 
     \begin{definition}
         \marginnote{[05. Mai]}
@@ -781,7 +782,7 @@
     \begin{beispiel}
         Sei $f\of{z} = x^2 + i y^2$ mit $z = x + iy$ sowie $C= z\of{t} = \pair{1+i}t$ für $0\leq t \leq 1$.
         \begin{align*}
-            \int_{C}^{} f\of{z} \dif z &= \int_{0}^{1} f\of{1+it}\pair{1+i} \dif t\\
+            \int_{C}^{} f\of{z} \dif z &= \int_{0}^{1} f\of{\pair{1+i}t}\pair{1+i} \dif t\\
             &= \pair{1+i}^2 \int_{0}^{1} t^2 \dif t = \frac{2i}{3}
         \end{align*}
     \end{beispiel}
@@ -860,6 +861,7 @@
     \end{korollar}
 
     \begin{lemma}
+        \label{lemma:stammfunktion-kurvint}
         Angenommen $f = F'$, $F$ analytisch auch eine Kurve $C$ mit Analysepunkt $z\of{a}$, Endpunkt $z\of{b}$. Dann folgt
         \begin{align*}
             \int_{C}^{} f \dif z &= F\of{z\of{b}} - F\of{z\of{a}}
@@ -874,5 +876,135 @@
         \end{proof}
     \end{lemma}
 
+    \subsection{Integrale über geschlossenen Kurven}
+
+    \begin{definition}
+        \marginnote{[06. Mai]}
+        Sei $U\subseteq\C$ offen und $C: z\of{t},~a\leq t\leq b$ eine Kurve in $U$. Dann nennen wir $C$ geschlossen, falls $z\of{a} = z\of{b}$. Eine geschlossene Linie heißt einfach, falls $z\of{t_1} = z\of{t_2}$ für $t_1 < t_2 \in\interv{a,b}$ schon impliziert, dass $t_1 = a, t_2 = b$.
+    \end{definition}
+
+    \begin{bemerkung}
+        Ein (Standard-)Rechteck $R$ in $U$ ist ein abgeschlossenes, achsen-paralleles Rechteck. Rand $\Gamma = \partial R$ wird entgegen dem Uhrzeigersinn durchlaufen.
+    \end{bemerkung}
+
+    Das erste Ziel dieses Kapitels soll es sein, den folgenden Satz zu beweisen:
+
+    \begin{satz}[Rechteckssatz I] % Satz 16
+        \label{satz:rechtecksatz-1}
+        Sei $U\subseteq\C$ offen, $f: U\to\C$ analytisch und $R\subseteq U$ ein Rechteck mit Rand $\Gamma$. Dann gilt
+        \begin{align*}
+            \int_{\Gamma}^{} f\of{z} \dif z &= 0
+        \end{align*}
+    \end{satz}
+
+    \begin{lemma} % Lemma 17
+        Sei $f\of{z} = \alpha + \beta z$ affin linear. Dann gilt Satz~\ref{satz:rechtecksatz-1}
+
+        \begin{proof}
+            Es ist $F\of{z} = \alpha z + \frac{\beta}{2}z^2$ eine Stammfunktion von $f$ mit $z\of{t}$ Parameterlösung von $\Gamma$. Dann gilt
+            \begin{align*}
+                \int_{\Gamma}^{} f\of{z} \dif z \annot[{&}]{=}{Lemma~\ref{lemma:stammfunktion-kurvint}} F\of{z\of{b}} - F\of{z\of{a}} = 0
+            \end{align*}
+            wobei wir verwendet haben, dass $z\of{b} = z\of{a}$.
+        \end{proof}
+    \end{lemma}
+
+    \begin{proof}[Beweis von Satz~\ref{satz:rechtecksatz-1}]
+    (Erfolt durch Überdeckung und schlaue Abschätzung, fehlt hier)
+    \end{proof}
+
+    \begin{satz} % Satz 18
+        \label{satz:int-lokal}
+        Sei $U\subseteq\C$ offen, $f: U \to \C$ analytisch, $z_0\in U$ und $R > 0$, sodass $D_R\of{z_0} = \set{\abs{z-z_0} \leq R}\subseteq U$. Dann existiert eine analytische Funktion $F: D_R\of{z_0} \to \C$ mit $F'\of{z} = f\of{z}~\forall z\in D_R\of{z_0}$. D.h. $f$ hat lokal in der Nähe von $z_0$ eine Stammfunktion.
+
+        \begin{proof}
+            O.B.d.A. sei $U=D_R\of{z_0}$. Zwischen $w, z\in D_R\of{z_0}$ gibt es einen Weg
+            \begin{align*}
+                \gamma_{w,z}\of{t} &= \begin{cases}
+                                          w + \Re\of{z-w}t &0\leq t \leq 1\\
+                                          w + \Re\of{z-w} + i \Im\of{z-w}\pair{t-1} & 1\leq t \leq 2
+                \end{cases}
+                \intertext{Wir setzen dann}
+                F\of{z} &= \int_{\gamma_{z_0, z}}^{} f\of{w} \dif w\\
+                \impl F\of{z+h} - F\of{z} &= \int_{\gamma_{z_0, z+h}}^{} f\of{w} \dif w - \int_{\gamma_{z_0, z}}^{} f\of{w} \dif w\\
+                \intertext{Durch geometrische Überlegungen sehen wir, dass sich die Pfade auch folgendermaßen darstellen lassen}
+                &= \int_{\gamma_{z,z+h}}^{} f\of{w} \dif w + \int_{\Gamma_{z, z+h}}^{} f\of{w} \dif w \annot{=}{Satz~\ref{satz:rechtecksatz-1}} \int_{\gamma_{z,z+h}}^{} f\of{w} \dif w\\
+                \impl \frac{F\of{z+h} - F\of{z}}{h} &= \frac{1}{h} \int_{\gamma_{z, z+h}}^{} f\of{w} \dif w
+                \intertext{Es gilt außerdem}
+                \int_{\gamma_{z, z+h}}^{} 1 \dif w &= z + h - w = h
+                \intertext{Das heißt für festes $z$}
+                \frac{1}{h} \int_{}^{} f\of{z} \dif w &= f\of{z}\\
+                \impl \frac{F\of{z+h} - F\of{z}}{h} - f\of{z} &= \frac{1}{h}\int_{\gamma_{z, z+h}}^{} \pair{f\of{w} - f\of{z}} \dif w\\
+                \impl \abs{\frac{F\of{z+h} - F\of{z}}{h} - f\of{z}} &\leq \frac{1}{\abs{h}} \abs{ \int_{\gamma_{z, z+h}}^{} f\of{w} - f\of{z} \dif w}\\
+                &\leq \frac{1}{\abs{h}} \sup_{w\in\gamma_{z, z+h}} \abs{f\of{w} - f\of{z}}\cdot \pair{\abs{\Re\of{h}} + \abs{\Im\of{h}}}\\
+                &\leq \frac{1}{\abs{h}} \sup_{w\in\gamma_{z, z+h}} \abs{f\of{w} - f\of{z}}\cdot 2\abs{h}\\
+                &= 2 \sup_{w\in\gamma_{z, z+h}} \abs{f\of{w} - f\of{z}} \to 0\text{ für }h\to 0\qedhere
+            \end{align*}
+        \end{proof}
+    \end{satz}
+
+    \begin{satz} % Satz 19
+        Ist $f: D_{R}\of{z_0}\to\C$ analytisch und $C$ eine glatte, geschlossene Kurve in $D_R\of{z_0}$, so ist
+        \begin{align*}
+            \int_{C}^{} f\of{z} \dif z &= 0
+        \end{align*}
+
+        \begin{proof}
+            Nach Satz~\ref{satz:int-lokal} hat $f$ eine Stammfunktion $F$ auf $D_R\of{z_0}$ und $F$ ist analytisch. $C: z\of{t},~a\leq t \leq b$ und wegen geschlossen gilt $z\of{a} = z\of{b}$. Damit folgt
+            \begin{align*}
+                \int_{C}^{} f\of{z} \dif z &= F\of{z\of{b}} - F\of{z\of{a}} = 0\qedhere
+            \end{align*}
+        \end{proof}
+    \end{satz}
+
+    Vorsicht, dieser Satz gilt nur lokal:
+
+    \begin{beispiel}
+        Sei $f\of{z} = \frac{1}{z}$ und $C: Re^{it},~0\leq t \leq 2\pi$. Dann gilt
+        \begin{align*}
+            \int_{C}^{} \frac{1}{z} \dif z &= \int_{0}^{2\pi} \frac{iRe^{it}}{Re^{it}} \dif t = 2\pi i\\
+            \intertext{Andererseits ist}
+            \int_{C}^{} z^k \dif z &= 0\tag{$k\in\Z\setminus\set{-1}$}
+        \end{align*}
+    \end{beispiel}
+
+    \newpage
+
+
+    \section{[*] Lokale Eigenschaften analytischer Funktionen}
+    \subseccount
+    \thispagestyle{sectionpage}
+
+    Sei $f: U\to\C$ analytisch und $\alpha\in\C$. Wir definieren
+    \begin{align*}
+        g\of{z} &\coloneqq \begin{cases}
+                               \frac{f\of{z} - f\of{\alpha}}{z-\alpha} &z\neq \alpha\\
+                               f'\of{\alpha} &z = \alpha
+        \end{cases}
+    \end{align*}
+    ist stetig auf $U$. Wir wollen jetzt den Rechtecksatz auf $g$ erweitern.
+
+    \begin{satz}[Rechtecksatz II] % Satz 1
+        Ist $R\subseteq U$ ein Rechteck. dann gilt
+        \begin{align*}
+            \int_{\partial R}^{} g\of{z} \dif z &= 0
+        \end{align*}
+
+        \begin{proof}
+            \textsc{Fall 1}: $\alpha\not\in R$. Dann betrachten wir eine Umgebung von $R$, in der $\alpha$ nicht enthalten ist und verwenden Satz~\ref{satz:rechtecksatz-1}, da $g$ analytisch auf $R$ ist.\\[.5\baselineskip]
+            \textsc{Fall 2}: $\alpha\in\partial R$. Dann teilen wir $R$ in 6 Subrechtecke $R_{k\in\set{1,\ldots, 6}}$ und es sei $\alpha\in\partial R_1$. Dann gilt
+            \begin{align*}
+                \impl \int_{\Gamma}^{} g\of{z} \dif z &= \sum_{k=1}^{6} \int_{\partial R_k}^{} f\of{z} \dif z
+                \intertext{Nach \textsc{Fall 1} haben wir dann}
+                &= \int_{\partial R_1}^{} g\of{z} \dif z\\
+                \abs{ \int_{\partial R_1}^{} g\of{z} \dif z} &\leq \underbrace{\sup_{z\in\partial R_1} \abs{g\of{z}}}_{<\infty}\cdot\diam\of{R_1}
+            \end{align*}
+            Wir können $R_1$ aber beliebig klein machen. Damit geht der Ausdruck gegen 0.\\[.5\baselineskip]
+            \textsc{Fall 3}: $\alpha\in R\setminus\partial R$. Wir gehen wie in \textsc{Fall 2} vor und teilen $R$ in 6 Subrechtecke auf. Damit gilt
+            \begin{align*}
+                \int_{\partial R}^{} g\of{z} \dif z &= \int_{\partial R_1}^{} g\of{z} \dif z \to 0 \text{ für }\diam\of{R_1}\to 0\qedhere
+            \end{align*}
+        \end{proof}
+    \end{satz}
 
 \end{document}
