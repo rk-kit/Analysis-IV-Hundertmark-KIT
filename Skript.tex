@@ -1007,4 +1007,156 @@
         \end{proof}
     \end{satz}
 
+    \newpage
+
+
+    \section{[*] Lokale Eigenschaften analytischer Funktionen}
+
+    \subsection{Vorbereitung}
+
+    \thispagestyle{sectionpage}
+
+    \marginnote{[12. Mai]}
+    \textbf{Situation:} Sei $U\subseteq\C$ offen und $f: U \to \C$ analytisch. Es sei $\alpha\in\C$, dann ist
+    \begin{align*}
+        g\of{z} &\coloneqq \begin{cases}
+                               \frac{f\of{z} - f\of{\alpha}}{z-\alpha} &z\neq \alpha\\
+                               f'\of{\alpha} &z=\alpha
+        \end{cases}
+    \end{align*}
+    stetig auf $U$ und analytisch auf $U\setminus\set{\alpha}$.
+
+    \begin{korollar}
+        \label{kor:stammfunktion}
+        In der obigen Situation hat $g$ wieder lokal eine Stammfunktion. Genau gilt: Für jeden Punkt $z_0\in U$ gibt es ein $F: D_R\of{z_0} \to \C$ analytisch mit $F' = g$ auf $D_R\of{z_0}$ für ein $R > 0$. Ist insbesondere $C$ eine geschlossene Kurve in $D_R\of{z_0}$, so ist
+        \begin{align*}
+            \int_{C}^{} g\of{z} \dif z &= 0
+        \end{align*}
+    \end{korollar}
+
+    \begin{satz}[Cauchy-Integralformel I]
+        \label{satz:cauchy-int}
+        Sei $U\subseteq\C$ offen, $\alpha\in U$, $f: U\to\C$ analytisch und $R > 0$, sodass $D_R\of{\alpha}\subseteq U$. Ferner sei $0 < \rho < R$ und $C\rho\of{\alpha}$ die Kurve $z\of{t} \coloneqq \rho e^{it}+\alpha$. Dann folgt
+        \begin{align*}
+            f\of{\alpha} &= \frac{1}{2\pi i} \int_{C\rho\of{\alpha}}^{} \frac{f\of{w}}{w - \alpha} \dif w
+        \end{align*}
+
+        \begin{proof}
+            Wir betrachten
+            \begin{align*}
+                g\of{z} &\coloneqq \begin{cases}
+                                       \frac{f\of{z} - f\of{\alpha}}{z-\alpha} &z\neq \alpha\\
+                                       f'\of{\alpha} &z=\alpha
+                \end{cases}
+                \intertext{Dann gilt nach Korollar~\ref{kor:stammfunktion}, dass}
+                0 &= \int_{C\rho\of{\alpha}}^{} g\of{w} \dif w = \int_{C\rho\of{\alpha}}^{} \frac{f\of{w} - f\of{\alpha}}{w-\alpha} \dif w\\
+                &= \int_{C\rho\of{\alpha}}^{} \frac{f\of{w}}{w-\alpha} \dif \alpha - \int_{C\rho\of{\alpha}}^{} \frac{f\of{\alpha}}{w-\alpha} \dif w\\
+                \impl \int_{C\rho\of{\alpha}}^{} \frac{f\of{w}}{w-\alpha} \dif w &= f\of{\alpha} \int_{C\rho\of{\alpha}}^{} \frac{1}{w-\alpha} \dif x = f\of{\alpha}\int_{0}^{2\pi} \frac{i\rho e^{it}}{\rho e^{it}} \dif t = f\of{\alpha} 2\pi i\\
+                \impl \int_{C\rho\of{\alpha}}^{} \frac{f\of{w}}{w-\alpha} \dif w &= 2\pi i f\of{\alpha}\qedhere
+            \end{align*}
+        \end{proof}
+    \end{satz}
+
+    \begin{bemerkung}
+        In Satz~\ref{satz:cauchy-int} gilt sogar $\forall z\in D_{\rho}\of{\alpha}$ ist
+        \begin{align*}
+            f\of{z} &= \frac{1}{2\pi i}\int_{C\rho\of{\alpha}}^{} \frac{f\of{w}}{w-z} \dif w
+        \end{align*}
+    \end{bemerkung}
+
+    \begin{lemma}
+        Sei $C\rho\of{\alpha}: z\of{t} = \rho e^{it} + \alpha \subseteq D_R\of{\alpha}$ ($R > \rho > 0$). Dann gilt für alle $z\in D_{\rho}\of{\alpha}$
+        \begin{align*}
+            \int_{C\rho\of{\alpha}}^{} \frac{1}{w-z} \dif w = 2\pi i
+        \end{align*}
+
+        \begin{proof}
+            \begin{align*}
+                \int_{C \rho\of{\alpha}}^{} \frac{1}{w-z} \dif w &= \int_{C\rho\of{\alpha}}^{} \frac{1}{w-\alpha - \pair{z-\alpha}} \dif w\\
+                &= \int_{C\rho\of{\alpha}}^{} \frac{1}{\pair{w-\alpha}\pair{1-\frac{z-\alpha}{w-\alpha}}} \dif w
+                \intertext{Es ist $\abs{z-\alpha} < \rho$ und $\abs{w-\alpha} < \rho$. Also ist}
+                \delta &= \abs{\frac{z-\alpha}{w-\alpha}} = \frac{\abs{z-\alpha}}{\rho} < 1\quad\forall w\in C\rho\of{\alpha}
+                \intertext{Wir schreiben um über die geometrische Reihe}
+                \frac{1}{1-\frac{z-\alpha}{w-\alpha}} &= \sum_{n=0}^{\infty} \pair{\frac{z-\alpha}{w-\alpha}}^n
+                \intertext{Wir haben gleichmäßige und absolute Konvergenz}
+                \impl \int_{C\rho\of{\alpha}}^{} \frac{1}{\pair{w-\alpha}\pair{1-\frac{z-\alpha}{w-\alpha}}} \dif w &= \int_{C\rho\of{\alpha}}^{} \frac{1}{w-\alpha} \sum_{n=0}^{\infty} \pair{\frac{z-\alpha}{w-\alpha}}^n \dif w\\
+                &= \sum_{n=0}^{\infty} \pair{z-\alpha}^n \int_{C\rho\of{\alpha}}^{} \frac{1}{\pair{w-\alpha}^{n+1}} \dif w\\
+                \int_{C\rho\of{\alpha}}^{} \frac{1}{\pair{w-\alpha}^{n+1}} \dif w &= \int_{0}^{2\pi} \frac{i\rho e^{it}}{\pair{\rho e^{it}}^{n+1}} \dif t\\
+                &= \frac{1}{\rho^n} \int_{0}^{2\pi} e^{-int}\dif t = \begin{cases}
+                                                                         2\pi i &n = 0\\
+                                                                         0 &n\geq 1
+                \end{cases}\\
+                \impl \sum_{n=0}^{\infty} \pair{z-\alpha}^n \int_{C\rho\of{\alpha}}^{} \frac{1}{\pair{w-\alpha}^{n+1}} \dif w &= 2\pi i\\
+                \impl \int_{C \rho\of{\alpha}}^{} \frac{1}{w-z} \dif w &= 2\pi i\qedhere
+            \end{align*}
+        \end{proof}
+    \end{lemma}
+
+    \begin{korollar}[Cauchy-Integralformel II] % Korollar 5
+        Sei $U\subseteq\C$ offen und $f: U\to\C$ analytisch sowie $\alpha\in U$, $R > 0$ mit $D_{R}\of{\alpha} \subseteq U$. Dann folgt $\forall 0 < \rho < R$ und $z \in D_{\rho}\of{\alpha}$
+        \begin{align*}
+            f\of{z} &= \frac{1}{2\pi i} \int_{C\rho\of{\alpha}}^{} \frac{f\of{w}}{w-z} \dif w
+        \end{align*}
+
+        \begin{proof}
+            Nach Korollar~\ref{kor:stammfunktion} gilt
+            \begin{align*}
+                0 &= \int_{C\rho\of{\alpha}}^{} \frac{f\of{w} - f\of{z}}{w-\alpha} \dif w = \int_{C\rho\of{\alpha}}^{} \frac{f\of{w}}{w-z} \dif w - f\of{z}\underbrace{\int_{C\rho\of{\alpha}}^{} \frac{1}{w-z} \dif w}_{= 2\pi i}\qedhere
+            \end{align*}
+        \end{proof}
+    \end{korollar}
+
+    \subsection{Lokale Potenzreihenentwicklung}
+
+    \begin{satz}
+        \label{satz:potenzreihenentwicklung}
+        Sei $U\subseteq\C$ offen, $f: U \to \C$ analytisch, $\alpha\in U$, $R > 0$, sodass $D_R\of{\alpha}\subseteq U$. Dann hat $f$ eine in $D_R\of{\alpha}$ konvergente Potenzreihe. Das heißt es existiert eine Folge $(a_n)_n \subseteq\C$, sodass
+        \begin{align*}
+            f\of{z} &= \sum_{n=0}^{\infty} a_n\pair{z-\alpha}^n\quad\forall z\in D_R\of{\alpha}
+        \end{align*}
+        Dabei ist $D_R\of{\alpha}$ \anf{$=$} $\C$ erlaubt.
+
+        \begin{proof}
+            Für $z\in D_{\rho}\of{\alpha}$  haben wir
+            \begin{align*}
+                f\of{z} &= \frac{1}{2\pi i}\int_{C\rho\of{\alpha}}^{} \frac{f\of{w}}{w-z} \dif w = \frac{1}{2\pi i} \int_{C\rho\of{\alpha}}^{} \frac{f\of{w}}{w-\alpha-\pair{w-\alpha}} \dif w\\
+                &= \frac{1}{2\pi i} \int_{C \rho\of{\alpha}}^{} \frac{f\of{w}}{\pair{w-\alpha}\pair{1- \frac{z-\alpha}{w-\alpha}}} \dif w
+                \intertext{Wir können wieder die Umschreibung zur geometrischen Reihe verwenden. Also gilt}
+                &= \frac{1}{2\pi i} \sum_{n=0}^{\infty} \pair{z-\alpha}^n \underbrace{\int_{C\rho\of{\alpha}}^{} \frac{f\of{w}}{\pair{w-\alpha}^{n+1}} \dif w}_{\eqqcolon a_n\of{\rho}}\\
+                &= \frac{1}{2\pi i} \sum_{n=0}^{\infty} a_n\of{\rho}\pair{z-\alpha}^n\qedhere
+            \end{align*}
+        \end{proof}
+    \end{satz}
+
+    \begin{bemerkung}
+        In Satz~\ref{satz:potenzreihenentwicklung} ist $(a_n)_n$ unabhängig von $ R > 0$, solange $D_R\of{\alpha}\subseteq U$.
+    \end{bemerkung}
+
+    \begin{beobachtung}
+        Ist $z\in D_R\of{\alpha}$, so existiert ein $\rho$ mit $\abs{z-\alpha} < \rho < R$. Für dieses $\rho$ haben wir
+        \begin{align*}
+            f\of{z} &= \sum_{n=0}^{\infty} \frac{a_n\of{\rho}}{2\pi i}\pair{z-\alpha}^n
+        \end{align*}
+    \end{beobachtung}
+
+    \begin{beobachtung}
+        $a_n\of{\rho}$ ist unabhängig von $0 < \rho < R$.
+
+        \begin{proof}
+            Sei $0 < \rho_1 < \rho_2 < R$ und $\abs{z-\alpha} < \rho_1$. Dann folgt
+            \begin{align*}
+                \impl f\of{z} &= \sum_{n=0}^{\infty} a_n\of{\rho_1}\pair{z-\alpha}^n = \sum_{n=0}^{\infty} a_n\of{\rho_2}\pair{z-\alpha}^n\quad\forall z\in D_{\rho_1}\of{\alpha}
+            \end{align*}
+            Nach dem Eindeutigkeitssatz für Potenzreihen haben wir $a_n\of{\rho_1} = a_n\of{\rho_2}$.
+        \end{proof}
+    \end{beobachtung}
+
+    \begin{korollar} % Korollar 7
+        Sei $U\subseteq\C$ offen und $f: U \to\C$ analytisch. Dann ist $f$ unendlich oft differenzierbar.
+
+        \begin{proof}
+            Lokal ist $f\of{z}$ durch eine konvergente Potenzreihe gegeben. Also ist $f$ unendlich oft komplex differenzierbar.
+        \end{proof}
+    \end{korollar}
+
 \end{document}
