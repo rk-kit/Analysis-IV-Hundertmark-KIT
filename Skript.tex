@@ -1159,4 +1159,173 @@
         \end{proof}
     \end{korollar}
 
+    \begin{korollar}
+        \marginnote{[13. Mai]}
+        Sei $U\subseteq\C$ offen und $f: U \to\C$ analytisch. Dann ist
+        \begin{align*}
+            f^{(n)}\of{\alpha} &= \frac{n!}{2\pi i} \int_{C\rho\of{\alpha}}^{} \frac{f\of{w}}{\pair{w-\alpha}^{n+1}} \dif w
+        \end{align*}
+    \end{korollar}
+
+    \begin{satz}
+        \label{satz:temp-9}
+        Sei $f: U \to \C$ analytisch und $\alpha\in U$. Dann ist
+        \begin{align*}
+            g\of{z} &\coloneqq \begin{cases}
+                                   \frac{f\of{z} - f\of{\alpha}}{z-\alpha} &z\neq \alpha\\
+                                   f'\of{\alpha} &z = \alpha
+            \end{cases}
+        \end{align*}
+        analytisch.
+
+        \begin{proof}
+            In $D_{R}\of{\alpha} \subseteq U$ gilt $f\of{z} \sum_{n=0}^{\infty} a_n \pair{z-\alpha}^n$ mit $a_0 = f\of{\alpha}$. Das heißt
+            \begin{align*}
+                g\of{z} &= \frac{f\of{z} - f\of{\alpha}}{z-\alpha} = \sum_{n=1}^{\infty} a_n \pair{z-\alpha}^{n-1}\qedhere
+            \end{align*}
+        \end{proof}
+    \end{satz}
+
+    \subsection{Liouville}
+
+    \begin{notation}
+        Eine analytische Funktion $f: \C \to \C$ heißt ganze Funktion.
+    \end{notation}
+
+    \begin{korollar}
+        Habe $f: U \to \C$ in $U$ genau $N$ Nullstellen $a_1, \ldots, A_N \in U$. Dann definieren wir
+        \begin{align*}
+            g\of{z} &\coloneqq \frac{f\of{z}}{\pair{z-a_1}\pair{z-a_2}\cdots\pair{z-a_N}}\tag{$z\neq a_j$}
+        \end{align*}
+        Dann gilt $ \lim_{z\to a_k} g\of{z}$ existiert und $g$ ist analytisch.
+
+        \begin{proof}
+            Sei $f_ 0 \of{z} \coloneqq f\of{z}$ und
+            \begin{align*}
+                f_k\of{z} &\coloneqq \frac{f_{k-1}\of{z} - f_{k-1}\of{a_k}}{z-a_k} = \frac{f_{k-1}\of{z}}{z-a_k}\tag{$z\neq a_k$}
+            \end{align*}
+            Nach Induktion und Satz~\ref{satz:temp-9} gilt dann, dass $f_k$ analytisch ist für alle $k\in\set{0, \ldots, N}$. Beachte $g = f_N$.
+        \end{proof}
+    \end{korollar}
+
+    \begin{satz} % Satz 11
+        \label{satz:liouville}
+        Eine beschränkte ganze Funktion ist konstant.
+
+        \begin{proof}
+            Für alle $R > 0$ ist $z\in D_R\of{0}$ und
+            \begin{align*}
+                f\of{z} &= \frac{1}{2\pi i} \int_{C_R\of{0}}^{} \frac{f\of{w}}{w-z} \dif w
+                \intertext{Seien $z_1, z_2 \in D_R\of{\cdot}$}
+                f\of{z_1} - f\of{z_2} &= \frac{1}{2\pi i} \int_{D_R\of{0}}^{} \pair{\frac{f\of{w}}{w-z_1} - \frac{f\of{w}}{w-z_2}} \dif w\\
+                &= \frac{1}{2\pi i} \int_{D_R\of{0}}^{} f\of{w}\frac{z_1 - z_2}{\pair{w-z_1}\pair{w-z_2}} \dif w\\
+                \intertext{Es ist $\abs{f\of{w}} < M < \infty$ für alle $w\in \C$. Nach M-L-Regel gilt}
+                \abs{f\of{z_1} - f\of{z_2}} &\leq \frac{M}{2\pi}\frac{2\pi R}{\pair{R-\abs{z_1}}\pair{R-\abs{z_2}}} \to 0 \text{ für }R\toinf
+            \end{align*}
+            Das heißt $f$ ist konstant.
+        \end{proof}
+    \end{satz}
+
+    \begin{satz} % Satz 12
+        Sei $f$ eine ganze Funktion und für ein $k\in\N_0$ existieren $A, B \geq 0$ mit $\abs{f\of{z}}\leq A + B\abs{z}^k~\forall z\in\C$. Dann ist $f$ ein Polynom vom Grad $\leq k$.
+
+        \begin{proof}
+            Wir verwenden Induktion. $k = 0$ ist Satz~\ref{satz:liouville}.
+            \begin{align*}
+                g\of{z} &= \begin{cases}
+                               \frac{f\of{z} - f\of{0}}{z} &z\neq 0\\
+                               f'\of{0} &z = 0
+                \end{cases}
+                \intertext{Dann ist $g$ eine ganze Funktion}
+                \abs{g\of{z}} &= \frac{\abs{f\of{z} - f\of{0}}}{\abs{z}} \tag{$\abs{z}\geq 1$}\\
+                &\leq \frac{A + B\abs{z}^k + \abs{f\of{0}}}{\abs{z}} \leq \tilde{A} + B \abs{z}^{k-1}\\
+                \abs{g\of{z}} &\leq C\tag{$\abs{z} \leq 1$}\\
+                \impl \abs{g\of{z}} &\leq \max\pair{\tilde{A}, C} + B \abs{z}^{k-1}\quad\forall z\in\C
+            \end{align*}
+            Per Induktionsvoraussetzung ist $g$ ein Polynom vom Grad $\leq k-1$. Dann ist $f\of{z} = zg\of{z} + f\of{0}$ ein Polynom vom Grad $\leq k$.
+        \end{proof}
+    \end{satz}
+
+    \begin{satz} % Satz 13
+        \label{satz:fundamentalsatz}
+        Jedes nicht-konstante Polynom mit komplexen Koeffizienten hat (mindestens) eine Nullstelle in $\C$.
+
+        \begin{proof}
+            \begin{align*}
+                \abs{P\of{z}} &= \abs{a_0 + a_1 z + \ldots + a_{n-1}z^{n-1} + a_n z^n}\\
+                &= \abs{z^n}\underbrace{\abs{a_n + a_{n-1}z^{-1} + \ldots + a_2 z^{2-n} + a_1 z^{1-n} + a_0 z^-n}}_{\geq \abs{a_n} - \abs{a_{n-1}}\abs{z}^{-1} - \ldots  - \abs{a_1}\abs{z}^{1-n} - \abs{a_0}\abs{z}^{-n}}\\
+                &\geq \frac{\abs{a_n}}{2}\abs{z}^n
+                \intertext{Das heißt $P\of{z} \toinf$ für $\abs{z}\toinf$. Wenn $P$ keine Nullstelle hat, dann ist}
+                h\of{z} &= \frac{1}{P\of{z}}
+            \end{align*}
+            wohldefiniert und $h\of{z} \to 0$ für $\abs{z}\toinf$. Damit ist $h$ eine beschränkte analytische Funktion und nach Satz~\ref{satz:liouville} ist $h$ konstant. Das heißt $P$ war bereits konstant.
+        \end{proof}
+    \end{satz}
+
+    \begin{bemerkung}
+        Satz~\ref{satz:fundamentalsatz} erweitert sich wie folgt: Sei $g\of{z} \coloneqq \frac{P\of{z}}{z-a_1}$ für $P$ ein Polynom mit Nullstelle $a_1$. Dann ist
+        \begin{align*}
+            \abs{P\of{z}} &\leq A + B\abs{z}^n\\
+            \impl \abs{g\of{z}} &\leq \tilde{A} + \tilde{B}\abs{z}^{n-1}
+        \end{align*}
+        Das heißt $g$ ist ein Polynom vom Grad $\leq n-1$ und nach Satz~\ref{satz:liouville} gilt $P\of{z} = \pair{z-a_1} g\of{z}$. Das heißt wir können ein Polynom bis auf einen konstanten Faktor vollständig in seine Nullstellen aufspalten.
+    \end{bemerkung}
+
+    \newpage
+
+
+    \section{[*] Eindeutigkeit, Mittelwert \& Max, Modulus-Sätze}
+    \subseccount
+    \pagestyle{sectionpage}
+
+    \begin{satz}[Eindeutigkeit]
+        Sei $U\subseteq\C$ offen und zusammenhängend und $f: U\to\C$ analytisch. Sei $S\subseteq U$ mit Häufungspunkt in $U$ und $f\of{z} = 0~\forall z\in S$. Dann ist $f = 0$ in $U$.
+
+        \begin{proof}
+            Sei $\alpha\in U$ Häufungspunkt von $S$. Dann existiert ein $R > 0$, sodass $D_R\of{\alpha}\subseteq U$ und
+            \begin{align*}
+                f\of{z} &= \sum_{n=0}^{\infty} a_n \pair{z-\alpha}^n\quad\forall z\in\D_R\of{\alpha}
+                \intertext{Das heißt es existiert eine Folge $z_k \in S$ mit $z_k \neq \alpha$, $z_k \to \alpha$ mit $f\of{z_k} = 0$ $\forall k$. Nach dem Eindeutigkeitssatz von Potenzreihen folgt damit}
+                \impl f &= 0\text{ auf }D_R\of{\alpha}\\
+                A &\coloneqq \set{z\in U: z\text{ ist Häufungspunkt von Nullstellen von }f}\\
+                B &= U \setminus A
+                \intertext{Behauptung 1: $A$ ist offen. Sei $z_0 \in A$, existieren $R > 0$, sodass}
+                f\of{z} &= 0\quad\forall z\in D_r\of{z_0}\\
+                \impl D_r\of{z_0} &\subseteq A
+                \intertext{Das heißt $A$ ist offen. Behauptung 2: $B$ ist offen. Sei $w\in B$. Dann hat $w$ einen Siherheitsabstand von der Nullstelle von $f$}
+                \impl \exists r > 0: D_r\of{w} &\subseteq B\\
+                \intertext{Damit ist $B$ offen. Daraus, dass $U$ zusammenhänged ist, folgt, dass $A$ oder $B$ leer ist. Da $\alpha\in A$ folgt also $B = \emptyset$}
+                \impl A &= U
+            \end{align*}
+            Da $f$ stetig ist, folgt $f\of{z} = 0~\forall z\in U$.
+        \end{proof}
+    \end{satz}
+
+    \begin{korollar}
+        Seinen $f, g: U\to\C$ analytisch, $U$ offen und zusammenhängend. Seien $f\of{z} = g\of{z}$ für alle $z\in S$, wobei $S$ hat Häufungspunkt in $U$. Dann gilt bereits $f = g$ auf $U$.
+
+        \begin{proof}
+            Betrachte $f-g$ und wende vorherigen Satz an.
+        \end{proof}
+    \end{korollar}
+
+    \begin{beispiel}
+        $\sin\of{z} = 0$ für $z = \pi k$, $k\in\Z$.
+    \end{beispiel}
+
+    \begin{satz}[Mittelwertsatz] % Satz 3
+        Sei $f: U\to\C$ analytisch und $U$ offen. Sei $\alpha\in U$, $R > 0$, $D_R\of{\alpha}\subseteq U$. Dann folgt
+        \begin{align*}
+            \forall 0 < r < R\colon~f\of{\alpha} &= \frac{1}{2\pi} \int_{0}^{2\pi} f\of{\alpha + r e^{it}} \dif t
+        \end{align*}
+
+        \begin{proof}
+            Sei $C_r\of{\alpha}: w\of{t} = re^{it} + \alpha$
+            \begin{align*}
+                f\of{z} &= \frac{1}{2\pi i} \int_{C_r\of{\alpha}}^{} \frac{f\of{w}}{w-\alpha} \dif w\\
+                &= \frac{1}{2\pi} \int_{0}^{2\pi} \frac{f\of{re^{it} + \alpha}}{re^{it}}\cdot re^{it} \dif t
+            \end{align*}
+        \end{proof}
+    \end{satz}
+
 \end{document}
