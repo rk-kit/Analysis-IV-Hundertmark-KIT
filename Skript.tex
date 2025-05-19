@@ -666,6 +666,7 @@
     \end{satz}
 
     \begin{satz} % Satz 8
+        \label{satz:temp-8}
         Sei $f = u+iv$ analytisch auf einer Umgebung $D$. Ist $\abs{f}$ konstant auf $D$, so ist $f$ konstant.
 
         \begin{proof}
@@ -1275,10 +1276,12 @@
 
 
     \section{[*] Eindeutigkeit, Mittelwert \& Max, Modulus-Sätze}
-    \subseccount
-    \pagestyle{sectionpage}
+
+    \subsection{Formulierung}
+    \thispagestyle{sectionpage}
 
     \begin{satz}[Eindeutigkeit]
+        \label{satz:eindeutigkeit}
         Sei $U\subseteq\C$ offen und zusammenhängend und $f: U\to\C$ analytisch. Sei $S\subseteq U$ mit Häufungspunkt in $U$ und $f\of{z} = 0~\forall z\in S$. Dann ist $f = 0$ in $U$.
 
         \begin{proof}
@@ -1314,6 +1317,7 @@
     \end{beispiel}
 
     \begin{satz}[Mittelwertsatz] % Satz 3
+        \label{satz:mittelwertsatz}
         Sei $f: U\to\C$ analytisch und $U$ offen. Sei $\alpha\in U$, $R > 0$, $D_R\of{\alpha}\subseteq U$. Dann folgt
         \begin{align*}
             \forall 0 < r < R\colon~f\of{\alpha} &= \frac{1}{2\pi} \int_{0}^{2\pi} f\of{\alpha + r e^{it}} \dif t
@@ -1322,10 +1326,112 @@
         \begin{proof}
             Sei $C_r\of{\alpha}: w\of{t} = re^{it} + \alpha$
             \begin{align*}
-                f\of{z} &= \frac{1}{2\pi i} \int_{C_r\of{\alpha}}^{} \frac{f\of{w}}{w-\alpha} \dif w\\
-                &= \frac{1}{2\pi} \int_{0}^{2\pi} \frac{f\of{re^{it} + \alpha}}{re^{it}}\cdot re^{it} \dif t
+                f\of{\alpha} &= \frac{1}{2\pi i} \int_{C_r\of{\alpha}}^{} \frac{f\of{w}}{w-\alpha} \dif w\\
+                &= \frac{1}{2\pi} \int_{0}^{2\pi} \frac{f\of{re^{it} + \alpha}}{re^{it}}\cdot re^{it} \dif t\qedhere
             \end{align*}
         \end{proof}
     \end{satz}
+
+    \begin{satz}[Maximum modulus] % Satz 2
+        \marginnote{[19. Mai]}
+        \label{satz:max-modulus}
+        Sei $U\subseteq\C$ offen und zusammenhängend und $f: U \to \C$ eine nicht-konstante analytische Funktion. Dann hat $\abs{f}$ \underline{kein} lokales Maximum in $U$. Das heißt $\forall \alpha\in U$ und $\delta > 0$ mit $D_{\delta}\of{\alpha}\subseteq U$ existiert ein $z\in D_{\delta}\of{\alpha}$ mit $\abs{f\of{z}} > \abs{f\of{\alpha}}$.
+
+        \begin{proof}
+            Sei $\alpha\in U$. Nach Satz~\ref{satz:mittelwertsatz} gilt
+            \begin{align*}
+                \abs{f\of{\alpha}}&\leq \frac{1}{2\pi} \int_{0}^{2\pi} \pair{f\of{re^{it}+\alpha}} \dif t\quad\forall \alpha\in U, \overline{D_r\of{\alpha}\subseteq U}\\
+                &\leq \max_{0\leq t \leq 2\pi} \abs{f\of{re^{it}+\alpha}}\tag{1}
+                \intertext{Satz~\ref{satz:max-modulus} folgt, wenn wir folgendes zeigen: Ist $f$ nicht-konstant, so gibt es ein $w\in C r\of{\alpha}$ mit $\abs{f\of{w}} > \abs{f\of{\alpha}}$. Angenommen das ist der Fall, dann würde gelten}
+                \abs{f\of{w}} &\leq \abs{f\of{\alpha}}\quad\forall w\in C r\of{\alpha} \text{ für $r > 0$ klein genug}
+                \intertext{Darum muss $\abs{f\of{w}} = \abs{f\of{\alpha}}$ sein für alle $w\in C r\of{\alpha}$ für $ r> 0$ klein genug. Ansonsten ist}
+                \abs{f\of{w_0}} &\leq \abs{f\of{\alpha}}
+                \intertext{?, dass $w_0\in C r\of{\alpha}$. $w_0 = w\of{t_0} = re^{it} + \alpha$, $t_0 \in \interv{0, 2\pi}$. Aus der Stetigkeit von $\abs{f}$ folgt jetzt}
+                \exists \delta > 0\colon &\abs{f\of{w\of{t}}} < \abs{f\of{w}}\quad t\in\interv{0, 2\pi}, \abs{t-t_0} \leq \delta\\
+                \impl \frac{1}{2\pi} \int_{0}^{2\pi} \abs{f\of{w\of{t}}} \dif t &< \abs{f\of{\alpha}}
+                \intertext{Das ist ein Widerspruch zu (1). Also haben wir}
+                \abs{f\of{re^{it} + \alpha}} &= \abs{f\of{\alpha}}\quad\forall t\in\interv{0,2\pi}\text{ mit $r>0$ klein genug}
+            \end{align*}
+            Das heißt $\abs{f}$ ist konstant auf $\overline{D_{r_0}\of{\alpha}}$ für ein $r_0 > 0$. Damit ist nach Satz~\ref{satz:temp-8} bereits $f$ konstant auf $D_{r_0}\of{\alpha}$ und nach Satz~\ref{satz:eindeutigkeit} ist $f$ konstant auf $U$.
+        \end{proof}
+    \end{satz}
+
+    \begin{korollar} % Korollar 3
+        Sei $U\subseteq\C$ offen und zusammenhängend und $f: U \to\C$ analytisch. Nimmt $\abs{f}$ ein (lokales oder globales) Maximum in $U$ an, so ist $f$ konstant.
+        \begin{proof}
+            Umformulierung von Satz~\ref{satz:max-modulus}
+        \end{proof}
+    \end{korollar}
+
+    \begin{korollar}
+        Sei $U\subseteq\C$ offen und zusammenhänged und beschränkt, $f: \overline{U}\to\C$ stetig und $f$ analytisch auf $U$. Dann folgt
+        \begin{align*}
+            \sup_{z\in U} \abs{f\of{z}} &= \sup_{z\in\overline{U}} \abs{f\of{z}} = \sup_{z\in \partial U} \abs{f\of{z}}
+        \end{align*}
+        Das heißt das Maximum wird am Rand $\partial U$ angenommen.
+    \end{korollar}
+
+    \subsection{Anwendungen}
+
+    \textbf{Situation}: Wir haben die Einheitsscheibe $D_1\of{0}$ und $f: D_1\of{0} \to \C$ analytisch mit $f\of{0} = 0$. Dann wollen wir zeigen, dass
+    \begin{enumerate}[label=(\alph*)]
+        \item $\abs{f\of{z}} \leq \abs{z}\quad\forall \abs{z} < 1$
+        \item $\abs{f'\of{0}} \leq 1$
+    \end{enumerate}
+
+    \begin{proof}
+        Definiere
+        \begin{align*}
+            g\of{z} &\coloneqq \begin{cases}
+                                   \frac{f\of{z}}{z} &z \neq 0\\
+                                   f'\of{0} &z = 0
+            \end{cases}
+            \intertext{Dann ist $g$ analytisch auf $D_1\of{0}$. Sei $0 < r < 1$ mit $\abs{z} = r$}
+            \impl \abs{g\of{z}} &= \frac{\abs{f\of{z}}}{\abs{z}} = \frac{\abs{f\of{z}}}{r} \leq \frac{1}{r}\quad \forall 0 < r < 1
+            \intertext{Nach Satz~\ref{satz:max-modulus} folgt}
+            \abs{g\of{z}} &\leq \frac{1}{r}\quad\forall\abs{z} \leq r\\
+            \abs{g\of{z}} &\leq \frac{1}{r}\quad\abs{z} \leq r\\
+            \impl \abs{g\of{z}} &\leq 1\quad\forall \abs{z} < 1\\
+            \impl \forall 0 < \abs{z} < 1\colon \frac{\abs{f\of{z}}}{\abs{z}} &= \abs{g\of{z}} \leq 1\\
+            \impl \abs{f\of{z}} &\leq \abs{z}
+            \intertext{und für 8b) gilt}
+            \abs{f'\of{0}} &= \abs{g\of{0}} \leq 1\qedhere
+        \end{align*}
+    \end{proof}
+    Ferner gilt: Gilt \anf{$=$} für ein $\abs{z} < 1$ in (a) oder \anf{=} in (b), so ist
+    \begin{align*}
+        f\of{z} &= e^{i\Theta} z
+    \end{align*}
+    für ein $\Theta\in\R$.
+
+    \begin{bemerkung}
+        Die obigen Aussagen kombiniert sind auch bekannt als das Lemma von Schwarz.
+    \end{bemerkung}
+
+    \textbf{Andere Situation}: Sei $f: D_1\of{0}\to\C$ analytisch, $\abs{f\of{z}} \geq 1$ für alle $\abs{z} < 1$ und $f\of{\alpha} = 0$ für ein $\abs{\alpha} < 1$. Definiere
+    \begin{align*}
+        B_{\alpha}\of{z} &\coloneqq \frac{z-\alpha}{1-\conj{\alpha}z}
+    \end{align*}
+    Dann folgt (mit Beweis, der hier fehlt), dass
+    \begin{enumerate}[label=(\alph*)]
+        \item $\abs{f\of{z}} \leq \abs{B_{\alpha}\of{z}}$ für alle $\abs{z} < 1$
+        \item $\abs{f'\of{\alpha}} \leq \frac{1}{1-\abs{\alpha}^2}$
+    \end{enumerate}
+
+    \begin{notation}
+        Sei $\mA_{\alpha}\coloneqq\set{f: D_1\of{0}\to \C\text{ analytisch und }\abs{f\of{z}} \leq 1~\forall \abs{z} < 1 \text{ und }f\of{\alpha}=0}$. Das heißt
+        \begin{align*}
+            \sup_{f\in\mA_{\alpha}} \abs{f\of{z}} &= \abs{B_{\alpha}\of{z}}
+            \intertext{und}
+            \sup_{f\in\mA_{\alpha}} \abs{f'\of{\alpha}} &= \frac{1}{1-\abs{\alpha}^2}
+        \end{align*}
+    \end{notation}
+
+    \textbf{Leicht andere Frage}: Sei $\mA\coloneqq\set{f: D_{\eta}\of{0} \to \C\text{ analytisch mit }\abs{f\of{z}} \leq 1, \abs{\eta} < 1}$. Was ist
+    \begin{align*}
+        \sup_{f\in\mA}\abs{f'\of{\alpha}}
+        \intertext{? Es ist}
+        \sup_{f\in\mA}\abs{f'\of{\alpha}} &= \frac{1}{1-\abs{\alpha}^2}
+    \end{align*}
 
 \end{document}
