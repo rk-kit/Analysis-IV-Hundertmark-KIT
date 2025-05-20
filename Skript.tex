@@ -1434,4 +1434,105 @@
         \sup_{f\in\mA}\abs{f'\of{\alpha}} &= \frac{1}{1-\abs{\alpha}^2}
     \end{align*}
 
+    \begin{satz}[Minimum-Modulus]
+        \label{satz:minimum-modulus}
+        \marginnote{[20. Mai]}
+        Sei $U\subseteq\C$ offen und zusammenhängend und $f: U\to\C$ analytisch und nicht-konstant. Dann kann kein Punkt $\alpha\in U$ ein lokales Minimum von $\abs{f}$ sein, außer $\abs{f\of{\alpha}} = 0$.
+
+        \begin{proof}
+            Angenommen $\abs{f\of{\alpha}}$ ist ein lokales Minimum von $\abs{f\of{z}}$, $z$ nahe $\alpha$ und $f\of{\alpha} \neq 0$. Wegen der Stetigkeit von $f$ folgt
+            \begin{align*}
+                \exists r > 0\colon D_r\of{\alpha} \subseteq U
+                \intertext{und}
+                f\of{z} &\neq 0\quad\forall z\in D_r\of{\alpha}\\
+                h: D_{r}\of{\alpha} \to \C,~h\of{z} = \frac{1}{f\of{z}}
+            \end{align*}
+            ist analytisch auf $D_r\of{\alpha}$. $\abs{h}$ hat in $\alpha$ ein lokales Maximum. Nach Satz~\ref{satz:max-modulus} ist $h$ damit konstant in $D_r\of{\alpha}$. Damit ist $f$ konstant in $U$.
+        \end{proof}
+    \end{satz}
+
+    \begin{satz} % Satz 8
+        Sei $f: U \to\C$ analytisch und nicht-konstant. Dann ist $f\of{D}$ offen für jede offene Menge $D\subseteq U$.
+
+        \begin{proof}
+            Sei $f$ nicht-konstant und analytisch, $D \subseteq U$ offen, $\beta\in f\of{D}$. Dann existiert ein $\alpha\in D\colon f\of{\alpha} = \beta$. Es reicht zu zeigen, dass das Bild einer kleinen Kreisscheibe um $\alpha$ unter $f$ enthält eine kleine Kreisscheibe um $\beta$. O.B.d.A. sei $f\of{\alpha} = 0$, sonst betrachten wir $g\of{z} = g\of{z} - f\of{\alpha}$. Es gilt Kreis $C_r\of{\alpha} \subseteq D$ für $r > 0$ klein genug. Behauptung: Es existiert ein $r > 0$ klein genug, sodass
+            \begin{align*}
+                f\of{z} &\neq 0\quad\forall z\in C_r\of{\alpha}
+            \end{align*}
+            Falls nicht, dann existieren $r_n \coloneqq n^{-1}$, sodass für $n$ groß genug $z_n\in C_{r_n}\of{\alpha}, f\of{z_n} = 0$. Dann wäre $f$ aber nach Satz~\ref{satz:eindeutigkeit} konstant. Das ist ein Widerspruch.\\[.5\baselineskip]
+            Sei $z_{\varepsilon} \coloneqq \inf_{z\in C_r\of{\alpha}} \abs{f\of{\alpha}} > 0$. Behauptung 2: $f\of{D_r\of{\alpha}} \supseteq D_{\varepsilon}\of{0} = D_{\varepsilon}\of{f\of{\alpha}}$. Bew: Sei $w\in D_{\varepsilon}\of{0}$. Zu zeigen ist, dass ein $z\in D_r\of{\alpha}$ existiert, sodass $f\of{z} = w \equivalent \underbrace{f\of{z} - w}_{\eqqcolon h\of{z}} = 0$. Wir haben also $h: D_r\of{\alpha}\to\C$. $z\in\partial D_r\of{\alpha} = C_r\of{\alpha}$
+            \begin{align*}
+                \abs{h\of{z}} &= \abs{f\of{z} - w}\geq \abs{f\of{z}} - \abs{w} \geq 2\varepsilon - \varepsilon = \varepsilon
+                \intertext{und}
+                \abs{h\of{\alpha}} &= \abs{f\of{\alpha} - w} = \abs{-w} < \varepsilon
+            \end{align*}
+            Nach Satz~\ref{satz:minimum-modulus} gibt es ein $z\in D_r\of{\alpha}$ mit $h\of{z} = 0 \impl f\of{z} = w$. Das heißt $f\of{D_r\of{\alpha}} \supseteq D_{\varepsilon}\of{0}$.
+        \end{proof}
+    \end{satz}
+
+    \begin{satz} % Satz 9
+        Sei $f: \C\to\C$ eine ganze Funktion mit
+        \begin{align*}
+            \abs{f\of{z}} &\leq \frac{1}{\abs{\Im z}}\tag{$z\in\C\setminus\R$}
+        \end{align*}
+        Dann ist $f = 0$ auf $\C$.
+
+        \begin{proof}
+        (mittels Skizze, nicht hier)
+        \end{proof}
+    \end{satz}
+
+    \newpage
+
+
+    \section{[*] Eine Umkehrung von Cauchy: Morera}
+
+    \subsection{Satz von Morera}
+    \thispagestyle{sectionpage}
+
+    \begin{satz} % Satz 1
+        \label{satz:morera}
+        Sei $U\subseteq\C$ offen, $f: U\to\C$ stetig und für jedes Rechteck (achsenparallel) $R\subseteq U$ sei
+        \begin{align*}
+            \int_{\Gamma}^{} f\of{z} \dif z &= \int_{\partial R}^{} f\of{z} \dif z = 0\tag{$\Gamma = \partial R$}
+        \end{align*}
+        Dann ist $f$ analytisch auf $U$.
+
+        \begin{proof}
+            Sei $z_0\in U$, $D_r\of{z_0}\subseteq U$, $z\in D_r\of{z_0}$. Wir definieren
+            \begin{align*}
+                \gamma_{w,z}: z\of{t} &\coloneqq \begin{cases}
+                                                     w + t\Re\of{z-w} &0\leq t \leq 1\\
+                                                     \Re\of{?} + \pair{t-1}\Im\of{z-w} &1\leq t \leq 2
+                \end{cases}\\
+                F\of{z} &\coloneqq \int_{\gamma_{z_0, z}}^{} f\of{w} \dif w\\
+                F\of{z+h} - F\of{z} &= \int_{\gamma_{z, z+h}}^{} f\of{w} \dif w\\
+                \frac{F\of{z+h} - F\of{z}}{h} &= \frac{1}{h}\int_{\gamma_{z, z+h}}^{} f\of{w} \dif w\\
+                \frac{F\of{z+h} - F\of{z}}{h} - f\of{z} &= \frac{1}{h} \int_{\gamma_{z, z+h}}^{} \pair{f\of{w} - f\of{z}} \dif w\to 0\text{ für } h\to 0\\
+                \impl F' &= f\text{ auf } D_r\of{z_0}\\
+                \impl F\text{ ist analytisch und } &f\text{ ist auch analytisch}\qedhere
+            \end{align*}
+        \end{proof}
+    \end{satz}
+
+    \begin{definition}
+        Sei $U\subseteq\C$ offen, $f_n, f: U\to\C$ . Dann konvergiert $(f_n)_n$ lokal gleichmäßig gegen $f$, falls $f_n \to f$ gleichmäßig auf allen kompakten Teilmengen $K\subseteq U$. Das heißt
+        \begin{align*}
+            \forall K\subseteq U\text{ kompakt}\colon \lim_{n\to\inf} \sup_{z\in K}\abs{f_n\of{z} - f\of{z}} = 0
+        \end{align*}
+    \end{definition}
+
+    \begin{satz}
+        Sei $U\subseteq\C$ offen und $f_n: U\to\C$ analytisch konvergiere lokal gleichmäßig gegen $f: U\to\C$. Dann ist $f$ analytisch.
+
+        \begin{proof}
+            1) $f$ ist stetig. $z_0\in U$, $\overline{D_r\of{z_0}}\subseteq U$, dann $f_n \to f$ gleichmäßig auf $\overline{D_r\of{z_0}}$. Das heißt $f_n$ ist steig auf $\overline{D_r\of{z_0}}\impl $ f ist stetig auf $\overline{D_r\of{z_0}}$ $\impl$ $f$ ist stetig auf $U$.\\
+            2) $R\subseteq D_r\of{z_0}$ ein Rechteck, $\Gamma = \partial R$
+            \begin{align*}
+                \int_{\Gamma}^{} f\of{z} \dif z &= \int_{\Gamma}^{} \lim_{n\toinf} f_n\of{z} \dif z = \lim_{n\toinf} \underbrace{\int_{\Gamma}^{} f_n\of{z} \dif z}_{= 0} = 0
+            \end{align*}
+            Das heißt $f$ ist analytisch nach Satz~\ref{satz:morera}.
+        \end{proof}
+    \end{satz}
+
 \end{document}
