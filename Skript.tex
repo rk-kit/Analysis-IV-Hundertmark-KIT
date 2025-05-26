@@ -1535,4 +1535,140 @@
         \end{proof}
     \end{satz}
 
+    \subsection{Reflexionsprinzip von Schwarz}
+
+    \begin{satz} % Satz 4
+        \marginnote{[26. Mai]}
+        \label{satz:liniensegmente}
+        Sei $U\subseteq\C$ offen, $L\subseteq U$ ein Liniensegment, $f: U \to\C$ stetig und analytisch auf $U\setminus L$. Dann ist $f$ analytisch auf $U$.
+
+        \begin{proof}
+            Sei \OBDA $L \subseteq\R$, sonst sei $g\of{z} = az+b$ mit $L\subseteq g\of{\R}$ und betrachte $h = f\circ g$. Wenn $h$ auf $g^{-1}\of{U}$ analytisch ist, dann ist $f$ auf $U$ analytisch.\\
+            Wir betrachten jetzt ein beliebiges Rechteck $R\subseteq U$ und wollen Satz~\ref{satz:morera} anwenden. Das heißt wir müssen zeigen, dass
+            \begin{align*}
+                \int_{\partial R}^{} f\of{z} \dif z &= 0
+            \end{align*}
+            \textsc{Fall 1}: $R\cap L = \emptyset$. In diesem Fall gilt
+            \begin{align*}
+                \int_{\partial R}^{} f\of{z} \dif z &= 0
+            \end{align*}
+            da $f$ analytisch in einer offenen Umgebung von $R$ ist.\\
+            \textsc{Fall 2}: $\partial R \cap L \neq \emptyset$. Sei $\varepsilon > 0$ und $R_{\varepsilon}$ wie oben im Bild. Dann gilt
+            \begin{align*}
+                \int_{\partial R_{\varepsilon}}^{} f\of{z} \dif z &= 0
+                \intertext{Da}
+                \int_{a}^{b} f\of{x+i\varepsilon} \dif x &\to \int_{a}^{b} f\of{x} \dif x
+                \intertext{folgt}
+                0 = \lim_{\varepsilon \searrow 0} \int_{\partial R}^{} f\of{z} \dif z &= \int_{\partial R}^{} f\of{z} \dif z
+            \end{align*}
+            \textsc{Fall 3}: $L$ liegt im Inneren von $R$. Wir teilen $R$ in zwei Rechtecke $R_1, R_2$ auf, sodass $L$ auf dem Rand von $R_1, R_2$ liegt. Dann gilt nach \textsc{Fall 2}:
+            \begin{align*}
+                \int_{\partial R}^{} f\of{z} \dif z &= \int_{\partial R_1}^{} f\of{z} \dif z + \int_{\partial R_2}^{} f\of{z} \dif z = 0 + 0 = 0
+            \end{align*}
+            Nach Satz~\ref{satz:morera} ist $f$ damit analytisch auf $U$.\qedhere
+        \end{proof}
+    \end{satz}
+
+    \begin{notation}
+        Wir schreiben $\C_+\coloneqq\set{z\in\C: \Im z > 0}$, $\C_- \coloneqq \set{z\in \C: \Im z < 0}$.
+    \end{notation}
+
+    \begin{satz}[Reflexionsprinzip] % Satz 5
+        \label{satz:reflexionsprinzip}
+        Sei $D\subseteq\C_+$ oder $D\subseteq\C_-$ und $L\coloneqq \partial D \cap \R \neq \emptyset$. Sei $F: D\to\C$ analytisch, stetig auf $D \cup L$ sowie $f\of{z} \in\R~\forall z\in L$. Wir definieren $D_- \coloneqq \set{\conj{z}: z\in D}$. Dann ist die Funktion $g: D_+ \cup L \cup D_- \to \C$ mit
+        \begin{align*}
+            g\of{z} &\coloneqq \begin{cases}
+                                   f\of{z} &z \in D \cup L\\
+                                   \conj{f\of{\conj{z}}} &z\in D_-
+            \end{cases}
+        \end{align*}
+        analytisch.
+
+        \begin{proof}
+            $g$ ist stetig auf $D_+ \cup L \cup D_-$, da $f$ analytisch auf $D, D_-$ ist und $f$ reellwertig auf $L$ ist. Es bleibt noch zu beweisen, dass $g$ auf $D$ und $D_-$ analytisch ist. Auf $D$ ist das klar, weil $g\of{z} = f\of{z}$. Sei also $z\in D_-\impl \conj{z}\in D_+$, $h\neq 0$ klein genug, dass $z + h \in D_-$. Wir betrachten den Differenzenquotient
+            \begin{align*}
+                \frac{g\of{z+h} - g\of{z}}{h} &= \frac{\conj{f\of{\conj{z+h}}} - \conj{f\of{\conj{z}}}}{h} = \frac{\conj{f\of{\conj{z} + \conj{h}} - f\of{\conj{z}}}}{\conj{h}} \to \conj{f'\of{\conj{z}}} \text{ für } h\to 0
+            \end{align*}
+            nach Satz~\ref{satz:liniensegmente} weil $f$ analytisch ist auf $D\cup L \cup D_-$.
+        \end{proof}
+    \end{satz}
+
+    \begin{korollar} % Korollar 6
+        Sei $U\subseteq\C$ offen und symmetrisch bezüglich der reellen Achse $\R$. Sei außerdem $f: U\to\C$ analytisch und $f$ reellwertig auf $U \cap \R$. Dann folgt
+        \begin{align*}
+            f\of{\conj{z}} &= \conj{f\of{z}}\quad\forall z\in U
+        \end{align*}
+
+        \begin{proof}
+            Wende Satz~\ref{satz:reflexionsprinzip} auf $f: D_+\cup L \to\C$ an. Dann erhalten wir
+            \begin{align*}
+                g\of{z} &\coloneqq \begin{cases}
+                                       f\of{z} &z\in D_+ \cup L\\
+                                       \conj{f\of{\conj{z}}} & z\in D_-
+                \end{cases}
+            \end{align*}
+            ist analytisch auf $U = D_+ \cup L \cup D_-$ und $g = f$ auf $D_+$. Nach Satz~\ref{satz:eindeutigkeit} gilt damit aber $g = f$ auf $U$. Das heißt $f\of{z} = \conj{f\of{\conj{z}}}$ für alle $z\in D_-$ und damit auch für alle $z\in D_+$.\qedhere
+        \end{proof}
+    \end{korollar}
+
+    \begin{beispiel}
+        \begin{enumerate}
+            \item Betrachte $z\mapsto e^z = \exp\of{z}$. Es gilt $\exp\of{\conj{z}} = \conj{\exp\of{z}}$.
+        \end{enumerate}
+    \end{beispiel}
+
+    \newpage
+
+
+    \section{[*] Einfach zusammehängende Gebiete und der Cauchy-Integral-Satz}
+    \subseccount
+    \thispagestyle{sectionpage}
+
+    Ist $f: U \to \C$ analytisch, $z_0 \in U$, $D_r\of{z_0}\subseteq U$ und $\gamma$ ein geschlossener Weg in $D_r\of{z_0}$. Dann folgt
+    \begin{align*}
+        \int_{\gamma}^{} f\of{z} \dif z &= 0
+    \end{align*}
+
+    Erinnerung: Stetige Linie $\gamma$ in $U$ ist eine stetige Funktion $\gamma: \interv{0,1}\to U$.\\
+    $U$ ist wegzusammenhängend, wenn für alle $z, w\in U$ eine stetige FUnktion $\gamma: \interv{0,1} \to U$ existiert, sodass $\gamma\of{0} = z$, $\gamma\of{1} = w$.\\
+    $U$ ist zusammenhängend, wenn für jede Partitation $U = A \cup B$ mit offenen Mengen $A, B$ (in $U$) und $A \cap B \neq \emptyset$ folgt $A = \emptyset$ oder $B = \emptyset$.\\
+    $U$ ist lokal wegzusammenhängend, wenn für jedes $z_0\in U$ ein $r > 0$ existiert, sodass $U\cap D_r\of{z_0}$ wegzusammenhängend ist.
+
+    \begin{lemma}
+        Sei $U$ lokal wegzusammenhängend. Dann gilt $U$ ist genau dann zusammenhängend, wenn $U$ wegzusammenhängend ist.
+
+        \begin{proof}
+            \anf{$\Leftarrow$}: Gilt immer\\
+            \anf{$\impl$}: siehe Skript
+        \end{proof}
+    \end{lemma}
+
+    \begin{definition}
+        Zwei Wege $\gamma_0, \gamma_1: \interv{0,1}\to U$ mit $\gamma_0\of{0} = \gamma_1\of{0}$, $\gamma_0\of{1} = \gamma_1\of{1}$ sind homotop, falls es eine stetige Funktion $\Gamma: \interv{0,1} \times \interv{0,1}\to U$ gibt mit $\gamma_0 = \Gamma\of{\cdot, 0}, \gamma_1 = \Gamma\of{\cdot, 1}$ und $\Gamma\of{0, s} = \gamma_0\of{0}, \Gamma\of{1, \cdot} = \gamma_1\of{0}$. In diesem Fall heißt $\Gamma$ Homotopie und liefert Äquivalenzklassen.
+    \end{definition}
+
+    \begin{genv}
+        Zwei geschlossene Kurven $\gamma_0, \gamma_1: \interv{0,1}\to U$ und $\gamma_0\of{0} = \gamma_0\of{1} = \gamma_1\of{0} = \gamma_1\of{1}$ sind homotop, wenn es eine Homotopie $\Gamma: \interv{0,1}\times\interv{0,1}\to U$ gibt mit obigem Ergebnis.
+    \end{genv}
+
+    \begin{definition}
+        Sei $U\subseteq\C$ ein Gebiet. Dann heißt $U$ einfach zusammenhängend, wenn jede geschlossene Kurve $\gamma:\interv{0,1}\to U$ mit $z_0 \coloneqq \gamma\of{0} = ?$ homotop zu den trivialen ? $\hat{\gamma} = z_0$ ist.
+    \end{definition}
+
+    \begin{beispiel}
+        Sei $U$ offen und konvex. Dann ist $U$ einfach zusammenhängend.
+        \begin{proof}
+            Zu $z_0, w\in U$ ist $\interv{w, z_0} = \set{w + s\pair{z_0 - w}: 0 \leq s \leq 1} \subseteq U$. $\gamma: \interv{0, 1}\to U$ ist ein geschlossener Weg, $z_0 \coloneqq \gamma\of{0}$. $\Gamma\of{t, s}\coloneqq \pair{1-s}\gamma\of{t} + s z_0$ ist eine Homotopie von $\gamma$ und $\hat{\gamma} = z_0$.
+        \end{proof}
+    \end{beispiel}
+
+    \begin{beispiel}
+        Sei $U$ offen und sternförmig (d.h. $\exists z_0 \in U: \interv{w, z_0}\subseteq U~\forall w\in U$). Dann ist $U$ einfach zusammenhängend.
+
+        \begin{proof}
+            \textsc{Fall 1}: $\gamma: \interv{0,1}\to U$ ist eine geschlossene Kurve mit $\gamma\of{0} = z_0 = \gamma\of{1}$. Dann funktioniert wieder $\Gamma\of{t, s}\coloneqq \pair{1-s}\gamma\of{t} + s z_0$.\\
+            \textsc{Fall 2}: $\gamma\of{0} = z_1 \neq z_0$. Nehme Weg $\gamma_1: \interv{0, 1}\to U$, $\gamma_1\of{0} = z_1, \gamma_1\of{1} = z_0$. Betrachte Weg $\overline{\gamma}\coloneqq \gamma_1^{-1}\gamma_1 \gamma \gamma_1^{-1}\gamma_1 = \gamma_1^{-1} \gamma\gamma_1$, $\hat{\gamma} \coloneqq \gamma_1 \gamma_1 \gamma_1^{-1}$ geschlossener Weg von $z_0$ nach $z_0$. $\overline{\gamma}$ ist monotop zu $\hat{\gamma} = \gamma_1 \gamma \gamma_1^{-1}$. $\gamma_s\of{t}\coloneqq \gamma-1\of{st}$ für $0\leq s \leq 1$. ist ein Weg von $z_1$ nach $\gamma_1\of{s}$. $\Gamma\of{\cdot, s} = \gamma_s^{-1}\hat{\gamma}?\gamma_s$. Dann ist $\overline{\gamma}$ homotop zu $\hat{\gamma}$.
+        \end{proof}
+    \end{beispiel}
+
 \end{document}
