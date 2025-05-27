@@ -1644,7 +1644,7 @@
     \end{lemma}
 
     \begin{definition}
-        Zwei Wege $\gamma_0, \gamma_1: \interv{0,1}\to U$ mit $\gamma_0\of{0} = \gamma_1\of{0}$, $\gamma_0\of{1} = \gamma_1\of{1}$ sind homotop, falls es eine stetige Funktion $\Gamma: \interv{0,1} \times \interv{0,1}\to U$ gibt mit $\gamma_0 = \Gamma\of{\cdot, 0}, \gamma_1 = \Gamma\of{\cdot, 1}$ und $\Gamma\of{0, s} = \gamma_0\of{0}, \Gamma\of{1, \cdot} = \gamma_1\of{0}$. In diesem Fall heißt $\Gamma$ Homotopie und liefert Äquivalenzklassen.
+        Zwei Wege $\gamma_0, \gamma_1: \interv{0,1}\to U$ mit $\gamma_0\of{0} = \gamma_1\of{0}$, $\gamma_0\of{1} = \gamma_1\of{1}$ sind homotop, falls es eine stetige Funktion $\Gamma: \interv{0,1} \times \interv{0,1}\to U$ gibt mit $\gamma_0 = \Gamma\of{\cdot, 0}, \gamma_1 = \Gamma\of{\cdot, 1}$ und $\Gamma\of{0, s} = \gamma_0\of{0}, \Gamma\of{1, s} = \gamma_1\of{0}$. In diesem Fall heißt $\Gamma$ Homotopie und liefert Äquivalenzklassen.
     \end{definition}
 
     \begin{genv}
@@ -1667,8 +1667,67 @@
 
         \begin{proof}
             \textsc{Fall 1}: $\gamma: \interv{0,1}\to U$ ist eine geschlossene Kurve mit $\gamma\of{0} = z_0 = \gamma\of{1}$. Dann funktioniert wieder $\Gamma\of{t, s}\coloneqq \pair{1-s}\gamma\of{t} + s z_0$.\\
-            \textsc{Fall 2}: $\gamma\of{0} = z_1 \neq z_0$. Nehme Weg $\gamma_1: \interv{0, 1}\to U$, $\gamma_1\of{0} = z_1, \gamma_1\of{1} = z_0$. Betrachte Weg $\overline{\gamma}\coloneqq \gamma_1^{-1}\gamma_1 \gamma \gamma_1^{-1}\gamma_1 = \gamma_1^{-1} \gamma\gamma_1$, $\hat{\gamma} \coloneqq \gamma_1 \gamma_1 \gamma_1^{-1}$ geschlossener Weg von $z_0$ nach $z_0$. $\overline{\gamma}$ ist monotop zu $\hat{\gamma} = \gamma_1 \gamma \gamma_1^{-1}$. $\gamma_s\of{t}\coloneqq \gamma-1\of{st}$ für $0\leq s \leq 1$. ist ein Weg von $z_1$ nach $\gamma_1\of{s}$. $\Gamma\of{\cdot, s} = \gamma_s^{-1}\hat{\gamma}?\gamma_s$. Dann ist $\overline{\gamma}$ homotop zu $\hat{\gamma}$.
+            \textsc{Fall 2}: $\gamma\of{0} = z_1 \neq z_0$. Nehme Weg $\gamma_1: \interv{0, 1}\to U$, $\gamma_1\of{0} = z_1, \gamma_1\of{1} = z_0$. Betrachte Weg $\overline{\gamma}\coloneqq \gamma_1^{-1}\gamma_1 \gamma \gamma_1^{-1}\gamma_1 = \gamma_1^{-1} \gamma\gamma_1$, $\hat{\gamma} \coloneqq \gamma_1 \gamma_1 \gamma_1^{-1}$ geschlossener Weg von $z_0$ nach $z_0$. $\overline{\gamma}$ ist monotop zu $\hat{\gamma} = \gamma_1 \gamma \gamma_1^{-1}$. $\gamma_s\of{t}\coloneqq \gamma-1\of{st}$ für $0\leq s \leq 1$. ist ein Weg von $z_1$ nach $\gamma_1\of{s}$. $\Gamma\of{\cdot, s} = \gamma_s^{-1}\hat{\gamma}?\gamma_s$. Dann ist $\overline{\gamma}$ homotop zu $\hat{\gamma}$. (??)
         \end{proof}
     \end{beispiel}
 
+    \begin{satz} % Satz 3
+        \marginnote{[27. Mai]}
+        \label{satz:homotop-int-gleich}
+        Sei $U\subseteq\C$ ein Gebiet und $f: U \to\C$ analytisch sowie $\gamma_0, \gamma_1: \interv{0,1}\to U$ zwei homotope, glatte Kurven. Also insbesondere $\gamma_0\of{0} = \gamma_1\of{0}, \gamma_0\of{1} = \gamma_1\of{1}$. Dann folgt bereits, dass
+        \begin{align*}
+            \int_{\gamma_0}^{} f\of{z} \dif z &= \int_{\gamma_1}^{} f\of{z} \dif z
+        \end{align*}
+    \end{satz}
+
+    \begin{korollar}
+        Sei $U$ einfach zusammenhängend, $\gamma$ eine geschlossene Kurve in $U$, $f: U \to\C$ analytisch. Dann folgt
+        \begin{align*}
+            \int_{\gamma}^{} f\of{z} \dif z &= 0
+        \end{align*}
+
+        \begin{proof}
+            $\gamma$ ist homotop zu $\beta\of{t}\coloneqq z_0 = \gamma\of{0}$. Also gilt nach Satz~\ref{satz:homotop-int-gleich}, dass
+            \begin{align*}
+                \int_{\gamma}^{} f\of{z} \dif z &= \int_{\beta}^{} f\of{z} \dif z = \int_{0}^{1} f\of{\beta\of{t}}\dot\beta\of{t} \dif t = 0\qedhere
+            \end{align*}
+        \end{proof}
+    \end{korollar}
+
+    \begin{korollar}
+        Sei $U\subseteq\C$ einfach zusammenhängend, $f: U\to\C$ analytisch. Dann hat $f$ eine globale Stammfunktion, das heißt es existiert eine analytische Funktion $F: U \to\C$ mit $F' = f$ auf $U$.
+
+        \begin{proof}
+            Sei $z_0\in U$ und $z\in U$ mit regulärem, glatten Weg $\gamma_{z_0, z}$ von $z_0$ nach $z$. Wir definieren
+            \begin{align*}
+                F\of{z} &= \int_{\gamma_{z_0, z}}^{} f\of{w} \dif w
+                \intertext{Das ist nach Satz~\ref{satz:homotop-int-gleich} wohldefiniert.}
+                \impl F\of{z+h} - F\of{z} &= \int_{z}^{z+h} f\of{w} \dif w\\
+                z\of{t} &= z+th\\
+                \impl \dot z\of{t} &= h\\
+                \int_{z}^{z+h} f\of{w} \dif w &= \int_{0}^{1} f\of{z+th}h \dif t\\
+                \impl \frac{F\of{z+h} - F\of{z}}{h} &= \int_{0}^{1} f\of{z+th} \dif t \to \int_{0}^{1} f\of{z} \dif t = f\of{z}\\
+                \impl F'\of{z} &= f\of{z}\qedhere
+            \end{align*}
+        \end{proof}
+    \end{korollar}
+
+    \begin{lemma} % Lemma 6
+        Sei $U\subseteq\C$ ein Gebiet und $\gamma_0, \gamma_1: \interv{0,1}\to U$ zwei homotope (glatte) Kurven, $\Gamma$ Homotopie von $\gamma_1$ zu $\gamma_0$. Dann können wir $\Gamma$ so modifizieren, dass alle Zwischenkurven $\Gamma\of{\cdot, s}$ glatt sind.
+        Für ein Grid auf $\interv{0,1}^2$ der Feinheit $\frac{1}{N}, N\in\N$.
+        \begin{align*}
+            \Delta_{j,k}^N &\coloneqq \set{\pair{t,s}: \frac{j-q}{N} \leq t \leq \frac{j}{N}, \frac{k-1}{N}\leq s \leq \frac{k}{N}}
+            \intertext{Dann existiert $N\in\N$ groß genug so, dass offene Kreisscheiben $D_{j,k}$ existieren mit}
+            \Gamma\of{\Delta_{j,k}^N} &\subseteq D_{j,k}\subseteq U\qedhere
+        \end{align*}
+    \end{lemma}
+
+    \begin{proof}[Beweis von Satz~\ref{satz:homotop-int-gleich}]
+        Sei $s_k \coloneqq \frac{k}{N}$, $\beta_0 = 0$, $\gamma_0 = \Gamma\of{\cdot, s_0}$, $\gamma_k \coloneqq \Gamma\of{\cdot, s_k}$, $\gamma_{s_N} = \gamma_1$. Es reicht zu zeigen, dass
+        \begin{align*}
+            \int_{\gamma_{s_k}}^{} f\of{z} \dif z &= \int_{\gamma_{s_{k+1}}}^{} f\of{z} \dif z
+            \intertext{Wir hangeln uns also von einer Kurve zur nächsten. Alle Zwischenintegrale werden paarweise in entgegeben gesetzte Richtungen durchlaufen. In Summe ergeben die zusätzlichen Integrale 0.}
+            \int_{\gamma_{k+1}}^{} f\of{z} \dif z - \int_{\gamma_{k}}^{} f\of{z} \dif z &= \sum_{j=1}^{N} \underbrace{\int_{\gamma_{j,k}}^{} f\of{z} \dif z}_{= 0} = 0\qedhere
+        \end{align*}
+    \end{proof}
 \end{document}
