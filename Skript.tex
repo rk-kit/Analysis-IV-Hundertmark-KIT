@@ -128,6 +128,7 @@
 \DeclareMathOperator{\bew}{Bew}
 \DeclareMathOperator{\diag}{diag}
 \DeclareMathOperator{\fdiv}{div}
+\DeclareMathOperator{\Arg}{Arg}
 
 % Mengenbezeichner
 \newcommand{\R}{\mathbb{R}}
@@ -1730,4 +1731,191 @@
             \int_{\gamma_{k+1}}^{} f\of{z} \dif z - \int_{\gamma_{k}}^{} f\of{z} \dif z &= \sum_{j=1}^{N} \underbrace{\int_{\gamma_{j,k}}^{} f\of{z} \dif z}_{= 0} = 0\qedhere
         \end{align*}
     \end{proof}
+
+    \newpage
+    \marginnote{[02. Jun]} (fehlt)
+    \newpage
+
+    \begin{beispiel}
+        \marginnote{[03. Jun]}
+        \begin{align*}
+            D &= \C\setminus\R\\
+            z_0 &= 1\\
+            \log 1 &= 0\\
+            \log z &= \int_{1}^{z} \frac{\dif w}{w}
+            \intertext{Sei $-\pi < \Arg\of{z} < \pi$}
+            \int_{1}^{z} \frac{\dif w}{w} &= \int_{\gamma_1}^{} \frac{\dif w}{w} + \int_{\gamma_2}^{} \frac{\dif w}{w} \dif x
+            \intertext{Dabei ist $\gamma_1: w\of{t} = 1 + \pair{\abs{z} - 1}t$, $\gamma_2: w\of{t} = \abs{z}e^{it}$. Damit gilt}
+            &= \int_{1}^{\abs{z}} \frac{\dif t}{t} + \Arg\of{z} = \log\abs{z} + \int_{0}^{\Arg\of{z}} \frac{i\abs{z}e^{it}}{\abs{z}e^{it}} \dif t\\
+            &= \log\abs{z} + i\Arg\of{z}
+        \end{align*}
+    \end{beispiel}
+
+    \begin{beispiel}
+        \begin{align*}
+            D &= \C\setminus \R_+\\
+            z_0 &= -1 = e^{i\pi}\\
+            \log z_0 &= i\pi\\
+            \impl \log y &= \int_{-1}^{z} \frac{\dif w}{w} + i\pi = \int_{\gamma_1}^{} \frac{\dif w}{w} + \int_{\gamma_2}^{} \frac{\dif w}{w} + \pi i\\
+            &= \int_{\gamma_1}^{} \frac{\dif w}{w} + \int_{\gamma_2}^{} \frac{\dif w}{w} + i\pi
+            \intertext{Dabei sei $\gamma_2: w\of{t} = \abs{z}e^{it}$ für $t$ von $\pi$ bis $\Theta\coloneqq \Arg\of{z}$ mit $0 < \Theta < 2\pi$}
+            &= \int_{-1}^{-\abs{z}} \frac{\dif t}{t} = \log\of{\abs{z}} + \int_{\gamma_2}^{} \frac{\dif w}{w} + \pi i\\
+            \impl \int_{\gamma_2}^{} \frac{\dif w}{w} &= \int_{\pi}^{\Theta} \frac{i\abs{z}e^{it}}{\abs{z}e^{it}}\dif t = i \int_{\pi}^{\Theta} \dif t = i\pair{\Theta - \pi}\\
+            \impl \log z &= \log \abs{z} + i\pair{\Theta-\pi} + i\pi = \log \abs{z} + i\Arg\of{z}
+        \end{align*}
+        Das ist die gleiche Funktion wie im vorherigen Beispiel. Aber jetzt für $0 < \Arg\of{z} < \pi$.
+    \end{beispiel}
+
+    \begin{definition}[Komplexe Potenzen]
+        Sei $n\in\N$, $z^{\frac{1}{n}} \coloneqq \exp\of{\frac{1}{n}\log z}$ wobei $\log z$ ein analytischer Zweig des Logarithmus ist.
+        \begin{align*}
+            z^{\frac{1}{2}} &= i = e^{i\frac{\pi}{2}}\\
+            z_1 &= e^{i\frac{\pi}{4}}\\
+            z_2 &= e^{i\frac{\pi}{4} + i\pi} = -i
+            \intertext{(endlich viele genau $n$ verschiedene Zweige)}
+            \exp\of{\frac{1}{n}\pair{\log z + 2\pi ik}} &= \exp\of{\frac{1}{n}\log z + 2\pi i \frac{k}{n}}
+            \intertext{verschiedene Werte ? für $k = 0, \ldots, n-1$}
+            z^{\frac{1}{3}} &= i = e^{i\frac{\pi}{2}}\\
+            &= e^{i\frac{\pi}{2} + 2\pi k}\tag{$k\in\Z$}
+            z_1 &= e^{i\frac{\pi}{6}}\\
+            \impl z &= e^{\frac{1}{k}\pair{i\frac{\pi}{2} + 2\pi i k}} = e^{i\frac{\pi}{2} + 2\pi i \frac{k}{3}}\\
+            k = 0: z_0 &= e^{i\frac{\pi}{6}}\\
+            k = 1: z_1 &= e^{i\frac{\pi}{6} + i \frac{2\pi}{3}} = e^{i\frac{5\pi}{6}}\\
+            k = 2: z_2 &= e^{i\frac{\pi}{6} + \frac{4\pi}{3}i} = e^{i\frac{7\pi}{6}}
+            \intertext{Allgemein}
+            z &= \abs{z}e^{i\Theta} = \abs{z} e^{i\Theta + 2\pi ik}\\
+            z^{\frac{1}{n}} &= \abs{z}^{\frac{1}{n}} e^{i\frac{\Theta + 2\pi k}{n}}\tag{$k= 0, \ldots, n-1$}
+            \intertext{$w\in\C\setminus\set{0}$, $z\in\C$}
+            \impl w^z &\coloneqq \exp\of{z\log w}
+        \end{align*}
+    \end{definition}
+
+    \newpage
+
+
+    \section{[*] Halbierte Singularitäten}
+    \thispagestyle{sectionpage}
+    \subseccount
+
+    \begin{notation}
+        Eine gepunktete Kreisscheibe
+        \begin{align*}
+            \dot D_k\of{z_0} &\coloneqq \set{z\in\C: 0 < \abs{z - z_0} < R} = D_R\of{z_0}\setminus\set{z_0}\\
+            \intertext{?}
+            A_{R_1, R_2}\of{z_0} &= \set{z\in\C: R_1 < \abs{z-z_0} < R_2}\tag{Ring}
+        \end{align*}
+    \end{notation}
+
+    \begin{definition}
+        Sei $f: U \setminus\set{z_0} \to \C$, $z_0\in\C$, $U$ offen. $f$ hat eine isolierte Singularität in $z_0$, falls $f: \dot D_r\of{z_0}\to\C$ analytisch ist, aber \underline{nicht analytisch} auf $z_0$.
+    \end{definition}
+
+    \begin{beispiel}
+        \theoremescape
+        \begin{enumerate}
+            \item $f\of{z} = \frac{1}{z}$
+            \item \begin{align*}
+                      f\of{z} &= \begin{cases}
+                                     \sin z &z\neq 2\\
+                                     0 &z = 2
+                      \end{cases}
+            \end{align*}
+            \item $f\of{z} = \frac{1}{z-3}$
+            \item $f\of{z} = \exp\of{\frac{1}{z}}$ für $z\neq 0$
+        \end{enumerate}
+    \end{beispiel}
+
+    \begin{definition}
+        $f$ habe in $z_0$ eine isolierte Singularität. Dann definieren wir
+        \begin{enumerate}
+            \item Die Singularität ist (auf-)hebbar, falls eine punktierte Kreisscheibe $\dot D_r\of{z_0}$ sowie eine analytische Funktion $g: D_r\of{z_0} \to \C$ existieren derart, dass $f\of{z} = g\of{z}$ für $z\in\dot D_r\of{z_0}$.
+            \item Falls es analytische Funktionen $A, B: D_r\of{z_0}\to\C$ gibt mit $A\of{z_0}\neq 0$ und $B\of{z_0} = 0$ und $f\of{z} = \frac{A\of{z}}{B\of{z}}$ für $z\in\dot D_r\of{z_0}$, so hat $f$ einen Pol in $z_0$. Hat $B$ eine Nullstelle der Ordnung $k\in\N$ in $z_0$, so hat $f$ einen Pol der Ordnung $k$ in $z_0$.
+            \item $f$ hat in $z_0$ ein wesentliche Singularität, falls es keine hebbare Singularität und keinen Pol in $z_0$ hat.
+        \end{enumerate}
+    \end{definition}
+
+    \begin{satz}[Riemanns Prinzip für hebbare Singularitäten]
+        \label{satz:krit-hebbar}
+        $f$ habe in $z_0$ eine isolierte Singularität. Ist
+        \begin{align*}
+            \lim_{z\to z_0} \pair{z-z_0}f\of{z} &= 0
+        \end{align*}
+        so ist die Singularität hebbar.
+
+        \begin{proof}
+            $U$ sei eine Umgebung von $z_0$. Wir definieren
+            \begin{align*}
+                h\of{z} &\coloneqq \begin{cases}
+                                       \pair{z-z_0}f\of{z} &z\in U\setminus\set{z_0}\\
+                                       0 &z = z_0
+                \end{cases}
+                \intertext{Das heißt $h$ ist stetig auf $U$ und analytisch auf $U\setminus\set{z_0}$. Nach Satz~\ref{satz:morera} ist $h$ analytisch auf $U$. Es gilt außerdem}
+                h\of{z_0} &= 0\\
+                f\of{z} &= \frac{h\of{z}}{z-z_0} = \frac{h\of{z}-h\of{z_0}}{z-z_0} \to h'\of{z_0}\text{ für }z\to z_0
+            \end{align*}
+            Nach Satz~\ref{satz:morera} hat $f$ damit eine analytische Fortsetzung auf $U$.
+        \end{proof}
+    \end{satz}
+
+    \begin{korollar}
+        Ist $f$ beschränkt in der Nähe von $z_0$. Dann ist die Singularität in $z_0$ hebbar.
+
+        \begin{proof}
+            \begin{align*}
+                \lim_{z\to z_0} \pair{z-z_0}f\of{z} = 0
+            \end{align*}
+            mit vorherigem Satz liefert direkt die Behauptung.
+        \end{proof}
+    \end{korollar}
+
+    \begin{beispiel}
+        Sei $f\of{z} = \frac{\sin z}{z}$ für $z\neq 0$. Dann ist
+        \begin{align*}
+            f\of{z} &= \frac{1}{z} \sum_{k=0}^{\infty} \pair{-1}^k\frac{z^{2k+1}}{(2k+1)!} = \sum_{k=0}^{\infty} \pair{-1}^k\frac{z^{2k}}{\pair{2k+1}!}
+        \end{align*}
+    \end{beispiel}
+
+    \begin{satz} % Satz 5
+        Sei $f$ analytisch in einer punktierten Umgebung von $z_0$ und es gebe ein $k\in\N$, sodass
+        \begin{align*}
+            \lim_{z\to z_0} \pair{z-z_0}^k f\of{z}&\neq 0
+            \intertext{und}
+            \lim_{z\to z_0}\pair{z-z_0}^{k+1} f\of{z} &= 0
+        \end{align*}
+        Dann hat $f$ in $z_0$ ein Pol der Ordnung $k$.
+
+        \begin{proof}
+            Sei $f: U\setminus\set{z_0}\to\C$ analytisch. Wir definieren
+            \begin{align*}
+                g\of{z} &\coloneqq \begin{cases}
+                                       \pair{z-z_0}^{k+1}f\of{z} &z\in U\setminus\set{z_0}\\
+                                       0 &z = z_0
+                \end{cases}
+                \intertext{Dann ist $g$ stetig auf $U$ und analytisch in $U\setminus\set{z_0}$. Nach Satz~\ref{satz:morera} ist $g$ analytisch auf $U$}
+                a\of{z} &\coloneqq \frac{g\of{z}}{z-z_0} = \frac{g\of{z} - g\of{z_0}}{z-z_0} \to g'\of{z_0}\text{ für } z\to z_0\\
+                A\of{z_0} &\to \lim_{z\to z_0} \pair{z-z_0}^{k}f\of{z} \neq 0\\
+                \impl f\of{z} &= \frac{A\of{z}}{\pair{z-z_0}^k}\tag{$z\in U\setminus\set{z_0}$}\\
+                A\of{z_0} &\neq 0
+            \end{align*}
+            Das heißt wir haben nach Definition einen Pol der Ordnung $k$ in $z_0$.
+        \end{proof}
+    \end{satz}
+
+    \begin{satz}[Caseratti (?) Weierstraß] % Satz 6
+        $f$ habe in $z_0$ eine wesentliche Singularität und $U\subseteq\C$ sei offen mit $z_0\in U$. Außerdem sei $f: U\setminus\set{z_0}\to\C$ analytisch. Dann ist $R = R_U = f\of{U\setminus\set{z_0}} = \set{f\of{z}: z\in U\setminus\set{z_0}}$ dicht in $\C$.
+
+        \begin{proof}
+            Angenommen die Aussage ist falsch. Dann existiert ein $w\in\C$ und ein $\delta > 0$, sodass
+            \begin{align*}
+                \abs{f\of{z} - w} &> \delta\quad\forall z\in U\setminus\set{z_0}\\
+                \equivalent \frac{1}{\abs{f\of{z} - w}} &< \frac{1}{\delta}\quad\forall z\in U\setminus\set{z_0}
+                \intertext{Das heißt die Funktion}
+                g\of{z} &\coloneqq \frac{1}{f\of{z} - w}\tag{$z\in U\setminus\set{z_0}$}
+                \intertext{Nach Satz~\ref{satz:krit-hebbar} hat $g$ eine hebbare Singularität in $z_0$. Das heißt $g$ hat eine analytische Fortsetzung auf $U$}
+                \impl f\of{z} &= w + \frac{1}{g\of{z}}\tag{$z\in U\setminus\set{z_0}$}
+            \end{align*}
+            Das heißt $f$ hat eine hebbare Singularität oder einen Pol in $z_0$, das ist ein Widerspruch zur Annahme.
+        \end{proof}
+    \end{satz}
+
 \end{document}
