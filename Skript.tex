@@ -1918,4 +1918,144 @@
         \end{proof}
     \end{satz}
 
+    \subsection{Laurententwicklung}
+
+    \marginnote{[16. Jun]}Sei $f: D_R\of{z_0}$ analytisch. Dann existiert eine konvergente Potenzreihenentwicklung $f\of{z} = \sum_{k=0}^{\infty} a_k \pair{z-z_0}^k$ für $\abs{z-z_0} < R$.\\[.5\baselineskip]
+    \textbf{Frage}: Was passiert, wenn $f: \dot D_R\of{z_0} \subseteq D_R\of{z_0}\setminus\set{z_0} \to \C$ analytisch ist? Oder wenn $f: A_{R_1, R_2}\of{z_0} \to \C$ analytisch ist?\\[.5\baselineskip]
+    \textbf{Antwort}: Wir werden sehen, dass wir stattdessen die Reihe $\dsty f\of{z} = \sum_{n\in\Z}^{} a_n \pair{z-z_0}^n$ betrachten müssen, um ähnliche Konvergenzresultate zu erhalten.
+
+    \begin{definition}
+        Sei gegeben eine zweiseitige Folge $(\mu_n)_{n\in\Z}$. Dann ist
+        \begin{align*}
+            L\coloneqq &\sum_{n\in\Z}^{} \mu_n = \sum_{n=-\infty}^{\infty} \mu_n
+            \intertext{konvergent, falls}
+            L_- &\coloneqq \sum_{n=-\infty}^{-1} \mu_n \coloneqq \lim_{k\toinf} \sum_{n=-k}^{-1} \mu_n
+            \intertext{und}
+            L_+ &\coloneqq \sum_{n=0}^{\infty} \mu_k = \lim_{j\toinf} \sum_{n=0}^{j} \mu_n
+            \intertext{beide existieren und}
+            L &= L_- + L_+
+        \end{align*}
+    \end{definition}
+
+    \begin{satz} % Satz 8
+        Gegeben $(a_n)_{n\in\Z} \subseteq \C$. Dann ist
+        \begin{align*}
+            f\of{z}&\coloneqq \sum_{n\in\Z}^{} a_n \pair{z-z_0}^n
+            \intertext{konvergent auf}
+            A\of{z_0} &= A_{R_1, R_2}\of{z_0} = \set{R_1 < \abs{z-z_0} < R_2}
+            \intertext{mit}
+            R_2 &= \frac{1}{\limsup_{n\toinf} \abs{a_n}^{\frac{1}{n}}}\\
+            R_1 &= \limsup_{n\toinf} \abs{a_{-n}}^{\frac{1}{n}} = \limsup_{n\to -\inf} \abs{a_n}^{-\frac{1}{n}}
+        \end{align*}
+        Beachte den Spezialfall, dass $R_1 = 0$. In diesem Fall ist $A_{0, R}\of{z_0} = \dot D_R\of{z_0}$.
+
+        \begin{proof}
+            \begin{align*}
+                f_+ \of{z} &= \sum_{n=0}^{\infty} a_n \pair{z-z_0}^n
+                \intertext{konvergent für $z\in D_R\of{z_0}$ mit}
+                R_2 &= \frac{1}{\limsup_{n\toinf} \abs{a_n}^{\frac{1}{n}}}
+                \intertext{nach Wurzelkriterium. Damit bleibt noch der Negativteil}
+                f_-\of{z} &= \sum_{n=-\infty}^{-1} a_n\pair{z-z_0}^n = \sum_{k=1}^{\infty} a_{-k}\pair{z-z_0}^{-k}
+                \intertext{Für Wurzelkrit. müsste gelten}
+                \limsup_{k\toinf} \abs{a_{-k}\pair{z-z_0}^{-k}}^{\frac{1}{k}} &= \limsup_{k\toinf} \abs{a_{-k}}^{\frac{1}{k}} \frac{1}{\abs{z-z_0}} < 1\\
+                \equivalent \limsup_{k\toinf} \abs{a_{-k}}^{\frac{1}{k}} &< \abs{z-z_0}
+            \end{align*}
+            Das heißt wir haben die Behauptung, da $f_+$ auf $\abs{z-z_0} < R_1$ und $f_-$ auf $\abs{z-z_0} > R_1$ konvergiert und analytisch ist. Damit ist auch $f\of{z} = f_+\of{z} + f_-\of{z}$ analytisch auf $R_1 < \abs{z-z_0} < R_2$.
+        \end{proof}
+    \end{satz}
+
+    \begin{satz}[Laurententwicklung] % Satz 9
+        Sei $f: A_{R_1, R_2}\of{z_0} \to \C$ analytisch. Dann wird $f$ durch eine konvergente Laurententwicklung dargestellt. Das heißt es exstiert eine Folge $(a_n)_{n\in\Z} \subseteq\C$ mit
+        \begin{align*}
+            f\of{z} &= \sum_{n=-\infty}^{\infty} a_n\pair{z-z_0}^n\tag{$z\in A_{R_1, R_2}\of{z_0}$}
+        \end{align*}
+        \begin{proof}
+            Sei $R_1 < \rho_1 < \rho_2 < R_2$ und $C \rho_1 \of{z_0}, C\rho_2\of{z_0}$ Kreisscheiben um $z_0$ mit Radius $\rho_1$ bzw. $\rho_2$.\\
+            \textsc{Schritt 1}: Für alle analytischen Funktion $g: A_{R_1, R_2}\of{z_0}\to\C$ gilt
+            \begin{align*}
+                0 &= \int_{C\rho_2\of{z_0}}^{} g\of{w} \dif w = \int_{C\rho_1\of{z_0}}^{} g\of{w} \dif w
+                \intertext{Nach dem ??-Satz gilt damit}
+                \int_{C\rho_1\of{z_0}}^{} g\of{w} \dif w &= \int_{\tilde{C}\rho_2\of{z_0}}^{} g\of{w} \dif w = \int_{C\rho_2\of{z_0}}^{} g\of{w} \dif w
+            \end{align*}
+            \textsc{Schritt 2}: Sei $z\in A_{R_1, R_2}\of{z_0}$. Dann existieren $R_1 < \rho_1 < \abs{z-z_0} < \rho_2 < R_2$. Wir definieren
+            \begin{align*}
+                g\of{w} &\coloneqq \begin{cases}
+                                       \frac{f\of{w}- f\of{z}}{w-z} &w\in A_{R_1, R_2}\of{z_0}\setminus\set{z}\\
+                                       f'\of{w} &w = z
+                \end{cases}
+            \end{align*}
+            Dann ist $g$ stetig in $A_{R_1, R_2}\of{z_0}$ und analytisch in $A_{R_1, R_2}\of{z_0}\setminus\set{z}$. Dann gilt nach Satz~\ref{satz:morera}, dass $g$ analytisch auf $A_{R_1, R_2}\of{z_0}$ ist und nach \textsc{Schritt 1} ist damit
+            \begin{align*}
+                \int_{C\rho_1\of{z_0}}^{} g\of{w} \dif w &= \int_{C\rho_2\of{z_0}}^{} g\of{w} \dif w\\
+                \impl \int_{C\rho_1\of{z_0}}^{} g\of{w} \dif w &= \int_{C\rho_1\of{z_0}}^{} \frac{f\of{- f\of{z}}}{w-z} \dif w\\
+                &= \int_{C\rho_1\of{z_0}}^{} \frac{f\of{w}}{w-z}\dif w - f\of{z} \int_{C\rho_1\of{z_0}}^{} \frac{1}{w-z} \dif w\\
+                &= \int_{C\rho_2\of{z_0}}^{} \frac{f\of{w}}{w-z} \dif w = f\of{z} \int_{C\rho_2\of{z_0}} \frac{\dif w}{w-z}\\
+                \impl f\of{z} \pair{\underbrace{\int_{C\rho_2\of{z_0}}^{} \frac{\dif w}{w-z}}_{=2\pi i} - \underbrace{\int_{C\rho_1\of{z_0}}^{} \frac{\dif w}{w-z}}_{=0}} &= \int_{C\rho_2\of{z_0}}^{} \frac{f\of{w}}{w-z} \dif w - \int_{C\rho_1\of{z_0}}^{} \frac{f\of{w}}{w-z} \dif w\\
+                \impl 2\pi i f\of{z} &= \int_{C\rho_2\of{z_0}}^{} \frac{f\of{w}}{w-z} \dif w - \int_{C\rho_1\of{z_0}}^{} \frac{f\of{w}}{w-z} \dif w
+            \end{align*}
+            Auf $C\rho_2\of{z_0}: \abs{w-z_0} = \rho_2 > \abs{z-z_0}$
+            \begin{align*}
+                \impl \frac{1}{w-z} &= \frac{1}{w-z_0 - \pair{z-z_0}} = \frac{1}{w-z_0} - \frac{1}{1-\frac{z-z_0}{w-z_0}}\\
+                &= \frac{1}{w-z_0} \sum_{n=0}^{\infty} \pair{\frac{z-z_0}{w-z}}^n = \sum_{n=0}^{\infty} \frac{\pair{z-z_0}^n}{\pair{w-z_0}^{n+1}}\\
+                \impl \int_{C\rho_2\of{z_0}}^{} \frac{f\of{w}}{w-z} \dif w &= \int_{C\rho_2\of{z_0}}^{} f\of{w} \sum_{n=0}^{\infty} \frac{\pair{z-z_0}^n}{\pair{w-z_0}^{n+1}} \dif w\\
+                &= \sum_{n=0}^{\infty} \underbrace{\int_{C\rho_2\of{z_0}}^{} \frac{f\of{w}}{\pair{w-z_0}^{n+1}}}_{=2\pi i a_n} \dif w \pair{z-z_0}^n
+            \end{align*}
+            auf $C\rho_2\of{z_0}: \abs{z-z_0} > \rho_2 = \abs{w-z_0}$ überträgt sich das auch. Das heißt wir haben mit
+            \begin{align*}
+                f\of{z} &= \sum_{n=0}^{\infty} \frac{1}{2\pi i} \int_{C\rho_2\of{z_0}}^{} \frac{f\of{w}}{\pair{w-z_0}^{n+1}} \dif w \pair{z-z_0}^n + \sum_{k=0}^{\infty} \frac{1}{2\pi i}\int_{C\rho_1\of{z_0}}^{} \pair{w-z_0}^k f\of{w}\dif w \pair{z-z_0}^{-\pair{k+1}}\\
+                \impl f\of{z} &= \sum_{n=0}^{\infty} a_n \pair{z-z_0}^n + \sum_{k=1}^{\infty} a_{-\pair{k+1}} \pair{z-z_0}^{-\pair{k+1}}\\
+                a_n &= \frac{1}{2\pi i}\begin{cases}
+                                           \int_{C\rho_2\of{z_0}}^{} \frac{f\of{w}}{\pair{w-z_0}^{n+1}} \dif w &n \geq 0\\
+                                           \int_{C\rho_1\of{z_0}}^{} \frac{f\of{w}}{\pair{w-z_0}^{n+1}} \dif w &n < 0
+                \end{cases}
+            \end{align*}
+            eine Potenzreihenentwicklung.
+        \end{proof}
+    \end{satz}
+
+    \begin{bemerkung}
+        Im vorherigen Beweis hängt $a_n$ nicht von $\rho_1$ und $\rho_2$ ab. Es gilt
+        \begin{align*}
+            a_n &= \frac{1}{2\pi i} \int_{C r\of{z_0}}^{} \frac{f\of{w}}{\pair{w-z_0}^{n-1}} \dif w\tag{$\forall n\in\Z$}
+        \end{align*}
+        für alle $R_1 < r < R_2$. Das zeigt sich wie folgt: Es gilt $z_0 \not\in A_{R_1, R_2}\of{z_0}$
+        \begin{align*}
+            \impl A_{R_1, R_2}\of{z_0} \ni w \mapsto \frac{f\of{w}}{\pair{w-z_0}^{n+1}}\text{ analytisch}
+        \end{align*}
+        Nach \textsc{Schritt 1} aus dem Beweis gilt der Zusammenhang also unaghngig von $R_1 < r < R_2$.
+    \end{bemerkung}
+
+    \begin{bemerkung}
+        Die Laurent-Entwicklung ist eindeutig. Das heißt: Ist $f\of{z} = \sum_{n=0}^{\infty} b_n\pair{z-z_0}^n$ auf $A_{R_1, R_2}\of{z_0}$. Dann ist
+        \begin{align*}
+            b_n &= \frac{1}{2\pi i} \int_{C r\of{z_0}}^{} \frac{f\of{w}}{\pair{w-z_0}^{n+1}} \dif w\tag{$R_1 < r < R_2$}
+        \end{align*}
+        Das heißt die $b_n$ entsprechen den hergeleiteten $a_n$ und es gibt damit insbesondere nur eine Koeffizientenfolge.
+    \end{bemerkung}
+
+    \begin{korollar}
+        Ist $f: U\setminus\set{z_0} \to \C$ analytisch. Dann folgt für alle $\delta > 0$ mit $D_{\delta}\of{z_0}\subseteq U$ ist $f\of{z} = \sum_{n=-\infty}^{\infty} a_n\pair{z-z_0}^n$ für alle $z\in \dot D_{\delta}\of{z_0}$. Wobei
+        \begin{align*}
+            a_n &= \frac{1}{2\pi i}\int_{C r\of{z_0}}^{} \frac{f\of{w}}{\pair{w-z}^{n+1}} \dif w\tag{$0 < r < \delta$}
+        \end{align*}
+        \begin{proof}
+            Wir setzen $R_2 = \delta$ und wenden den vorherigen Satz an.
+        \end{proof}
+    \end{korollar}
+
+    \begin{beispiel}
+        \theoremescape
+        \begin{enumerate}
+            \item $\frac{\pair{z+1}^2}{z} = \frac{1}{z} + 2 + z$ für $z\neq 0$.
+            \item
+            \begin{align*}
+                \frac{1}{z^2\pair{1-z}} &= \frac{1}{z^2} \sum_{n=0}^{\infty} z^n = \sum_{n=-2}^{\infty} z^n
+            \end{align*}
+            \item
+            \begin{align*}
+                \sin \frac{1}{z-1} &= \sum_{n=0}^{\infty} \pair{-1}^{n} \frac{\pair{\frac{1}{z-1}}^{2n+1}}{(2n+1)!}
+            \end{align*}
+        \end{enumerate}
+    \end{beispiel}
+
 \end{document}
