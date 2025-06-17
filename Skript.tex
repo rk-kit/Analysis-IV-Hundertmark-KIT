@@ -129,6 +129,7 @@
 \DeclareMathOperator{\diag}{diag}
 \DeclareMathOperator{\fdiv}{div}
 \DeclareMathOperator{\Arg}{Arg}
+\DeclareMathOperator{\Res}{Res}
 
 % Mengenbezeichner
 \newcommand{\R}{\mathbb{R}}
@@ -2057,5 +2058,108 @@
             \end{align*}
         \end{enumerate}
     \end{beispiel}
+
+    \begin{definition}[Definition Hauptteil, analytischer Teil] % Definition 11
+        \marginnote{[17. Jun]}
+        (fehlt)
+    \end{definition}
+
+    \begin{lemma} % Lemma 12
+    (fehlt)
+    \end{lemma}
+
+    \begin{anwendung}[Partialbruchzerlegung]
+        Sei $R\of{z} = \frac{P\of{z}}{Q\of{z}}$ mit $P, Q$ Polynome sowie $\grad P < \grad Q$. Dann ist $R$ analytisch auf $\C$ ohne die Nullstellen von $Q$. Außerdem gilt $\lim_{z\toinf} R\of{z} = 0$.\\
+        Nun gebe es $n$ unterschiedliche Nullstellen von $Q$, jeweils mit Vielfachheit $k_j$. Dann gilt $\grad Q = \sum_{j=1}^{n} k_j$ sowie $Q\of{z} = \alpha \prod_{j=1}^{n} \pair{z-z_j}^{k_j}$. Behauptung: Es existieren Polynome $P_j$, $j=1, \ldots, n$ mit
+        \begin{align*}
+            R\of{z} &= \sum_{j=1}^{n} P_j\of{\frac{1}{z-z_j}}
+        \end{align*}
+        Partialbruchzerlegung von $R$.
+        \begin{proof}
+            $R$ hat in $z_j$ einen Pol der Ordnung $k_j$. In der Nähe von $z_j$ haben wir
+            \begin{align*}
+                R\of{z} &= \sum_{n=-k_j}^{\infty} a_n \pair{z-z_j}^n = \underbrace{\sum_{n=0}^{\infty} a_n\pair{z-z_j}^n}_{\text{analytisch in Nähe }z_j} + \underbrace{\sum_{n=-k_j}^{-1} a_n\pair{z-z_j}^n}_{=P_j\of{\frac{1}{z-z_j}}}
+                \intertext{Das heißt}
+                P_j\of{\frac{1}{z-z_j}}&\text{ existiert } \forall z\neq z_j\\
+                R_1\of{z} &= R\of{z} - P_1\of{\frac{1}{z-z_1}}
+                \intertext{ist analytisch für $z\neq z_1$ und $R_1\of{z}$ ist stetig in $z_1$. Nach Satz~\ref{satz:morera} ist $R_1$ analytisch in $z\neq z_j$ für $j=2, \ldots, n$. Dann ist}
+                P_2\of{\frac{1}{z-z_2}}&\text{Hauptteil von $R$ in $z_2$}\\
+                R_2\of{z} &= R_1\of{z} - P_2\of{\frac{1}{z-z_2}}
+                \intertext{$R_2$ ist analytisch für $z\neq z_j$, $j=2, \ldots, n$ und stetig in $z_2$. $R_2$ hat eine analytische Fortsetzung auf $z\neq z_j, j=3, \ldots, n$. Diese nennen wir ebenfalls $R_2$. So folgt induktiv}
+                R_j\of{z} &= R_{j+1}\of{z} - P_j\of{\frac{1}{z-z_j}\tag{$0\leq j \leq n-1$}}
+                \intertext{Wir gehen auch hier wieder analog vor und verwenden die analytische Fortsetzung, die $R_{j+1}$ in $z_{j+1}$ hat. Damit gilt}
+                R\of{z} &= R_n\of{z} + \underbrace{\sum_{j=1}^{n} P_j\of{\frac{1}{z-z_j}}}_{\to 0 \text{ für }z\toinf}\\
+                \impl R_n\of{z} &\to 0\text{ für }\abs{z}\toinf
+            \end{align*}
+            Damit ist $R_n$ eine beschränkte ganze Funktion auf $\C$. Aber da $R_n$ auch analytisch auf $\C$ ist, folgt, dass $R_n$ konstant und damit gerade gleich $0$ sein muss. Damit folgt die Behauptung.
+        \end{proof}
+    \end{anwendung}
+
+    \newpage
+
+
+    \section{[*] Der Residuen-Satz}
+
+    \subsection{Windungszahlen}
+    \thispagestyle{sectionpage}
+
+    $f$ hat Singularität in $z_0$
+    \begin{align*}
+        f\of{z} &= \sum_{n=-\infty}^{\infty} a_n\pair{z-z_0}^n\tag{$0< \abs{z-z_0}< \delta$}
+        \intertext{Sei $0 < r < \delta^n$ und $C_r\of{z_0}$ der Kreis um $z_0$ mit Radius $r$. Dann ist $\dot D_r\of{z_0}$ nicht einfach zusammenhängend. Aber es lässt sich nachrechnen, dass}
+        \int_{C_r\of{z_0}}^{} f\of{z} \dif z &= 2\pi i a_{-1}
+    \end{align*}
+
+    \begin{definition} % Definition 1
+        Sei $f\of{z} = \sum_{n=-\infty}^{\infty} a_n\pair{z-z_0}^n$ für $0 < \abs{z-z_0} < \delta$. Wir nennen $a_{-1}$ das Residuum von $f$ in $z_0$ und schreiben
+        \begin{align*}
+            \Res\of{f, z_0} &\coloneqq 2\pi i a_{-1}
+        \end{align*}
+    \end{definition}
+
+    \noindent\textbf{Berechnung von Residuen.}
+    \begin{enumerate}
+        \item $f$ hat Pol von Grad 1 bei $z_0$.
+        \begin{align*}
+            f\of{z} &= \frac{A\of{z}}{B\of{z}}
+            \intertext{mit $A, B$ analytisch nahe $z_0$ und $A\of{z_0} \neq 0$}
+            \impl a_{-1} &= \lim_{z\to z_0} \pair{z-z_0}\frac{A\of{z}}{B\of{z}} = \frac{A\of{z_0}}{B'\of{z_0}}
+        \end{align*}
+        \begin{proof}
+            \begin{align*}
+                f\of{z} &= \sum_{n=-1}^{\infty} a_n\pair{z-z_0}^n = \frac{a_{-1}}{z-z_0} + a_0 + a_1\pair{z-z_0}^n + \ldots\\
+                \impl a_{-1} &= \lim_{z\to z_0} \pair{z-z_0} f\of{z} = \lim_{z\to z_0} \frac{\pair{z-z_0}A\of{z}}{B\of{z}} = \frac{A\of{z}}{B'\of{z}}\qedhere
+            \end{align*}
+        \end{proof}
+        \item $f$ hat einen Pol der Ordnung $k$ bei $z_0$. Dann gilt
+        \begin{align*}
+            a_{-1} &= \frac{1}{(k-1)!}\frac{\dif^{k-1}}{\dif z^{k-1}}\interv{\pair{z-z_0}^k f\of{z}}\of{z_0}
+        \end{align*}
+        \begin{proof}
+            \begin{align*}
+                f\of{z} &= \sum_{n=-k}^{\infty} a_n \pair{z-z_0}^n\\
+                \pair{z-z_0}^k f\of{z} &= \sum_{n=-k}^{\infty} a_n\pair{z-z_0}^{n+k} = \sum_{n=0}^{\infty} a_{n-k}\pair{z-z_0}^{n}\\
+                \frac{\dif^{k-1}}{\dif z^{k-1}}\pair{\pair{z-z_0}^{k}f\of{z}} &= \pair{k-1}! a_{-1} + k! a_0 \pair{z-z_0} + \ldots\\
+                \impl \frac{\dif^{k-1}}{\dif z^{k-1}}\pair{\pair{z-z_0}^k f\of{z}}\vert_{z=z_0} &= \pair{k-1}!a_{-1}\qedhere
+            \end{align*}
+        \end{proof}
+        \item $f$ hat eine wesentliche Singularität in $z_0$. Dann lese $a_{-1}$ in der Laurententwicklung ab.
+    \end{enumerate}
+
+    \begin{beispiel}
+        \theoremescape
+        \begin{enumerate}
+            \item $f\of{z} = \frac{1}{\sin z}$. Dann ist
+            \begin{align*}
+                \Res\of{f, 0} &= \lim_{z\to 0} \frac{z}{\sin z} = \frac{1}{\sin 0} = 1
+            \end{align*}
+            \item $f\of{z} = \frac{1}{z^n-1}$
+            \begin{align*}
+                \frac{1}{z^n-1} &= \frac{1}{\pair{z-1}\pair{z+1}\pair{z-i}\pair{z+i}}\\
+                \impl \Res\of{f, i} &= \frac{1}{\pair{i-1}\pair{i+1}\pair{2i}} = \frac{1}{-4i} = \frac{i}{4}
+            \end{align*}
+        \end{enumerate}
+    \end{beispiel}
+
 
 \end{document}
