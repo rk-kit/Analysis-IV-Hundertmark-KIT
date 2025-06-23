@@ -2161,5 +2161,133 @@
         \end{enumerate}
     \end{beispiel}
 
+    \marginnote{[23. Jun]}
+
+    \noindent\textbf{Ziel}: Berechne $\dsty \int_{\gamma}^{} f\of{z} \dif z$, wobei $\gamma$ eine beliebige geschlossene Kurve ist und $f$ Singularitäten in $z_1, \ldots, z_n$ hat.
+
+    \begin{definition}
+        Sei $\gamma$ eine geschlossene Kurve und $a\not\in\gamma$. Dann heißt
+        \begin{align*}
+            n\of{\gamma, a} &\coloneqq \frac{1}{2\pi i} \int_{\gamma}^{} \frac{\dif z}{z-a}
+        \end{align*}
+        die Windungszahl von $\gamma$ um $a$.
+    \end{definition}
+
+    \begin{bemerkung}
+        Wir hätten gerne, dass die Windungszahl aus der vorherigen Definition eine ganze Zahl ist. Anhand der Definition lässt sich das nicht direkt erkennen, aber die Betrachtung einiger Beispiele legt tatsächlich nahe, dass das der Fall ist:
+        \begin{enumerate}
+            \item $a$ liegt vollständig außerhalb von $\gamma$. Dann gilt direkt $n\of{\gamma, a} = 0$.\\
+            \item Sei $\gamma = C_r\of{z_0}, a\in D_r\of{z_0}$ mit Singularität $z_0$. Dann haben wir bereits ausgerechnet, dass
+            \begin{align*}
+                \int_{\gamma}^{} \frac{1}{z-a} \dif z = 2\pi i
+            \end{align*}
+            \item Sei $\gamma = C_r\of{z_0}, a\not\in D_r\of{z_0}\cup C_r\of{z_0}$ mit Singularität $z_0$. Dann gilt direkt $n\of{\gamma, a} = 0$.\\
+            \item Sei $\gamma$ ein Kreis, der sich $k$-mal um $a$ windet mit $\abs{a-z_0} < r$, $C^k_r\of{z_0} = re^{it} + z_0$, $0 \leq t \leq 2\pi k$
+            \begin{align*}
+                \impl n\of{C_r^k\of{z_0}, z_0} &= \frac{1}{2\pi i} \int_{0}^{2\pi k} \frac{\dot z\of{t}\dif t}{z\of{t} - z_0} = \frac{1}{2\pi i} \int_{0}^{2\pi k} \frac{ire^{it}}{re^{it}} \dif t = \frac{1}{2\pi i} i \int_{0}^{2\pi k}  \dif t = \frac{i2\pi k}{2\pi i} = k
+            \end{align*}
+            Damit ist $n\of{C_r^k\of{z_0}, a} = k$ für $\abs{a-z_0} < r$.
+        \end{enumerate}
+        Das gilt tatsächlich auch im Allgemeinen wie das folgende Lemma zeigt:
+    \end{bemerkung}
+
+    \begin{lemma}
+        Sei $\gamma$ eine geschlossene Kurve und $a\not\in\gamma$. Dann gilt $n\of{\gamma, a} \in\Z$.
+
+        \begin{proof}
+            Sei $z\of{t}$ für $0\leq t \leq 1$ eine Parametrisierung von $\gamma$. Wir wollen zeigen
+            \begin{align*}
+                \int_{0}^{1} \frac{z\of{t}}{z\of{t}-a} \dif t &\in\Z\\
+                \intertext{Definiere für $0\leq s \leq 1$}
+                F\of{s} &\coloneqq \int_{0}^{s} \frac{z\of{t}}{z\of{t}-a} \dif t\\
+                h\of{s} &\coloneqq \pair{z\of{s} - a}e^{-F\of{s}}\\
+                \impl \dot F\of{s} &= \frac{\dot z\of{s}}{z\of{s} - a}\\
+                \impl \dot h\of{s} &= \dot z\of{s}e^{-F\of{s}} - \pair{z\of{s} - a}e^{-F\of{s}}\dot F\of{s}\\
+                &= e^{-F\of{s}}\interv{\dot z\of{s} - \pair{z\of{s} - a}\frac{\dot z\of{s}}{z\of{s} - a}} = 0\\
+                \impl h&\text{ ist konstant}\\
+                \impl z\of{0} - a &= h\of{0} = h\of{s} = \pair{z\of{s} - a}e^{-F\of{s}}\\
+                \impl e^{F\of{s}} &= \frac{z\of{s} - a}{z\of{0} - a}\\
+                \impl e^{F\of{1}} &= \frac{z\of{1} - a}{z\of{0} - a} = 1\\
+                \impl 2\pi i n\of{\gamma, a} &= F\of{1} = 2\pi i k
+            \end{align*}
+            für ein $k\in\Z$. Damit gilt $n\of{\gamma, a} \in \Z$.
+        \end{proof}
+    \end{lemma}
+
+    \begin{definition}
+        Eine Kurve $\gamma$ heißt reguläre, geschlossene Kurve, falls $\gamma$ eine einfache geschlossene Kurve ist (keine Selbstüberschneidungen) und $n\of{\gamma, a} \in\set{0, 1}$ für alle $a\not\in\gamma$.\\
+        In diesem Fall ist $\set{a\in \C: n\of{\gamma, a} = 1}$ das Innere von $\gamma$ und $\set{a\in\C: n\of{\gamma, a} = 0}$ das Äußere von $\gamma$.
+    \end{definition}
+
+    \begin{satz}[Cauchy-Residuensatz] % Satz 5
+        \label{satz:cauchy-residuen}
+        Sei $U\subseteq\C$ ein einfach zusammenhängendes Gebiet und $f$ analytisch auf $U$ bis auf endlich viele beliebige Singularitäten $z_1, \ldots, z_m$. Das heißt $f: U\setminus\set{z_1, \ldots, z_m} \to \C$ ist analytisch. Sei außerdem $\gamma$ eine geschlossene Kurve in $U$ mit $z_j \not\in\gamma$. Dann gilt
+        \begin{align*}
+            \int_{\gamma}^{} f\of{z} \dif z &= 2\pi i \sum_{j=1}^{m} n\of{\gamma, z_j}\Res\of{f, z_j}
+        \end{align*}
+
+        \begin{proof}
+            Sei $k\in\set{1, \ldots, m}$
+            \begin{align*}
+                \impl f\of{z} &= \underbrace{A_k\of{z}}_{\text{analytisch nahe $z_k$}} + \underbrace{H_k\of{\frac{1}{z-z_k}}}_{\text{Hauptteil von $f$ nahe $z_k$}}\\
+                \impl \sum_{n=-\infty}^{\infty} a_n^{(k)}\pair{z-z_k}^n &= \sum_{n=0}^{\infty} a_n^{(k)}\pair{z-z_k}^n + \underbrace{\sum_{n=-\infty}^{-1} a_n^{(k)} \pair{z-z_k}^n}_{=H_k\of{\frac{1}{z-z_k}}}
+                \intertext{Betrachte, dass $H_k\of{\frac{1}{z-z_k}}$ konvergiert für alle $z\neq z_k$. Das heißt für alle $\C\setminus\set{z_k}$. Wir definieren}
+                g\of{z} &= f\of{z} - \sum_{j=1}^{m} H_j\of{\frac{1}{z-z_j}}\tag{$z\in\C\setminus\set{z_1, \ldots, z_m}$}
+                \intertext{analytisch auf seinem Definitionsbereich und}
+                \lim_{z\to z_k} g\of{z} &= \lim_{z\to z_k} \interv{f\of{z} - H_k\of{\frac{1}{z-z_k}} - \sum_{j=1,j\neq k}^{m} H_j\of{\frac{1}{z-z_k}}}\\
+                &= A_k\of{z_k} - \sum_{j=1,j\neq k}^{m} H_j\of{\frac{1}{z_k - z_j}}
+                \intertext{Nach Satz~\ref{satz:morera} können wir $g$ analytisch auf $U$ fortsetzen}
+                \impl \int_{\gamma}^{} f\of{z} \dif z &= \int_{\gamma}^{} g\of{z} \dif z + \sum_{j=1}^{m} \int_{\gamma}^{} H_j\of{\frac{1}{z-z_j}} \dif z\\
+                \impl \int_{\gamma}^{} H_j\of{\frac{1}{z-z_j}} \dif z &= \int_{\gamma}^{} \sum_{n=1}^{\infty} a_{-n}^{(j)}\frac{1}{\pair{z-z_j}^n} \dif z = \sum_{n=1}^{\infty} a_{-n}^{(j)} \int_{\gamma}^{} \frac{\dif z}{\pair{z-z_j}^n}\\
+                \intertext{Es gilt aber}
+                \frac{\dif}{\dif z} \pair{z-z_j}^{-n+1} &= \pair{1-n}\pair{z-z_j}^{-n}\\
+                \impl \int_{\gamma}^{} \frac{\dif z}{\pair{z-z_j}^n} &= 0\quad\forall n\geq 2
+                \intertext{Damit können wir fast alle Summenterme weglassen und erhalten}
+                \int_{\gamma}^{} H_j\of{\frac{1}{z-z_j}} \dif z &= a_{-1}^{(j)} \int_{\gamma}^{} \frac{\dif z}{z-z_j} = n\of{\gamma, z_j}\Res\of{f, z_j}2\pi i\\
+                \impl \int_{\gamma}^{} f\of{z} \dif z &= 2\pi i \sum_{j=1}^{m} n\of{\gamma, z_j}\Res\of{f, z_j}\qedhere
+            \end{align*}
+        \end{proof}
+    \end{satz}
+
+    \begin{korollar}
+        Sei $\gamma$ eine reguläre geschlossene Kurve und $f$ analytisch bis auf Singularitäten in $z_1, \ldots, z_m$ im Inneren von $\gamma$. Dann gilt
+        \begin{align*}
+            \int_{\gamma}^{} f\of{z} \dif z &= 2\pi i \sum_{j=1}^{m} \Res\of{f, z_j}
+        \end{align*}
+        \begin{proof}
+            Folgt direkt aus Satz~\ref{satz:cauchy-residuen}.
+        \end{proof}
+    \end{korollar}
+
+    \subsection{Anwendungen}
+
+    \begin{definition} % Definition 7
+        $f$ ist meromorph im Gebiet $D$, wenn $f$ nicht in $D$ ist, bis auf endlich viele beliebige Singularitäten.
+    \end{definition}
+
+    \begin{satz}
+        Sei $\gamma$ eine reguläre geschlossene Kurve und $f$ meromorph im Inneren von $\gamma$ und auf $\gamma$. Außerdem enthalte $\gamma$ keine Nullstellen und keine Pole von $f$.\\
+        Es sei $Z$ die Anzahl (gezählt mit Vielfachheiten) der Nullstellen von $f$ im Inneren von $\gamma$ und $P$ die Anzahl (gezählt mit Vielfachheiten) der Pole von $f$ im Inneren von $\gamma$. Dann gilt
+        \begin{align*}
+            \frac{1}{2\pi i}\int_{\gamma}^{} \frac{f'}{f} \dif z &= Z - P
+        \end{align*}
+
+        \begin{proof}
+            $\frac{f'}{f}$ ist analytisch in $U$ bis auf Nullstellen und Pole von $f$. Nun habe $f$ eine Nullstelle in $z = a$. Dann gilt
+            \begin{align*}
+                f\of{z} &= \pair{z-a}^{k}g\of{z}\tag{$g\of{a}\neq 0$}\\
+                \frac{f'\of{z}}{f\of{z}} &= \frac{k\pair{z-a}^{k-1}g\of{z} + \pair{z-a}^{k}g'\of{z}}{\pair{z-a}^k g\of{z}}\\
+                &= \frac{k}{z-a} + \frac{g'\of{z}}{g\of{z}}\\
+                \impl \Res\of{\frac{f'}{f}, a} &= k
+                \intertext{Habe nun $f$ einen Pol der Ordnung $k$ in $a$. Dann gilt}
+                f\of{z} &= \pair{z-a}^{-k}g\of{z}\\
+                f'\of{z} &= -k\pair{z-a}^{-k-1}g\of{z} + \pair{z-a}^{-k}g'\of{z}\\
+                \impl \frac{f'\of{z}}{f\of{z}} &= \frac{-k}{z-a} + \frac{g'\of{z}}{g\of{z}}\\
+                \impl \Res\of{\frac{f'}{f}, a} &= -k
+                \intertext{Damit folgt aus Satz~\ref{satz:cauchy-residuen}, dass}
+                \frac{1}{2\pi i}\int_{\gamma}^{} \frac{f'}{f} \dif z &= \sum_{j=1}^{m} \Res\of{\frac{f'}{f}, z_j} = Z - P\qedhere
+            \end{align*}
+        \end{proof}
+    \end{satz}
 
 \end{document}
