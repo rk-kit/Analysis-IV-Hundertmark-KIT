@@ -2265,7 +2265,7 @@
         $f$ ist meromorph im Gebiet $D$, wenn $f$ nicht in $D$ ist, bis auf endlich viele beliebige Singularitäten.
     \end{definition}
 
-    \begin{satz}
+    \begin{satz} % Satz 8
         Sei $\gamma$ eine reguläre geschlossene Kurve und $f$ meromorph im Inneren von $\gamma$ und auf $\gamma$. Außerdem enthalte $\gamma$ keine Nullstellen und keine Pole von $f$.\\
         Es sei $Z$ die Anzahl (gezählt mit Vielfachheiten) der Nullstellen von $f$ im Inneren von $\gamma$ und $P$ die Anzahl (gezählt mit Vielfachheiten) der Pole von $f$ im Inneren von $\gamma$. Dann gilt
         \begin{align*}
@@ -2289,5 +2289,104 @@
             \end{align*}
         \end{proof}
     \end{satz}
+
+    \begin{korollar}[Argumentprinzip] % Korollar 9
+        \marginnote{[24. Jun]}
+        \label{korollar:argument}
+        Sei $U\subseteq\C$ einfach zusammenhängend und offen und $f: U \to \C$ analytisch, sowie $\gamma$ eine reguläre Kurve in $U$, die keine Nullstellen von $f$ enthält. Dann gilt
+        \begin{align*}
+            \frac{1}{2\pi i} \int_{\gamma}^{} \frac{f'}{f} \dif z &= Z\of{f, \gamma} \coloneqq \text{Anzahl Nullstellen von $f$ im Inneren von $\gamma$ mit Vielfachheiten}
+        \end{align*}
+
+        \begin{proof}
+            \textit{(fehlt)}
+        \end{proof}
+    \end{korollar}
+
+    \begin{satz}[Rauché] % Satz 10
+        \label{satz:rauche}
+        Sei $U\subseteq\C$ ein einfach zusammenhängendes, offenes Gebiet, $f,g: U\to\C$ analytisch und $\gamma$ eine reguläre, geschlossene Kurve mit $\abs{f\of{z}} > \abs{g\of{z}}~\forall z\in\gamma$. Dann gilt $Z\of{f+g, \gamma} = Z\of{f, \gamma}$.
+
+        \begin{proof}
+            Sei $f\of{z} = A\of{z}B\of{z}$. Damit ist
+            \begin{align*}
+                f' &= A'B + AB'\\
+                \frac{f}{f'} &= \frac{A'}{A} + \frac{B'}{B}\\
+                \impl \int_{\gamma}^{} \frac{f'}{f} \dif z &= \int_{\gamma}^{} \frac{A'}{A} \dif z + \int_{\gamma}^{} \frac{B'}{B} \dif z\\
+                f + g &= f\pair{1 + \frac{g}{f}}\\
+                \impl Z\of{f+g, \gamma} &= \frac{1}{2\pi i} \int_{\gamma}^{} \frac{(f+g)'}{f+g} \dif z\\
+                &= \underbrace{\frac{1}{2\pi i} \int_{\gamma}^{} \frac{f'}{f} \dif z}_{= Z\of{f, \gamma}} + \underbrace{\frac{1}{2\pi i} \int_{\gamma}^{} \frac{\pair{1+\frac{g}{f}}'}{\pair{1+\frac{g}{f}}} \dif x}_{=0}\\
+                \intertext{Wobei der rechte Teil gleich null ist, weil $1+\frac{g\of{z}}{f\of{z}}\in D_1\of{1}$ und nach Korollar~\ref{korollar:argument}}
+                &= Z\of{f, \gamma}\qedhere
+            \end{align*}
+        \end{proof}
+    \end{satz}
+
+    \begin{anwendung}
+        Betrachte $P\of{z} = z^n + a_{n-1} z^{n-1} + \ldots + a_1 z + a_0$, $f\of{z} = z^n$, $g\of{z} = a_{n-1}z^{n-1} + \ldots + a_1 z + a_0$. Das heißt $f + g = P$. Damit gilt für großes $R$, dass $Z\of{f, C_R\of{0}} = n$. Wir betrachten
+        \begin{align*}
+            \abs{\frac{g\of{z}}{f\of{z}}} &= \abs{a_{n-1} z^{-1} + a_{n-2}z^{-2} + \ldots + a_0 z^{-n}}\\
+            &\leq \abs{a_{n-1}} \frac{1}{\abs{z}} + \abs{a_{n-2}}\frac{1}{\abs{z}^2} + \ldots + \frac{\abs{a_n}}{\abs{z}^n}\\
+            &< 1 \text{ für $R$ groß genug, da $\abs{z} = R$}\\
+            \impl Z\of{P, C_R\of{0}} &= Z\of{f, C_R\of{0}} = n
+        \end{align*}
+        nach Satz~\ref{satz:rauche}. Somit haben wir einen alternativen Beweis zum Fundamentalsatz der Algebra gefunden.
+    \end{anwendung}
+
+    \begin{satz}[Verallgemeinerung der Cauchy-Darstelung] % Satz 11
+        Sei $U$ einfach zusammenhängend und $f: U\to\C$ analytisch, sowie $\gamma$ eine reguläre, geschlossene Kurve in $U$. Dann gilt
+        \begin{align*}
+            f^{(k)}\of{z} &= \frac{k!}{2\pi i} \int_{\gamma}^{} \frac{f\of{w}}{\pair{w-z}^{k+1}} \dif w\tag{$k\in\N_0$}
+        \end{align*}
+        für alle $z$ im Inneren von $\gamma$.
+
+        \begin{proof}
+            Es gilt
+            \begin{align*}
+                f\of{w} &= f\of{z} + \frac{f'\of{z}}{2!}\pair{w-z} + \ldots + \frac{f^{(k)}\of{z}}{k!}\pair{w-z}^k + \ldots\\
+                \impl \frac{f\of{w}}{\pair{w-z}^{k+1}} &= \frac{f\of{z}}{\pair{w-z}^{k+1}} + \ldots + \frac{f^{(k-1)}\of{z}}{\pair{w-z}^2 (k-1)!}\\
+                &~~~+ \frac{f^{(k)}\of{z}}{\pair{w-z}k!} + \frac{f^{(k+1)}\of{z}}{(k+1)!} + \frac{f^{(k+2)}\of{z} (w-z)}{(k+2)!} + \ldots\\
+                \Res\of{\frac{f\of{w}}{(w-z)^{k+1}}, z} &= \frac{f^{(k)}\of{z}}{k!}\\
+                \impl \int_{\gamma}^{} \frac{f\of{w}}{\pair{w-z}^{k+1}} \dif w &= 2\pi i \Res\of{\frac{f\of{w}}{\pair{w-z}^{k+1}}, z} = 2\pi i \frac{f^{(k)}\of{z}}{k!}\qedhere
+            \end{align*}
+        \end{proof}
+    \end{satz}
+
+    \begin{satz} % Satz 12
+        Sei $U$ einfach zusammenhängend und $f_n: U \to\C$ analytisch mit $f_n \to f$ lokal gleichmäßig in $U$. Dann ist $f: U \to\C$ analytisch und $f_n' \to f'$ lokal gleichmäßig in $U$.
+
+        \begin{proof}
+            Es sei $K\subseteq U$. Dann ist für $z\in K$: $D_{3r\of{z}}\of{z}\subseteq U$
+            \begin{align*}
+                \impl K &= \bigcup_{z\in K} \set{z} \subseteq \bigcup_{z\in K} D_{r\of{z}}\of{z}\\
+                K \subseteq \bigcup_{j=1}^{M} D_{r\of{z_j}}\of{z_j} &\subseteq \bigcup_{j=1}^{M} D_{3r_j}\of{z_j} \subseteq U\tag{$r_j \coloneqq r\of{z_j}$}
+                \intertext{Es reicht also zu zeigen, dass $f_n' \to f'$ auf jedem $\overline{D_{r_j}\of{z_j} \subseteq D_{3r_j}\of{z_j}}$}
+                f_n'\of{z} &= \frac{1}{2\pi i} \int_{C_{2r_j}\of{z_j}}^{} \frac{f\of{w}}{\pair{w-z}^2} \dif w\\
+                \impl f_n'\of{z} - f\of{z} &= \frac{1}{2\pi i} \int_{C_{2r_j}\of{z_j}}^{} \frac{f_n\of{w} - f\of{w}}{\pair{w-z}^2} \dif w \to 0 \text{ für } n\toinf
+            \end{align*}
+            da $f_n \to f$ auf $C_{2r_j}\of{z_j}$.
+        \end{proof}
+    \end{satz}
+
+    \begin{satz} % Satz 13
+        Sei $U$ eine zusammenhängende Menge und $(f_n)_n$ eine Funktionenfolge mit $f_n: U \to \C$ analytisch sowie $f_n \to f$ lokal gleichmäßig in $U$ mit $f_n\of{z} \neq 0~\forall z\in U, n\in\N$. Dann gilt entweder $f\of{z} \neq 0~\forall z\in U$ oder $f\of{z} = 0~\forall z\in U$.
+
+        \begin{proof}
+            Wir nehmen an, dass es ein $z\in U$ gibt, sodass $f\of{z} = 0$ und es existiert ein $\delta > 0$, sodass $C_{\delta}\of{z} \subseteq U$ und $f\of{w} \neq 0~\forall w\in C_{\delta}\of{z}$
+            \begin{align*}
+                \frac{1}{2\pi i} \int_{C_{\delta}\of{z}}^{} \frac{f'}{f} \dif w &\geq 1
+                \intertext{Auch}
+                \frac{1}{2\pi i} \int_{C_{\delta}\of{z}}^{} \frac{f_n'}{f_n} \dif w &= 0\quad\forall n\in\N\\
+                \intertext{Aus der lokal gleichmäßigen Konvergenz folgt damit}
+                0 = \frac{1}{2\pi i} \int_{C_{\delta}\of{z}}^{} \frac{f_n'}{f_n} \dif w &\to \frac{1}{2\pi i}\int_{C_{\delta}\of{z}}^{} \frac{f'}{f} \dif w \geq 1
+            \end{align*}
+            Demnach ist die Annahme falsch.\qedhere
+        \end{proof}
+    \end{satz}
+
+    \begin{korollar} % Korollar 14
+        Sei $U$ eine zusammenhängende Menge und $(f_n)_n$ eine Funktionenfolge mit $f_n: U \to \C$ analytisch sowie $f_n \to f$ lokal gleichmäßig in $U$ mit $f_n\of{z} \neq a~\forall z\in U, n\in\N$ für ein $a\in\C$. Dann gilt entweder $f\of{z} \neq a~\forall z\in U$ oder $f\of{z} = a~\forall z\in U$.
+    \end{korollar}
+
 
 \end{document}
