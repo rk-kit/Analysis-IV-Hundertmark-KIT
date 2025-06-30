@@ -2388,5 +2388,24 @@
         Sei $U$ eine zusammenhängende Menge und $(f_n)_n$ eine Funktionenfolge mit $f_n: U \to \C$ analytisch sowie $f_n \to f$ lokal gleichmäßig in $U$ mit $f_n\of{z} \neq a~\forall z\in U, n\in\N$ für ein $a\in\C$. Dann gilt entweder $f\of{z} \neq a~\forall z\in U$ oder $f\of{z} = a~\forall z\in U$.
     \end{korollar}
 
+    \subsection{Integrale via Residuensatz ausrechnen}
+
+    \begin{beispiel}
+        \marginnote{[30. Jun]}
+        \begin{align*}
+            \int_{-\infty}^{\infty} \frac{1}{x^4+1} \dif x &= 2\pi i \sum_{}^{} \Res\of{\frac{1}{z^4+1}, z_j}\\
+            z^4 &= -1 = e^{i\pi + 2\pi i k}\\
+            z &= e^{i\frac{\pi}{4} + \frac{\pi i k}{2}} = z_k\\
+            z^{4} + 1 &= \prod_{k=0}^{3} \pair{z-z_k}\\
+            \Res\of{\frac{1}{z^4+1}, z_j} &= \lim_{z\to z_j} \pair{z-z_j} \frac{1}{\prod_{i=0}^{3} \pair{z-z_i}}\\
+            \Res &= \frac{A}{B'},\quad B = z^4+1,\quad B' = 4z^3\\
+            \Res\of{\frac{1}{z^4+1}, z_j} &= \frac{1}{4z_j^3}\\
+            \Res\of{\frac{1}{z^4+1}, e^{i\frac{\pi}{4}}} &= \frac{1}{4z_1^3} = \frac{-z_1}{4} = -\frac{1}{8}\pair{\sqrt{2} + i\sqrt{2}}\\
+            \Res\of{\frac{1}{z^4+1}, e^{i\frac{3\pi}{4}}} &= \frac{1}{8}\pair{\sqrt{2} - i \sqrt{2}}\\
+            \sum \Res\of{\ldots} &= -\frac{i}{4}\sqrt{2}\\
+            \impl \int_{-\infty}^{\infty} \frac{1}{x^4+1} \dif x &= 2\pi i \pair{-\frac{i}{4}\sqrt{2}} = \frac{\pi}{\sqrt{2}}
+        \end{align*}
+    \end{beispiel}
+
 
 \end{document}
