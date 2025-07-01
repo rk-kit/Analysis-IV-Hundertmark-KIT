@@ -2407,5 +2407,101 @@
         \end{align*}
     \end{beispiel}
 
+    \begin{beobachtung}
+        \marginnote{[1. Jul]}
+        \label{beobachtung:gebr-int}
+        Für $P, Q$ Polynome mit $\deg P \leq \deg Q -2$ gilt
+        \begin{align*}
+            2\pi i \sum_{z_j}^{} \Res\of{\frac{P\of{x}}{Q\of{x}}\log z, z_j} &= \int_{\gamma_R}^{} \frac{P\of{z}}{Q\of{z}}\log z \dif z\\
+            &\to \int_{0}^{\infty} \frac{P\of{x}}{Q\of{x}}\log x \dif x - \int_{0}^{\infty} \frac{P\of{x}}{Q\of{x}}\pair{\log x + 2\pi i} \dif x
+            \intertext{für $\varepsilon \to 0$ und $R\toinf$ (Schlüssellochprinzip)}
+            &= -2\pi i \int_{0}^{\infty} \frac{P\of{x}}{Q\of{x}} \dif x
+            \intertext{Das heißt wir haben}
+            \int_{0}^{\infty} \frac{P\of{x}}{Q\of{x}} \dif x &= - \sum_{z_j}^{} \Res\of{\frac{P\of{z}}{Q\of{z}}\log z, z_j}
+        \end{align*}
+    \end{beobachtung}
+
+    \begin{beispiel}
+        Wir wollen $\int_{0}^{\infty} \frac{1}{x^3+1} \dif x$ mit der vorherigen Beobachtung berechnen.
+        \begin{align*}
+            z^3 &= -1 = e^{i\pi}\\
+            z_1 &= e^{i\frac{\pi}{3}}\\
+            z_2 &= e^{i\frac{\pi}{3} + \frac{2\pi i}{3}} = e^{i\pi}\\
+            z_3 &= e^{i\frac{5\pi}{3}}\\
+            \Res\of{\frac{\log z}{1+z^3}, z_1} &= \frac{\log z_j}{3z_j^2} = \frac{z_j \log z_j}{3z_j^3} = -\frac{z_j\log z_j}{3}\\
+            \Res\of{\frac{\log z}{1+z^3}, z_1} &= -\frac{i\pi}{9}\pair{\frac{1}{2}+i\frac{\sqrt{3}}{2}}\\
+            \Res\of{\frac{\log z}{1+z^3}, z_2} &= \frac{i\pi}{3}\\
+            \Res\of{\frac{\log z}{1+z^3}, z_3} &= -\frac{5\pi i}{9}\pair{\frac{1}{2} - i\frac{\sqrt{3}}{2}}\\
+            \impl \sum_{j=1}^{3} \Res\of{\frac{\log z}{1+z^3}, z_j} &= \ldots = -\frac{2\pi}{9}\sqrt{3}\\
+            \impl \int_{0}^{\infty} \frac{1}{1+x^3} \dif x &= \frac{2}{9}\pi \sqrt{3}
+        \end{align*}
+    \end{beispiel}
+
+    \begin{bemerkung}
+        Der Fall $P, Q$ Polynome mit $\deg P \leq \deg Q -2$ mit einem Integral der folgenden Form ($a > 0$)
+        \begin{align*}
+            \int_{a}^{\infty} \frac{P\of{x}}{Q\of{x}} \dif x&
+            \intertext{lässt sich analog zu Beobachtung~\ref{beobachtung:gebr-int} ähnlich umsetzen. Betrachte dazu}
+            \int_{\gamma_R}^{} \frac{P\of{z}}{Q\of{z}}\log\of{z-a} \dif z&\\
+            \impl \int_{a}^{\infty} \frac{P\of{x}}{Q\of{x}} \dif x &= - \sum_{z_j \in \C\setminus\linterv{a, \infty}}^{} \Res\of{\frac{P\of{x}}{Q\of{x}}\log\of{z-a}, z_j}
+        \end{align*}
+        Damit ergibt sich außerdem
+        \begin{align*}
+            \int_{0}^{a} \frac{P\of{x}}{Q\of{x}} \dif x &= \int_{0}^{\infty} \frac{P\of{x}}{Q\of{x}} \dif x - \int_{a}^{\infty} \frac{P\of{x}}{Q\of{x}} \dif x\\
+            &= -\pair{\sum_{z_j}^{} \pair{\Res\of{\frac{P\of{z}\log z}{Q\of{z}}, z_j} - \Res\of{\frac{P\of{z}}{Q\of{z}}\log\of{z-a}, z_j}}}\\
+        \end{align*}
+    \end{bemerkung}
+
+    \begin{beispiel}
+        Sei $\alpha = \frac{1}{2}$. Wir betrachten die Funktion $\frac{1}{\sqrt{x}\pair{1+x}}$
+        \begin{align*}
+            z^{\frac{1}{2}} &= \exp\of{\frac{1}{2}\log z}\\
+            (-1)^{\frac{1}{2}} &= \exp\of{\frac{1}{2}i\pi} = e^{i\frac{\pi}{2}} = i\\
+            \Res\of{\frac{1}{\sqrt{z}\pair{1+z}}, -1} &= \frac{1}{\sqrt{-1}} = \frac{1}{i} = -i\\
+            \impl \pair{1-e^{-i\pi}} \int_{0}^{\infty} \frac{1}{\sqrt{x}\pair{1+x}} \dif x &= 2\pi i \Res\of{\frac{1}{\sqrt{z}\pair{1+z}}, -1} = 2\pi\\
+            \impl \int_{0}^{\infty} \frac{1}{\sqrt{x}\pair{1+x}} \dif x &= \frac{2\pi}{1-e^{i\pi}} = \frac{2\pi}{1-(-1)} = \pi
+        \end{align*}
+    \end{beispiel}
+
+    \begin{beobachtung}
+        Wir betrachten Integrale der Form
+        \begin{align*}
+            \int_{0}^{2\pi} R\of{\sin\Theta, \cos\Theta} \dif \Theta
+        \end{align*}
+        wobei $R$ eine rationale Funktion ist. Das heißt wir haben einen Bruch von Polynomen trigonometrischer Funktionen als Integrand
+        \begin{align*}
+            \int_{\abs{z} = 1}^{} f\of{z} \dif z &= \int_{0}^{2\pi} f\of{e^{it}}ie^{it} \dif t\tag{$z\of{t} = e^{it}$}\\
+            \cos t &= \frac{1}{2}\pair{e^{it} + e^{-it}} = \frac{1}{2}\pair{e^{it} + \frac{1}{e^{it}}} = \frac{1}{2}\pair{z+\frac{1}{z}} \tag{$z = e^{it}$, $0\leq t <2\pi$}\\
+            \sin t &= \frac{1}{2}\pair{e^{it} - e^{-it}} = \frac{1}{2}\pair{e^{it} - \frac{1}{e^{it}}} = \frac{1}{2}\pair{z-\frac{1}{z}}
+            \intertext{Das heißt wir können das Integral umschreiben und erhalten}
+            \int_{0}^{2\pi} R\of{\cos\of{t}, \sin\of{t}} \dif t &= \int_{\abs{z} = 1}^{} R\of{\frac{1}{2}\pair{z+\frac{1}{z}}, \frac{1}{2}\pair{z-\frac{1}{z}}} \frac{\dif z}{iz}
+        \end{align*}
+    \end{beobachtung}
+
+    \begin{beispiel}
+        \begin{align*}
+            \int_{0}^{2\pi} \frac{\dif \Theta}{2 + \cos \Theta} &= \int_{\abs{z} = 1}^{} \frac{1}{2 + \frac{1}{2}\pair{z+\frac{1}{z}}} \frac{\dif z}{i z}\\
+            &= \frac{1}{i} \int_{\abs{z} = 1}^{} \frac{\dif z}{2z + \frac{1}{2}\pair{z^2+1}}\\
+            &= \frac{2}{i} \int_{\abs{z} = 1}^{} \frac{\dif z}{z^2 + 4z + 1} \\
+            &= \frac{2\cdot 2\pi i}{i} \Res\of{\frac{1}{z^2+4z+1}, \sqrt{3} - 2} = \frac{2}{3}\pi\sqrt{3}
+        \end{align*}
+    \end{beispiel}
+
+    \subsection{Summen}
+
+    \textbf{Setting}: Wir wollen die Summe $ \sum_{n=-\infty}^{\infty} f\of{n}$ für eine Funktion $f$ berechnen.\\[.5\baselineskip]
+    \textbf{Idee}: Wenn wir eine Funktion bauen können, die Residuen bei allen ganzen Zahlen hat, dann können wir die Summe nach dem Resdiuensatz über ein Integral darstellen. Wie kriegen wir Residuen bei allen ganzen Zahlen? Wir haben Nullstellen bei ganzen Zahlen mit $\sin\of{\pi z}$, damit scheint $(\sin\of{\pi z})^{-1}$ ein guter Kandidat. Außerdem gilt
+    \begin{align*}
+        \Res\of{\frac{A\of{z}}{B\of{z}}, z_j} &= \frac{A\of{z_j}}{B'\of{z_j}} \annot{=}{!} 1
+        \intertext{Wir wollen $B\of{z} = \sin\of{\pi z}$ setzen. Also muss gelten $A\of{z} = \pi \cos\of{\pi z}$. Untersuche also}
+        f\of{z} \frac{\pi \cos\of{\pi z}}{\sin\of{\pi z}} &= f\of{z} \pi\cot\of{\pi z}
+        \intertext{Sei $\gamma_N$ eine Kontur, die alle ganzen Zahlen $k$ mit $\abs{k} \leq N$ umschlingt. Also $-N, -N + 1, \ldots, 0, 1, \ldots, N$}
+        \int_{\gamma_N}^{} f\of{z}\pi\cot\of{\pi z} \dif z &= 2\pi i \interv{\sum_{n=-N, n\neq z_j}^{N} f\of{n} + \sum_{k}^{} \Res\of{f\of{z}\pi \cot\of{\pi z}, z_k}}\tag{$z_k$ Pole von $f$}
+        \intertext{Wollen, dass $ \sum_{n=-\infty}^{\infty} f\of{n}$ konvergiert $\impl$ wollen $\abs{f\of{z}} \leq \frac{1}{\abs{z}^2}$. Insbesondere $\lim_{z\toinf} \abs{z f\of{z}} = 0$. Wollen auch, dass}
+        \int_{\gamma_N}^{} f\of{z}\pi \cot\of{\pi z}\dif z &\to 0\text{ für } N\toinf
+        \intertext{sowie eine geschickte Wahl von $\gamma_N$. Dann erhält man}
+        \impl \sum_{m=-\infty, m\neq z_k}^{\infty} f\of{m} &= - \sum_{k}^{} \Res\of{f\of{z}\pi \cot\of{\pi z}, z_k}\tag{$z_k$ Singularitäten von $f$}
+    \end{align*}
+
 
 \end{document}
