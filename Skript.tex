@@ -130,6 +130,8 @@
 \DeclareMathOperator{\fdiv}{div}
 \DeclareMathOperator{\Arg}{Arg}
 \DeclareMathOperator{\Res}{Res}
+\DeclareMathOperator{\laenge}{Länge}
+\DeclareMathOperator{\sing}{Sing}
 
 % Mengenbezeichner
 \newcommand{\R}{\mathbb{R}}
@@ -2499,9 +2501,81 @@
         \int_{\gamma_N}^{} f\of{z}\pi\cot\of{\pi z} \dif z &= 2\pi i \interv{\sum_{n=-N, n\neq z_j}^{N} f\of{n} + \sum_{k}^{} \Res\of{f\of{z}\pi \cot\of{\pi z}, z_k}}\tag{$z_k$ Pole von $f$}
         \intertext{Wollen, dass $ \sum_{n=-\infty}^{\infty} f\of{n}$ konvergiert $\impl$ wollen $\abs{f\of{z}} \leq \frac{1}{\abs{z}^2}$. Insbesondere $\lim_{z\toinf} \abs{z f\of{z}} = 0$. Wollen auch, dass}
         \int_{\gamma_N}^{} f\of{z}\pi \cot\of{\pi z}\dif z &\to 0\text{ für } N\toinf
-        \intertext{sowie eine geschickte Wahl von $\gamma_N$. Dann erhält man}
-        \impl \sum_{m=-\infty, m\neq z_k}^{\infty} f\of{m} &= - \sum_{k}^{} \Res\of{f\of{z}\pi \cot\of{\pi z}, z_k}\tag{$z_k$ Singularitäten von $f$}
+        \intertext{sowie eine geschickte Wahl von $\gamma_N$. Dann erhält man für $z_k$ Singularitäten von $f$ die folgende Gleichung:}
+        \impl \sum_{m=-\infty, m\neq z_k}^{\infty} f\of{m} &= - \sum_{k}^{} \Res\of{f\of{z}\pi \cot\of{\pi z}, z_k}\tag{1}
     \end{align*}
+    \marginnote{[07. Jul]}
+    \noindent Bedingung an $f$: $\abs{f\of{z}} \leq \frac{A}{\abs{z}^2}$ für eine Konstante $A > 0$ und $\abs{z} \geq R_0 \gg 0$
+    \begin{align*}
+        \impl \lim_{z\toinf} \abs{zf\of{z}} &= 0
+        \intertext{Wahl von $\gamma_N$: Quadrat in der Komplexen Zahlenebene mit Zentrum im Ursprung und Seitenlänge $2N + 1$. Behauptung: $\exists C > 0$, sodass}
+        \sup_{z\in\gamma_N}\abs{\cot\of{\pi z}} &\leq C\quad\forall N\in\N\tag{2}
+        \intertext{Angenommen diese Ungleichung gilt, dann ist}
+        \int_{\gamma_N}^{} f\of{z}\cot\of{\pi z} \dif z &\leq \max_{z\in\gamma_N} \abs{f\of{z}\cot\of{\pi z}} \cdot \laenge\of{\gamma_N}\\
+        &= \max_{z\in\gamma_N} \abs{f\of{z}\cot\of{\pi z}} \cdot 4(2N+1)\\
+        &= \frac{\abs{zf\of{z}\cot\of{\pi z}}}{\abs{z}} \cdot 4(2N+1)\\
+        &\leq \frac{C\cdot 4 (2N+1)}{\pair{N+\frac{1}{2}}}\max_{z\in\gamma_N} \abs{zf\of{z}} \to 0\text{ für }N\toinf
+        \intertext{Wenn also (2) gilt, dann folgt damit auch die Formel (1) für die Summe. Das heißt wir müssen jetzt nur onch nachweisen, dass (2) gilt:}
+        \cot\of{z} &= -\cot\of{-z}\\
+        \intertext{Es reicht den Fall $\Re z = N+\frac{1}{2}, \Im z = N+\frac{1}{2}$ zu betrachten. Sei $z = x+iy$, $x = N + \frac{1}{2}$}
+        \cot\of{\pi z} &= \frac{\cos\of{\pi z}}{\sin\of{\pi z}} = \frac{\frac{1}{2}\pair{e^{i\pi z} - e^{-i\pi z}}}{\frac{1}{2}\pair{e^{i\pi z} - e^{-i\pi z}}}\\
+        &= i \frac{e^{2\pi z} + e^{-i\pi z}}{e^{i\pi z} - e^{-i\pi z}}\\
+        &= i \frac{e^{2\pi i z} + 1}{e^{2\pi i z} - 1}\\
+        &= i \frac{e^{2\pi i x - 2\pi y} + 1}{e^{2\pi i x - 2\pi y} - 1}
+        \intertext{Wir setzen $x = N + \frac{1}{2}$ ein}
+        &= i \frac{e^{2\pi i\pair{N + \frac{1}{2}} - 2\pi y} + 1}{e^{2\pi i\pair{N + \frac{1}{2}} - 2\pi y} - 1}\\
+        &= i \frac{e^{i\pi - 2\pi y} + 1}{e^{i\pi - 2\pi y} - 1}\\
+        &= i \frac{-e^{-2\pi y} + 1}{-e^{2\pi y} - 1} = -i \frac{1-e^{-2\pi y}}{1+e^{-2\pi y}}\\
+        \abs{\cot\of{\pi z}} &= \frac{\abs{e^{2\pi y} - 1}}{1 + e^{-2\pi y}} \leq 1
+        \intertext{$y = N + \frac{1}{2}$}
+        \impl \cot\of{\pi z} &= i \frac{e^{2\pi i x - 2\pi \pair{N + \frac{1}{2}}}}{e^{2\pi i x - 2\pi \pair{N + \frac{1}{2}}} - 1}\\
+        &= i \frac{e^{-\pi\pair{N+1}}e^{2\pi i x} + 1}{e^{-\pi (N+1)} e^{2\pi i x} - 1}\\
+        \abs{\cot\of{\pi z}} &= \frac{\abs{w+1}}{\abs{w-1}}\tag{$w = e^{-\pi(N+1)} e^{2\pi i x}$}\\
+        &\leq \frac{e^{-\pi (N+1)} + 1}{1 - e^{-\pi (N+1)}}
+        \intertext{Betrachte}
+        f\of{t} &\coloneqq \frac{e^{-t} + 1}{1- e^{-t}}\\
+        \impl f'\of{t} &= \frac{\pair{1-e^{-t}}\pair{-e^{-t}} - \pair{e^{-t} + 1}e^{-t}}{\pair{1-e^{-t}}^2}\\
+        &= (1-e^{-t})^2 \pair{-e^{-t} - e^{-t} - e^{-2t} - e^{-t}}\\
+        &= -\pair{1-e^{-t}}^2\pair{e^{-t} +e^{-2t}} < 0
+        \intertext{Gemeinsam mit der Symmetrie gilt also (2) mit $C = 2$.}
+    \end{align*}
+
+    \begin{beispiel}
+        \begin{align*}
+            \sum_{n=1}^{\infty} \frac{1}{n^2} &= \frac{1}{2} \sum_{n=-\infty, n\neq 0}^{\infty} \frac{1}{n^2}\\
+            \intertext{Mit $f\of{z} = z^{-2}$ gilt nach unserer vorherigen Erkentnis:}
+            &= - \frac{1}{2}\Res\of{\frac{\pi \cot\of{\pi z}}{z^2}, 0}\\
+            \cot\of{z} &= \frac{1}{z} - \frac{z}{3} - \frac{z^2}{45} - \ldots\\
+            \impl \frac{\pi \cot\of{\pi z}}{z^2} &= \frac{\frac{\pi}{\pi z} - \frac{\pi^2 z}{3} - \frac{\pi^3 z^2}{45}}{z^2} - \ldots\\
+            &= \frac{1}{z^3} - \underbrace{\frac{\pi^2}{3z}} - \frac{\pi^3}{45} - \ldots\\
+            \impl \sum_{n=1}^{\infty} \frac{1}{n^2} &= \frac{\pi^2}{6}
+        \end{align*}
+    \end{beispiel}
+
+    \begin{beobachtung}
+        Wir wollen analog auch Summen der Form $ \sum_{n\in\Z}^{} (-1)^n f\of{n}$ ausrechnen. Es gilt $\Res\of{\frac{\pi}{\sin\of{\pi z}}, n} = (-1)^n$. Damit folgt analog
+        \begin{align*}
+            \sum_{n\in\Z, z\not\in\sing\of{f}}^{} (-1)^n f\of{n} &= - \sum_{z_j \in \sing\of{f}}^{} \Res\of{f\of{z} \frac{\pi}{\sin\of{\pi z}}, z_j}
+        \end{align*}
+    \end{beobachtung}
+
+    \begin{beispiel}
+        \begin{align*}
+            \sum_{n\in\Z, n\neq 0}^{} \frac{(-1)^n}{n^2} &= -\Res\of{\frac{\pi}{z^2\sin\of{\pi z}}, 0} = - \frac{\pi^2}{6}
+        \end{align*}
+    \end{beispiel}
+
+    \begin{beobachtung}[Summen mit Binomialkoeffizient]
+        \begin{align*}
+            \frac{(1+z)^n}{z^{n+1}} &= \sum_{j=1}^{n} \binom{n}{j} z^{j-k-1}\\
+            &= \binom{n}{k} z^{-1} + ??\\
+            \intertext{Sei $S$ die Kurve, die einmal um 0 herumläuft}
+            \binom{n}{k} &= \frac{1}{2\pi} \int_{C}^{} \frac{(1+z)^n}{z^{k-1}} \dif u\\
+            \binom{2n}{n} &= \frac{1}{2\pi i} \int_{C}^{} \frac{(1+z)^n}{z^{n+1}} \dif z
+            \intertext{$C: z\of{t} = e^{it}$}
+            \impl \binom{2n}{n} &\leq 2^{2n} = 4^n
+        \end{align*}
+    \end{beobachtung}
 
 
 \end{document}
