@@ -2577,5 +2577,155 @@
         \end{align*}
     \end{beobachtung}
 
+    \newpage~\thispagestyle{empty}\newpage
+
+
+    \section{[*] Gewöhnliche Differentialgleichungen}
+    \thispagestyle{sectionpage}
+
+    \subsection{Definition}
+    \marginnote{[08. Jul]}
+
+    \textbf{Motivation}: Sei $x\of{t}$ die Position, dann ist $\dot x$ die Geschwindigkeit und $\ddot x $ die Beschleunigung. Nach Newton gilt $m \cdot \ddot x = F$, wobei $F$ die Kraft und $m$ die Masse ist.
+
+    \begin{definition}[Gewöhnliche DGL]
+        Seien $n, N\in\N$ und $D\subseteq \R^{1+(n+1)N} = \R \times\R^{(n+1)N}$ sowie $F: D\to\R^N$. Dann heißt eine Gleichung der Form
+        \begin{align*}
+            F\of{t, x, \dot x, \ddot x, \ldots, x^{(n-1)}, x^{(n)}} &= 0\tag{1}
+        \end{align*}
+        mit $t\in\R$ und $x$ Funktionswert, $n$ mal differenzierbar $x\of{t} \in\R^N$ heißt gewöhnliche Differentialgleichung (DGL).\\
+        Die Lösung von (1) ist eine $n$-mal differenzierbare Funktion $\lambda: I \to\R^N$, wobei $I$ ein Intervall ist und gilt
+        \begin{align*}
+            F\of{t, \lambda\of{t}, \dot\lambda\of{t}, \ldots, \lambda^{(n)}\of{t}} &= 0\quad\forall t\in I
+        \end{align*}
+        Dabei nennen wir $n$ die Ordnung der DGL.
+    \end{definition}
+
+    \begin{beispiel}
+        Sei $D = \R^3$ und $F\of{t, x, \dot x} = t \dot x + {\dot x}^2 - x$. Dann ist $\lambda\of{t} = 1 + t$ eine Lösung von $F$. Denn es gilt
+        \begin{align*}
+            \lambda\of{t} &= 1+t\\
+            \impl \dot\lambda\of{t} &= 1\\
+            \impl F\of{t, \lambda\of{t}, \dot\lambda\of{t}} &= t + 1^2 - (1+t) = 0
+        \end{align*}
+    \end{beispiel}
+
+    \begin{beispiel}
+        Sei $D = \R^3$ und $F\of{t, x, \dot x} = \dot x - x + t^2$. Dann können wir auch schreiben
+        \begin{align*}
+            f\of{t, x} &\coloneqq x-t^2\\
+            \impl F\of{t, x, \dot x} = 0 \equivalent \dot x &= x - t^2 = f\of{t, x}
+            \intertext{Die Lösung ist dann}
+            \lambda\of{t} &= 2 + 2t + t^2 + e^t
+        \end{align*}
+        auf $\pair{-\infty, \infty}$.
+    \end{beispiel}
+
+    \begin{beispiel}
+        Sei $D = \R^3$ und $\dot x = x^{2}t$. Dann gibt es Lösungen $\lambda_{\alpha}\of{t} = \frac{2\alpha}{2 - \alpha t}$ für $\alpha\in\R$.
+    \end{beispiel}
+
+    \begin{beispiel}[DGL ohne Lösung]
+        \theoremescape
+        \begin{enumerate}
+            \item Die Gleichung ${\dot x}^2 + 1 = 0$ hat keine Lösung. Dieses Beispiel ist allerdings recht künstlich.
+            \item Definiere
+            \begin{align*}
+                \charfunc_{\Q}\of{t} &= \begin{cases}
+                                            1 &t\in\Q\\
+                                            0 &t\not\in\Q
+                \end{cases}
+            \end{align*}
+            Dann hat $\dot x = \charfunc_Q$ ebenfalls keine Lösung.
+        \end{enumerate}
+    \end{beispiel}
+
+    \subsection{Lineare DGL erster Ordnung}
+
+    \begin{beispiel}[Einfachster Fall]
+        Wenn wir die Gleichung $\dot x = f\of{t}$ haben, dann ist jede Lösung der Form
+        \begin{align*}
+            x\of{t} &= \int_{}^{} f\of{t} \dif t + C
+        \end{align*}
+    \end{beispiel}
+
+    \begin{definition}
+        Eine allgemeine lineare DGL der Ordnung 1 und mit $N=1$ hat die Form
+        \begin{align*}
+            \dot x + a\of{t}x &= b\of{t}
+        \end{align*}
+        Wenn $b$ nicht die Nullfunktion ist, dann nennen wir die Gleichung außerdem inhomogen und $b$ die Inhomogenität der Gleichung. Eine Gleichung der Form
+        \begin{align*}
+            \dot x + a\of{t}x &= 0
+        \end{align*}
+        also Spezialfall $b\of{t} = 0$ nennen wir dann homogen.
+    \end{definition}
+
+    Wie löst man den homogenen Fall?
+
+    \begin{bemerkung}
+        Sei
+        \begin{align*}
+            \dot x\of{t} &= -a\of{t} x\of{t}
+        \end{align*}
+        Dann ist zum Beispiel $x\of{t} = 0$ eine Lösung. Wir wollen auch noch die anderen Lösungen finden. Also angenommen $x\of{t} \neq 0$. Dann gilt
+        \begin{align*}
+            \frac{\dot x\of{t}}{x\of{t}} &= - a\of{t}\\
+            \equivalent \frac{\dif }{\dif t}\ln\abs{x\of{t}} &= -a\of{t}\\
+            \impl \ln\abs{x\of{t}} &= -\int_{}^{} a\of{t} \dif t + c_1\\
+            \impl \abs{x\of{t}} &= \exp\of{ - \int_{}^{} a\of{t} \dif t + c_1}\\
+            &= c_2 \exp\of{- \int_{}^{} a\of{t} \dif t}\tag{$c_2\coloneqq e^{c_1}$}\\
+            \impl c_2 &= \abs{x\of{t}\exp\of{ \int_{}^{} a\of{t} \dif t}}
+            \intertext{Da wir angenommen haben, dass $x$ keine Nullstellen hat, kann die rechte Seite der Gleichung nicht das Vorzeichen wechseln. Wir können also den Betrag weglassen und die Lösungen sind}
+            \impl x\of{t} &= c \exp\of{ - \int_{}^{} a\of{t} \dif t}\tag{$c\in\R$}
+            \intertext{bzw.}
+            x\of{t} &= c \exp\of{-A\of{t}}\tag{$A' = a$}
+        \end{align*}
+    \end{bemerkung}
+
+    \begin{beispiel}
+        Suchen Lösung für $\dot x + 2t+x = 0$. Dann ist $a\of{t} = 2t$
+        \begin{align*}
+            \impl \int_{}^{} a\of{t} \dif t &= t^2\\
+            \impl x\of{t} &= c e^{-t^2}
+        \end{align*}
+    \end{beispiel}
+
+    \begin{bemerkung}[Anfangswertproblem]
+        Wir suchen die Lösung für eine Gleichung der Form $\dot x + a\of{t}x = 0$ mit der Bedingung, dass $x\of{t_0} = x_0$. Dann lässt sich (z.B. wie oben) zeigen, dass
+        \begin{align*}
+            \abs{\frac{x\of{t}}{x\of{t_0}}} &= \exp\of{-\int_{t_0}^{t} a\of{s} \dif s} > 0
+            \intertext{Behauptung: $x\of{t}$ hat dasselbe Vorzeichen wie $x\of{t_0}$. Dann gilt}
+            x\of{t} &= x\of{t_0} \exp\of{ - \int_{t_0}^{t} a\of{s} \dif s}
+        \end{align*}
+    \end{bemerkung}
+
+    \begin{beispiel}
+        Sei $\dot x + \sin\of{t}x = 0$, sowie $x\of{0} = \frac{3}{2}$. Dann gilt nach der Lösungsformel mit $a\of{t} = \sin\of{t}$, dass
+        \begin{align*}
+            x\of{t} &= \frac{3}{2}\exp\of{- \int_{0}^{t} \sin\of{s} \dif s} = \frac{3}{2}e^{\cos\of{t} - 1}
+        \end{align*}
+    \end{beispiel}
+
+    Wir können also homogene Gleichungen lösen. Wie übertragen wir das auf inhomogene Gleichungen?
+
+    \begin{bemerkung}
+        Betrachte Gleichung der Form
+        \begin{align*}
+            \dot x + a\of{t} x &= b\of{t}
+            \intertext{und ergänze Integrierenden Faktor}
+            \mu\of{t} \dot x + \mu\of{t}a\of{t} x &= \mu\of{t} b\of{t}\\
+            \impl \frac{\dif}{\dif t}\pair{\mu\of{t}x\of{t}} &= \mu\of{t} \dot x\of{t} + \dot\mu\of{t} x\of{t}\\
+            &= \mu\of{t} \dot x\of{t} + \mu\of{t} a\of{t} x\of{t}
+            \intertext{Brauchen}
+            \dot\mu &= \mu a\\
+            \mu\of{t} &= \exp\of{ \int_{t_0}^{t} a\of{s} \dif s}\\
+            \impl \frac{\dif}{\dif t}\pair{\mu\of{t}x\of{t}} &= \mu\of{t}b\of{t}\\
+            \impl \mu\of{t} x\of{t} - \underbrace{\mu\of{t_0}}_{=1} x\of{t_0} &= \int_{t_0}^{t} \mu\of{s} b\of{s} \dif s\\
+            \impl x\of{t} &= \frac{?}{\mu\of{t}}x\of{t_0} + \mu\of{t}^{-1} \int_{t_0}^{t} \mu\of{s}b\of{s} \dif s\\
+            \frac{1}{\mu\of{t}} &= \exp\of{- \int_{t_0}^{t} a\of{s} \dif s}
+        \end{align*}
+    \end{bemerkung}
+
 
 \end{document}
