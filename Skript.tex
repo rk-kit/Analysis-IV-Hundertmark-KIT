@@ -266,11 +266,18 @@
         Wir definieren außerdem die komplexe Konjugation: Sei wieder $z = a + bi$. Dann ist die komplexe Konjugation von $z$ definiert durch $\conj{z} \coloneqq a - bi$. Damit ergibt sich die multiplikative Inverse $z^{-1} = \frac{\conj{z}}{\abs{z}^2}$, die sich leicht durch Nachrechnen bestätigen lässt. Die additive Inverse $\pair{-a, -b}$ ergibt sich direkt aus der Definition der Addition.
     \end{definition}
 
-    \begin{definition}[Real- und Komplexteil]
+    \begin{definition}[Real- und Imaginärteil]
         Sei $z = a + bi$, $a, b\in\R$. Dann schreiben wir $\Re\of{z} = a$ sowie $\Im\of{z} = b$. Außerdem gilt dann
         \begin{align*}
             \Re\of{z} &= \frac{1}{2}\pair{z+\conj{z}}\\
-            \Im\of{z} &= \frac{1}{i}\pair{z-\conj{z}}
+            \Im\of{z} &= \frac{1}{2i}\pair{z-\conj{z}}
+        \end{align*}
+    \end{definition}
+
+    \begin{definition}[Betrag einer komplexen Zahl]
+        Sei $z = a + bi$, $a,b\in\R$. Dann definieren wir (kompatibel mit dem Betrag in $\R$) den Betrag von $z$ als
+        \begin{align*}
+            \abs{z} &\coloneqq \sqrt{a^2+b^2}
         \end{align*}
     \end{definition}
 
@@ -320,17 +327,21 @@
             \intertext{sowie den $\varepsilon$-Kreis um $z$}
             C_{\varepsilon}\of{z} &\coloneqq \set{w: \abs{z-w} = \varepsilon}
             \intertext{Eine Menge $S\subseteq\C$ heißt damit offen, falls}
-            \forall z\in S\ex r > 0\colon &D_{r}\of{z} \subseteq S
-            \intertext{Es sei $\comp{S} \coloneqq \C\setminus S$. Dann nennen wir $S$ abgeschlossen, falls $\comp{S}$ offen ist. Wir definieren außerdem noch den Rand von $S$}
+            \forall z\in S\ex r > 0&\colon D_{r}\of{z} \subseteq S
+        \end{align*}
+        Es sei $\comp{S} \coloneqq \C\setminus S$. Dann nennen wir $S$ abgeschlossen, falls $\comp{S}$ offen ist. Wir definieren außerdem noch den Rand von $S$
+        \begin{align*}
             \partial S &\coloneqq \set{z\in\C: \forall \varepsilon > 0\colon S \cap D_{\varepsilon}\of{z} \neq \emptyset \land \comp{S}\cap D_{\varepsilon}\of{z} \neq \emptyset}
-            \intertext{Damit definieren wir außerdem den Abschluss von $S$}
+        \end{align*}
+        Damit definieren wir außerdem den Abschluss von $S$
+        \begin{align*}
             \overline{S} &\coloneqq S \cup \partial S
         \end{align*}
         Wir sagen $S$ ist beschränkt, falls $S \subseteq D_{R}\of{0}$ für ein $R > 0$. Außerdem ist $S$ kompakt, falls $S$ sowohl abgeschlossen als auch beschränkt ist.\endgraf\noindent $S$ ist nicht-zusammenhängend, falls es offene disjunkte Mengen $A, B$ gibt mit $S \subseteq A \cup B$ mit $S \cap A \neq \emptyset$, $S\cap B \neq \emptyset$. $S$ ist zusammenhängend, falls es nicht nicht-zusammenhängend ist.
     \end{definition}
 
     \begin{definition}
-        Sei $z, w \in\C$. Dann definieren wir $\interv{z, w} \coloneqq \set{\pair{1- \Theta}z + \Theta w: 0 \leq \Theta \leq 1}$ als die Strecke zwischen $z$ und $w$. Wir sagen eine Menge $S\subseteq\C$ ist polygonal zusammenhängend, falls es einen polygonalen Weg zwischen jeder Kombination von zwei Punkten $a, b \in S$ gibt. Das heißt es gibt $z_{1, \ldots, n}$ sodass
+        Sei $z, w \in\C$. Dann definieren wir $\interv{z, w} \coloneqq \set{\pair{1- \Theta}z + \Theta w: 0 \leq \Theta \leq 1}$ als die Strecke zwischen $z$ und $w$. Wir sagen eine Menge $S\subseteq\C$ ist polygonal zusammenhängend, falls es einen polygonalen Weg zwischen jeder Kombination von zwei Punkten $a, b \in S$ gibt. Das heißt es gibt $z_{1}, \ldots z_{n}$ sodass
         \begin{align*}
             \interv{a, z_1} \cup \interv{z_1, z_2} \cup \dots \cup \interv{z_{n-1}, z_{n}}\cup \interv{z_n, b} \subseteq S
         \end{align*}
@@ -365,13 +376,15 @@
         \begin{proof}[Beweis für (ii)]
             Angenommen
             \begin{align*}
-                x^2 - y^2 -2ixy &= \sum_{k=0}^{N} a_k\pair{x+iy}^k
+                x^2 - y^2 -2ixy &= \sum_{k=0}^{N} \alpha_k\pair{x+iy}^k
                 \intertext{Dann gilt für $y = 0$}
-                x^2 &= \sum_{k=0}^{N} a_k x^k\\
+                x^2 &= \sum_{k=0}^{N} \alpha_k x^k\\
                 \intertext{Damit gilt nach Koeffizientenvergleich}
                 \impl \alpha_0 = \alpha_1 &= 0 = \alpha_3 = \ldots = \alpha_N\\
-                \alpha_2 &= 1\qedhere
+                \alpha_2 &= 1\\
+                \impl x^2 + y^2 -2ixy &= (x +iy)^2
             \end{align*}
+            Ausmultiplizieren zeigt, dass die letzte Gleichung im Allgemeinen falsch ist.
         \end{proof}
     \end{beispiel}
 
@@ -408,11 +421,11 @@
                 &= \sum_{n=0}^{N_1 + N_2} \sum_{\substack{0\leq r \leq N_1\\ 0\leq s \leq N_2\\ s+r = n}}^{} \alpha_{r,s} x^r y^s\\
                 &= \sum_{n=0}^{N_1 + N_2} \underbrace{\sum_{t=0}^{N_1 + N_2} \alpha_{n,t} x^{n-t} y^t}_{\eqqcolon G_n\of{x,y}}\\
                 \impl G_n\of{\lambda x, \lambda y} &= \lambda^n G_n\of{x,y}
-                \intertext{Nach unserer Voraussetzung gilt (\ref{eq:analytisch-diff}) auch für die $G_n$. Das heißt für festes $n$}
-                \partial_y G_n\of{x, y} &= \sum_{t=1}^{n} t \alpha_t x^{n-t} y^{t-1}\\
+                \intertext{Nach unserer Voraussetzung gilt (\ref{eq:analytisch-diff}) auch für die $G_n$. Das heißt für festes $n$ gilt mit $c_t \coloneqq \alpha_{n, t}$}
+                \partial_y G_n\of{x, y} &= \sum_{t=1}^{n} t c_t x^{n-t} y^{t-1}\\
                 \vspace{-2cm}
                 \verteq \quad\quad &\\
-                i \partial_x G_n\of{x,y} &= i \pair{ \sum_{t=0}^{n-1} \pair{n-t} \alpha_t x^{n-t-1} y^t}\\
+                i \partial_x G_n\of{x,y} &= i \pair{ \sum_{t=0}^{n-1} \pair{n-t} c_t x^{n-t-1} y^t}\\
                 \intertext{Da die linken Seiten der Gleichungen übereinstimmen, gilt auch}
                 c_1 x^{n-1} + 2c_2 x^{n-2}y + \ldots + nc_n y^{n-1} &= i\pair{nc_0 x^{n-1} + \pair{n-1}c_1 x^{n-2}y + \ldots + c_{n-1}y^{n-1}}
                 \intertext{Nach Koeffizientenvergleich gilt damit}
@@ -422,7 +435,7 @@
                 c_k &= i^k \binom{n}{k}c_0
                 \intertext{Damit gilt}
                 G_n\of{x,y} &= \sum_{k=0}^{n} c_k x^{n-k} y^k = \sum_{k=0}^{n} i^k \binom{n}{k}c_0 x^{n-k}y^k\\
-                &= c_0 \sum_{k=0}^{n} \binom{n}{k}x^{n-k}\pair{iy}^k = c_k \pair{x+iy}^n\\
+                &= c_0 \sum_{k=0}^{n} \binom{n}{k}x^{n-k}\pair{iy}^k = c_0 \pair{x+iy}^n\\
                 \impl P\of{x,y} &= \sum_{n=0}^{N} G_n\of{x,y} = \sum_{n=0}^{N} \alpha_{n,0} \pair{x+iy}^n
             \end{align*}
             Das heißt $P$ ist analytisch.\qedhere
