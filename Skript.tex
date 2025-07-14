@@ -2740,5 +2740,72 @@
         \end{align*}
     \end{bemerkung}
 
+    \subsection{Populationsmodelle}
+
+    \marginnote{[14. Jul]}
+    \noindent \textbf{Motivation}: Es gibt unterschiedliche Möglichkeit, Populationen über Zeit $p\of{t}$ zu modellieren. Zum Beispiel $p\of{t_0} = p_0$ und $\dot p = a p$. In diesem Fall wäre die Lösung $p\of{t} = p_0 \exp\of{at}$. Eine zweite Möglichkeit ist mit einem zusätzlichen Stressfaktor und der DGL
+    \begin{align*}
+        \dot p &= ap - bp^2
+    \end{align*}
+
+    \begin{lemma}
+        Ist $\dot p = f\of{p}$ mit $f$ stetig und existiert $\lim_{t\toinf} p\of{t} = p_{\infty}$ so ist $f\of{p_{\infty}} = 0$.
+        \begin{proof}
+            \begin{align*}
+                "p\of{t_2} - p\of{t_1} &= \int_{t_1}^{t_2} \dot p\of{s} \dif s = \int_{t_1}^{t_2} f\of{p\of{s}} \dif s\\
+                \underbrace{p\of{t+1} - p\of{t}}_{\to 0} &= \int_{t}^{t+1} f\of{p\of{s}} \dif s - f\of{p_{\infty}} + f\of{p_{\infty}}\\
+                &= \underbrace{\int_{t}^{t+1} \pair{f\of{p\of{s}} - f\of{p_{\infty}}} \dif s}_{\to 0\text{ für }t\toinf} + f\of{p_{\infty}}\\
+                \impl 0 &= f\of{p_{\infty}}\qedhere
+            \end{align*}
+        \end{proof}
+    \end{lemma}
+
+    \begin{genv}
+        Betrachte $\dot p = ap - bp^2$. Dann ist
+        \begin{align*}
+            \frac{\dot p}{ap - bp^2} &= 1\\
+            \impl \int_{t_0}^{t} \frac{\dot p\of{s}}{ap\of{s} - bp^2\of{s}} \dif s &= \int_{t_0}^{t}  \dif s = t - t_0\\
+            &= \int_{p\of{t_0}}^{p\of{t}} \frac{\dif r}{ar - br^2}
+            \intertext{Nutze Partialbruchzerlegung}
+            \frac{1}{ar - br^2} &= \frac{1}{r\pair{a - br}}\\
+            &= \frac{A}{r} + \frac{B}{a-br}\\
+            &= \frac{A\pair{a-br}+Br}{r\pair{a-br}}\\
+            \impl 1 &= A\pair{a-br} + Br = Aa - Abr + Br = \pair{B - Ab}r +Aa\\
+            \impl A = \frac{1}{a}\quad & \quad B = \frac{b}{a}\\
+            \int_{p_0}^{p} \frac{\dif r}{ar - br^2} &= \frac{1}{a} \int_{p_0}^{p} \pair{\frac{1}{r} + \frac{b}{a-br}} \dif r\\
+            &= \frac{1}{a}\pair{\ln \abs{p} - \ln \abs{a-br} - \ln \abs{p_0} + \ln\abs{a-bp}}\\
+            &= \frac{1}{a}\pair{\ln \abs{\frac{p}{p_0}} + \ln \abs{\frac{a-bp_0}{a-bp}}} = \frac{1}{a}\ln \abs{\frac{p}{p_0} \cdot \frac{a-bp_0}{a-bp}}
+            \intertext{Das muss aber immernoch gleich $t - t_0$ sein. Das heißt es folgt}
+            \impl \frac{p\of{t}}{p_0}\cdot \frac{a-bp_0}{a-bp\of{t}} &= e^{a\pair{t-t_0}}\\
+            \impl p_0 \pair{a-bp\of{t}} &= p\of{t}\pair{a-bp_0}\\
+            \impl p\of{t} &= \frac{a p_0 e^{a \pair{t-t_0}}}{a - bp_0 + b p_0 e^{a\pair{t-t_0}}}\\
+            \impl p\of{t} &= \frac{a p_0}{b p_0 + \pair{a-bp_0}e^{-a\pair{t-t_0}}} \to_{t\toinf} \frac{a p_0}{b p_0} = \frac{a}{b}
+        \end{align*}
+    \end{genv}
+
+    \subsection{Warum existieren eindeutige Lösungen?}
+
+    \begin{beispiel}[DGL mit nicht-eindeutiger Lösung]
+        Betrachte $\dot y = \sqrt{y}$. Dann ist eine mögliche Lösung
+        \begin{align*}
+            2 y^{\frac{1}{2}} &= t+c\\
+            \impl y &= \pair{\frac{t+c}{2}}^2
+            \intertext{Betrachte andererseits die Lösung}
+            y_s\of{t} &= \begin{cases}
+                             0 &0\leq t \leq s\\
+                             \frac{\pair{t-s}^2}{4} &t > s
+            \end{cases}
+        \end{align*}
+    \end{beispiel}
+
+    \begin{genv}
+        Sei $\dot x = f\of{t, x}$ für $f: U \to \R^n$ und $x\of{t_0} = x_0\in\R^N$. mit $U\subseteq \R\times\R^N$ offen.\\
+        \textsc{Schritt 1}: Umwandeln in Integral-Gleichung.\\
+        \begin{align*}
+            x\of{t} - x\of{t_0} &= \int_{t_0}^{t} \dot x \of{s} \dif s &= \int_{t_0}^{t} f\of{s, x\of{s}} \dif s\\
+            \impl x\of{t} &= x_0 + \int_{t_0}^{t} f\of{s, x\of{s}} \dif s
+        \end{align*}
+    \end{genv}
+
 
 \end{document}
