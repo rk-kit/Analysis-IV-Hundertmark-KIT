@@ -2807,5 +2807,134 @@
         \end{align*}
     \end{genv}
 
+    \subsection{Picard-Lindelöff}
+
+    \marginnote{[15. Jul]}
+
+    \textbf{Situation}: $D\subseteq \R\times\R^N$ offen und $\pair{t_0, x_0}\in D$ mit $f: D\to\R^N$. Wollen Lösung von
+    \begin{align*}
+        \dot x = f\of{t, x}\tag{1}
+    \end{align*}
+    und $x\of{t_0} = x_0$. Erst einmal falsch. Frage: Existiert ein Intervall $\interv{t_0 - \alpha, t + \alpha}$ und eine Funktion $\lambda: \interv{t_0 - \alpha, t_0 + \alpha} \to\R^N$ mit
+    \begin{align*}
+        \frac{\dif}{\dif t}\lambda\of{t} &= f\of{t, \lambda\of{t}}\tag{1'}\\
+        \lambda\of{t_0} &= x_0\\
+        \pair{t, \lambda\of{t}} &\in D
+    \end{align*}
+    für $t\in\interv{t_0 - \alpha, t_0 + \alpha}$.
+
+    \begin{lemma} % Lemma 1
+        Jede Lösung von (1) ist Lösung von
+        \begin{align*}
+            \lambda\of{t} &= x_0 + \int_{t_0}^{t} f\of{s, \lambda\of{s}} \dif s
+        \end{align*}
+        und umgekehrt jede stetige Funktion $\lambda$, die Lösung von (2) ist, ist Lösung von (1').
+
+        \begin{proof}
+            Haben $(t_0, x_0)\in D$. Dann existiert ein Zylinder $Z_{a,b} = Z_{a,b}\of{t_0, x_0} = \interv{t_0 - a, t_0 + a} times \overline{B_b^N\of{x_0}}$.
+        \end{proof}
+    \end{lemma}
+
+    \begin{satz}[Picard-Lindelöff, lokal]
+        \label{satz:temp-2}
+        Es gebe eine Konstante $L$ so, dass
+        \begin{align*}
+            \abs{f\of{s, x_1} - f\of{s, x_2}} &\leq L \abs{x_1 - x_2}\quad\forall x_1, x_2\in\overline{B_b\of{x_0}}, s\in\interv{t_0 - a, t_0 + a}
+        \end{align*}
+        Dann existiert genau eine Lösung von (2) (also auch von (1')) auf dem Intervall $\interv{t_0 - \alpha, t_0 + \alpha}$ über
+        \begin{align*}
+            \alpha &\coloneqq \min\of{a, \frac{L}{M}}\\
+            m &\coloneqq \max_{(s, x)\in Z_{a,b}} \abs{f\of{s, x}}
+        \end{align*}
+        \begin{proof}
+        (Später)
+        \end{proof}
+    \end{satz}
+
+    \begin{bemerkung}
+        Sei $K\subseteq \R\times\R^N$ kompakt und $f: K \to\R^N$ stetig mit
+        \begin{align*}
+            \abs{f\of{s, x_1} - f\of{s, x_2}} &\leq L_2\abs{x_1 - x_2}\quad\forall \pair{s, x_1}, \pair{s, x_2} \in K
+        \end{align*}
+        Dann existiert ein $L\geq 0$, sodass
+        \begin{align*}
+            \abs{f\of{s, x_1} - f\of{s, x_2}} &\leq L \abs{x_1 - x_2}\quad\forall (s, x_1), (s, x_2)\in K
+        \end{align*}
+
+        \begin{proof}
+        (Später)
+        \end{proof}
+    \end{bemerkung}
+
+    \begin{bemerkung}
+        Ist $f$ stetig differenzierbar in $x$ für ?? $s$ und $\abs{\nabla f\of{s, x}}$ ist beschränkt in $x$ für festes $s$. Dann erfüllt $f$ die die gleichmäßige Lipschitz-Bedingung.
+
+        \begin{proof}
+            \begin{align*}
+                \abs{f\of{s, x_1} - f\of{s, x_2}} &\leq \max_{(s, x)\in D} \abs{\nabla_x f\of{s, x}}\abs{x_1 - x_2}\qedhere
+            \end{align*}
+        \end{proof}
+    \end{bemerkung}
+
+    \begin{proof}[Beweis von Satz~\ref{satz:temp-2}]
+        Picard-Iterierten: Setzen $\lambda_0\of{0} \coloneqq x_0$. Für $n\in\N_0$ setzen wir
+        \begin{align*}
+            \lambda_{n+1}\of{t} &= x_0 + \int_{t_0}^{t} f\of{s, \lambda_n\of{s}} \dif s
+        \end{align*}
+        \textsc{Schritt 1}: Für $\alpha = \min\of{a, \frac{b}{M}}$ ist $\lambda_n$ wohldefiniert auf $Z_{\alpha, b}$ für alle $n\in\N_0$. Für $n=0$ gilt das direkt. Per Induktion lässt sich außerdem nachweisen, dass
+        \begin{align*}
+            \abs{\lambda_n\of{t} - x_0} &\leq M\abs{t - t_0} \leq b\tag{4}
+        \end{align*}
+        Der Induktionsanfang ist klar und angenommen (4) gilt für $\lambda_n$. Dann ist
+        \begin{align*}
+            \abs{\lambda_{n+1}\of{t} - x_0} &= \abs{ \int_{t_0}^{t} f\of{s, \lambda_n\of{s}} \dif s}\\
+            &\leq \int_{t_0}^{t} \abs{f\of{s, \lambda_n\of{s}}} \dif s \leq M \abs{t - t_0}
+        \end{align*}
+        Damit und mit $M \abs{t-t_0} \leq b$ folgt der Schritt.\\
+        \textsc{Schritt 2}:
+        \begin{align*}
+            \lambda_{n+1}\of{t} - \lambda_n\of{t} &\leq \int_{t_0}^{t} \abs{f\of{s, \lambda_n\of{s}} - f\of{s, \lambda_{n-1}\of{s}}} \dif s\\
+            &\leq L  \int_{t_0}^{t} \abs{\lambda_n\of{s} - \lambda_{n-1}\of{s}} \dif s\\
+            \lambda_n\of{t} - x_0 &= \sum_{j=1}^{n} \pair{\lambda_j\of{t} - \lambda_{j+1}\of{t}}\\
+            \abs{\lambda_2\of{t} - \lambda_1\of{t}} &\leq L \int_{t_0}^{t} \abs{\lambda_1\of{s} - \lambda_0\of{s}} \dif s\\
+            &\leq L M \int_{t_0}^{t} \pair{s - t_0} \dif s = \frac{LM}{2}\pair{t-t_0}^2\\
+            \abs{\lambda_3\of{t} - \lambda_2\of{t}} &\leq L \int_{t_0}^{t} \abs{\lambda_2\of{s} - \lambda_1\of{s}} \dif s\\
+            &\leq \frac{ML^2}{2} \int_{t_0}^{t} \pair{s-t_0}^2 \dif s = \frac{ML^2}{2\cdot 3}\abs{t-t_0}^3
+            \intertext{Per Induktion}
+            \abs{\lambda_{n+1}\of{t} - \lambda_n\of{t}} &\leq \frac{ML^n}{(n+1)!}\abs{t-t_0}^{n+1}\tag{$\ast$}\\
+            \abs{\lambda_{n+1}\of{t} - \lambda_n\of{t}} &\leq L \int_{t_0}^{t} \abs{\lambda_n\of{s} - \lambda_{n-1}\of{s}} \dif s\\
+            &\leq \frac{ML^n}{(n+1)!}\abs{t-t_0}^{n+1}
+        \end{align*}
+        \textsc{Schritt 3}:
+        \begin{align*}
+            \lambda_n\of{t} &= x_0 + \sum_{j=1}^{n} \pair{\lambda_j\of{t} - \lambda_{j-1}\of{t}}
+            \intertext{Beobachten die Reihe $ \sum_{j=1}^{n} \pair{\lambda_j\of{t} - \lambda_{j-1}\of{t}}$ konvergiert absolut.}
+            \sum_{j=1}^{\infty} \abs{\lambda_j\of{t} - \lambda_{j-1}\of{t}}&\leq \sum_{j=1}^{\infty} \frac{ML^{j-1}}{(j-1)!}\abs{t-t_0}^{j-1}\\
+            \lambda_{n+1}\of{t} - x_0 &= \sum_{j=0}^{n} \pair{\lambda_{j-1}\of{t} - \lambda_j\of{t}}\\
+            \sum_{j=0}^{\infty} \abs{\lambda_{j+1}\of{t} - \lambda_j\of{t}} &\leq \sum_{j=0}^{\infty} \frac{M}{L} \frac{L^j}{j!}\pair{t-t_0}^j\\
+            &= \frac{M}{L} \exp\of{L\abs{t-t_0}}\\
+            &\leq \frac{M}{L}\pair{\exp\of{L\alpha} - 1}\quad\forall \abs{t-t_0}\leq \alpha
+            \intertext{$t\mapsto \lambda_n\of{t}$ ist stetig. Konvergieren gleichmäßig mit für $\abs{t-t_0}\leq \alpha$}
+            \impl \lambda_{\infty}\of{t} &\coloneqq \lim_{n\toinf} \lambda_n\of{t}
+        \end{align*}
+        ist eine stetige Funktion.\\
+        \textsc{Schritt 4}: Wir haben schon
+        \begin{align*}
+            \underbrace{\lambda_{n+1}\of{t}}_{\to \lambda_\infty\of{t}} &= x_0 + \int_{t_0}^{t} f\of{s, \underbrace{\lambda_n\of{s}}_{\to \lambda_{\infty}\of{s}}} \dif s
+            \intertext{Da die rechte Konvergenz gleichmäßig ist, folgt damit}
+            \impl \lambda_{\infty}\of{t} &= x_0 + \int_{t_0}^{t} f\of{s, \lambda_{\infty}\of{s}} \dif s\qedhere
+        \end{align*}
+    \end{proof}
+
+    \begin{bemerkung}[Fehlerabschätzungen]
+        Wir haben
+        \begin{align*}
+            \abs{\lambda_{n+1}\of{t} - \lambda_n\of{t}} &\leq M \frac{L^n}{(n+1)!}\abs{t-t_0}^{n+1}\\
+            \impl \abs{\lambda_m\of{t} - \lambda_n\of{t}} &\leq \sum_{j=n}^{m-1} \abs{\lambda_{j-1}\of{t} - \lambda_j\of{t}}\\
+            \abs{\lambda_{j+1}\of{t} - \lambda_j\of{t}} &\leq \int_{t_0}^{t} \abs{f\of{s, \lambda_j\of{t}} - f\of{s, \lambda_{j-1}\of{s}}} \dif s\\
+            &\leq L \int_{t_0}^{t} \abs{\lambda_j\of{s} - \lambda_{j-1}\of{s}} \dif s
+        \end{align*}
+    \end{bemerkung}
+
 
 \end{document}
