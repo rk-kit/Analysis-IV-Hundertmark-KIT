@@ -2935,6 +2935,70 @@
             &\leq L \int_{t_0}^{t} \abs{\lambda_j\of{s} - \lambda_{j-1}\of{s}} \dif s
         \end{align*}
     \end{bemerkung}
+    \marginnote{[21. Jul]}
+    \noindent\textbf{Eindeutigkeit}: Angenommen $\lambda$ und $\mu$ sind 2 Lösungen der folgenden Integralgleichung mit $t_0 < t$:
+    \begin{align*}
+        \lambda \of{t} &= x_0 + \int_{t_0}^{t} f\of{s, \lambda\of{s}} \dif s\\
+        \mu \of{t} &= x_0 + \int_{t_0}^{t} f\of{s, \mu\of{s}} \dif s
+        \intertext{in einem Intervall $\interv{t_0 - \alpha, t_0 + \alpha}$. Ziel: $\mu = \lambda$}
+        \abs{\lambda\of{t} - \mu\of{t}} &\leq \int_{t_0}^{t} \abs{f\of{s, \lambda\of{s}}- f\of{s, \mu\of{s}}} \dif x
+        \intertext{Nach der Lipschitz-Bedingung}
+        &\leq L\int_{t_0}^{t} \abs{\lambda\of{s} - \mu\of{s}} \dif s
+        \intertext{Definiere}
+        w\of{t} &\coloneqq L\abs{\lambda\of{t} - \mu\of{t}} \geq 0\\
+        \impl w\of{t} &\leq L\int_{t_0}^{t} w\of{s} \dif s\\
+        U\of{t} &\coloneqq \int_{t_0}^{t} w\of{s} \dif s\\
+        \impl \dot U\of{t} &\leq L U\of{t}\\
+        \equivalent \dot U - LU \leq 0\\
+        \frac{\dif}{\dif t}\pair{e^{-L\pair{t-t_0}}U\of{t}} &= e^{-L\pair{t-t_0}}\dot U\of{t} - L e^{-L\pair{t-t_0}}U\of{t}\\
+        &= e^{-L\pair{t-t_0}}\pair{\dot U - L U} \leq 0\\
+        \impl e^{-L\pair{t-t_0}} U\of{t} &\leq e^{-L\pair{t_0 - t_0}} U\of{t_0} = 0\\
+        \impl U\of{t} &\leq 0 \impl U\of{t} = 0\\
+        \impl w\of{t} &\leq L U \of{t} \leq 0\\
+        \impl w\of{t} &= 0\qed
+    \end{align*}
+    Sei jetzt $\lambda\of{t_0} = x_0$ und $\mu\of{t_0} = x_1$. Beide lösen $\dot x = f\of{t, x}$:
+    \begin{align*}
+        \lambda\of{t} &= x_0 + \int_{t_0}^{t} f\of{s, \lambda\of{s}} \dif s\\
+        \mu\of{t} &= x_1 + \int_{t_0}^{t} f\of{s, \mu\of{s}} \dif s\\
+        \abs{\lambda\of{t} - \mu\of{t}} &= \abs{x_0 - x_1} + \int_{t_0}^{t} \abs{f\of{s, \lambda\of{s}} - f\of{s, \mu\of{s}}} \dif s\\
+        w\of{t} &\leq w\of{t_0} + L \underbrace{\int_{t_0}^{t} w\of{s} \dif s}_{\eqqcolon U\of{t}}\\
+        \impl \dot U &= w\\
+        \impl \dot U\of{t} &= w\of{t} \leq w\of{t_0} + L U\of{t}\\
+        \impl \dot U - LU &\leq w\of{t_0}\\
+        \frac{\dif}{\dif t}\pair{e^{-Lt}U\of{t}} &= e^{-Lt}\pair{\dot U\of{t} - LU\of{t}}\\
+        &\leq e^{-Lt}w\of{t_0}\\
+        \impl e^{-Lt}U\of{t}-e^{-Lt_0}U\of{t_0} &\leq w\of{t_0} \int_{t_0}^{t} e^{-Ls} \dif s = \frac{w\of{t_0}}{L}\pair{e^{-Lt_0} - e^{-Lt}}\\
+        \impl U\of{t} &\leq \frac{w\of{t_0}}{L}\pair{e^{-L\pair{t-t_0}} - 1}\\
+        \impl w\of{t}&\leq w\of{t_0} + L \int_{t_0}^{t} w\of{s} \dif s\\
+        &\leq w\of{t_0} + \mu\of{t_0}\pair{-e^{-\pair{t-t_0}} - 1}\\
+        &= w\of{t_0}e^{?L\pair{t-t_0}}\qed
+    \end{align*}
+    sei $D = J \times U$ und $U \subseteq \R^N$ offen. Für Intervall gilt
+    \begin{align*}
+        \impl \forall t_0 &\in J, t_0\in U\text{ existiert eine lokale Lösung mit}\\
+        \dot x &= f\of{t, x}\\
+        x\of{t_0} &= x_0\\
+        T_t\of{x_0} &= p\of{\xi, ?} \tag{?}\\
+        T_-\of{x_0} &= \inf\of{s\in J: ?}\\
+        \intertext{$\pair{t_-\of{x_0}, t_+\of{x_0}}$ maximales Intervall für Existenz und Eindeutigkeit. Charakterisierung von $T_+, T_-$}
+        T_+ &< \infty\\
+        \exists (t_0)_n \in J: t_n n T_+ \text{mit}\\
+        \abs{\lambda\of{t_0}} &\to 0
+    \end{align*}
+    Generelle $U = \R^N$. Ist $T_+ < \infty$
+    \begin{align*}
+        \impl \exists (t_n) \in J, t_n \cap T_+\colon \abs{\lambda\of{t_0}} \toinf\text{ für }n\toinf\\
+        \intertext{Genauso}
+        \impl \exists \text{Folge } t_n: \lim_{t_n \to T_+}, \tilde{x}_n \coloneqq lim_{n\toinf}\lambda\of{t_0} \in U
+    \end{align*}
+    ???\\~\\
+    \noindent Fall $U = \R^N, J = \R$. Ist $T < \infty\equivalent$ Blowup passiert (?)\\
+    Bedingung an $f$. Wahl Skalarprodukt $\scalprod{}$ auf $\R^N$. $\frac{\dif}{\dif t} \abs{\lambda\of{t}}^2 = \frac{\dif}{\dif t} \scalprod{\lambda\of{t}, \lambda\of{t}}$
+    \begin{align*}
+        &= 2\scalprod{\dot\lambda, \lambda}\\
+        &= 2\scalprod{f\of{t, \lambda\of{t}}, \lambda\of{t}}\\
+    \end{align*}
 
 
 \end{document}
