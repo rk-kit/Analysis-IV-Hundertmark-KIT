@@ -3000,5 +3000,84 @@
         &= 2\scalprod{f\of{t, \lambda\of{t}}, \lambda\of{t}}\\
     \end{align*}
 
+    \marginnote{[22. Jul]}
+    \noindent\textbf{Frage}: Wann gilt schon $T_+ = \infty$?\\
+    Wir wissen: Ist $T_+ < \infty$, so gilt $(t_n)_n, t_n \nearrow T_+$ mit $\abs{\lambda\of{t_n}} \to \infty$
+    \begin{align*}
+        \dot \lambda\of{t} &= f\of{t, \lambda\of{t}}\\
+        \lambda\of{t_0} &= t_0\\
+        \abs{\lambda\of{t}}^2 &= \scalprod{\lambda\of{t}, \lambda\of{t}}
+        \intertext{Wobei wir das eukldische Skalarprodukt auf $\R^N$ verwenden}
+        \impl \frac{\dif}{\dif t}\abs{\lambda\of{t}}^2 &= \frac{\dif}{\dif t}\scalprod{\lambda\of{t}, \lambda\of{t}}\\
+        &= \scalprod{\frac{\dif}{\dif t}\lambda\of{t}, \lambda\of{t}} + \scalprod{\lambda\of{t}, \frac{\dif}{\dif t}\lambda\of{t}}\\
+        &= 2 \scalprod{\dot\lambda\of{t}, \lambda\of{t}}\\
+        &= 2\scalprod{f\of{t, \lambda\of{t}}, \lambda\of{t}}
+        \intertext{$T_+$: Bedingungen}
+        \scalprod{f\of{t, x}, x} &\leq C\pair{1 + \abs{x}^2}\\
+        \intertext{Für jedes $T > t_0$, $x_0$ existiert $C = C\of{T, x_0} < \infty$, sodass}
+        \scalprod{f\of{t, x} , x}&\leq C\of{T, x_0}\pair{1+\abs{x}^2}\quad\forall x\fa t_0\leq t \leq T
+    \end{align*}
+    Behauptung: $\dsty\limsup_{t\to T} \abs{\lambda\of{t}}^2 < \infty$
+    \begin{proof}
+        \begin{align*}
+            \frac{\dif}{\dif t}\abs{\lambda\of{t}}^2 &= 2 \scalprod{\dot\lambda\of{t}, \lambda\of{t}}\\
+            &= 2 \scalprod{f\of{t, \lambda\of{t}}, \lambda\of{t}}\\
+            &\leq 2 C \pair{1 + \abs{\lambda\of{t}}^2}\\
+            \impl \frac{\dif}{\dif t} \abs{\lambda\of{t}}^2 - 2 C\abs{\lambda\of{t}}^2 &\leq 2C\\
+            \frac{\dif}{\dif t}\pair{e^{-2Ct}\abs{\lambda\of{t}}^2} &= e^{-2Ct}\pair{\frac{\dif}{\dif t}\abs{\lambda\of{t}}^2 - 2C\abs{\lambda\of{t}}^2}\\
+            &\leq 2C e^{-2Ct}\\
+            \impl e^{-2Ct}\abs{\lambda\of{t}}^2 - e^{-2Ct_0}\abs{\lambda\of{t_0}}^2 &\leq e^{-2Ct_0} - e^{-2Ct}\\
+            \impl \abs{\lambda\of{t}}^2 &\leq e^{2C\pair{t-t_0}}\abs{\lambda\of{t_0}}^2 + \pair{e^{2C\pair{t-t_0}} - 1}\\
+            \impl \limsup_{t\to T} \abs{\lambda\of{t}}^2 &\leq e^{2C\pair{T-t_0}}\abs{\lambda\of{t_0}}^2 + e^{2c\pair{T-t_0}} - 1 < \infty\qedhere
+        \end{align*}
+    \end{proof}
+
+    \begin{beispiel}[Populationsmodellierung]
+        Sei $N\of{t}$ die Anzahl einer Population. Wir hatten schon die logistische Gleichung
+        \begin{align*}
+            \frac{\dif}{\dif t}N &= aN - bN^2 = aN\pair{1-\frac{b}{a}N}\\
+            \dot N &= aN\pair{1-\frac{b}{a}N} = aN\pair{1-\frac{N}{K}}\tag{$K \coloneqq \frac{a}{b}$}\\
+            &= aN\pair{\frac{K-N}{K}}
+            \intertext{Betrachte zwei unterschiedliche, konkurierende Populationen}
+            \dot N_1 &= a_1 N_1\frac{K_1 - N_1 - m_2}{K1}\\
+            \dot N_2 &= a_2 N_2 \frac{K_2 - N_2 - m_1}{K2}
+            \intertext{Dabei seien $m_1, m_2$ der negative Einfluss der jeweils anderen Population. Wir modellieren dafür}
+            m_2 &= \beta_2 N_2\\
+            m_1 &= \beta_1 N_1
+            \intertext{Betrachte Spezialfall $\beta_1 = \beta_2 = 1$}
+            \frac{\dif}{\dif t}\begin{pmatrix}
+                                   N_1 \\
+                                   N_2
+            \end{pmatrix} &= \begin{pmatrix}
+                                 a_1 N_1\frac{K_1 - N_1 - m_2}{K1} \\
+                                 a_2 N_2 \frac{K_2 - N_2 - m_1}{K2}
+            \end{pmatrix} &= \eqqcolon f\of{N_1, N_2}\\
+            \intertext{$N_1$ und $N_2$ können nicht negativ werden. Damit kann man sich überlegen, dass für eine Konstante $C$ gilt}
+            f\of{N_1, N_2}\begin{pmatrix}
+                              N_1 \\
+                              N_2
+            \end{pmatrix} &\leq C\pair{1 + N_1^2 + N_2^2}
+        \end{align*}
+        Damit haben wir Existenz der Lösung.
+    \end{beispiel}
+
+    \begin{satz}[Konkurenzpopulation]
+        Seien $N_1, N_2$ Lösungen der obigen Gleichungen. Ist $K_1 > K_2$, dann gilt
+        \begin{align*}
+            \begin{pmatrix}
+                N_1\of{t} \\
+                N_2\of{t}
+            \end{pmatrix}\to
+            \begin{pmatrix}
+                K_1 \\
+                0
+            \end{pmatrix}
+        \end{align*}
+
+        \begin{proof}
+        (Mit Bild)
+        \end{proof}
+    \end{satz}
+
 
 \end{document}
