@@ -3079,5 +3079,46 @@
         \end{proof}
     \end{satz}
 
+    \subsection{Räuber-Beute-Modelle}
+    \marginnote{[28. Jul]}
+
+    \noindent\textbf{Setting}: Sei $x\of{t}$ die Population der Beute und $y\of{t}$ die Population der Räuber. Ist $y\of{t} = 0$, dann soll $\dot x = ax$. Ist $x\of{t} = 0$, dann soll $\dot y = -cy$. Ist $g\of{t} > 0$, dann fordern wir
+    \begin{align*}
+        \dot x &= ax - bxy\tag{1.1}\\
+        \dot y &= -cy + dxy\tag{1.2}
+        \intertext{mit $a,b,c,d > 0$. Berechne die Gleichgewichte $\dot x = 0, \dot y = 0$}
+        0 &= ax -bxy = x\pair{a-by}\\
+        0 &= -cy+dxy = y\pair{dx - c}\\
+        \impl x = 0\quad &\quad y = 0\\
+        \intertext{Es ist $x \neq 0$}
+        \impl y &= \frac{a}{b}\\
+        \impl x &= \frac{c}{d}
+        y' = \frac{\dif y}{\dif x} = \frac{\frac{\dif y}{\dif t}}{\frac{\dif x}{\dif t}} = \frac{-cy +dxy}{ax - bxy}\\
+        \equivalent y' &= \frac{\dif y}{a x}\\
+        5\frac{a-by}{y}\dot y &= \frac{-c + dx}{x}\\
+        a\ln y - bx + c\ln x - d x &= ba\\
+        \impl \frac{y^a}{e^{-by}}\frac{x^{c}}{e^{dx}} &= K
+    \end{align*}
+
+    \begin{lemma}
+        Seien $x\of{t}, y\of{t}$ jeweils Lösungen von (1) mit Periode $T > 0$. Dann ist
+        \begin{align*}
+            \conj{x} &= \frac{1}{T}\int_{0}^{T} x\of{t} \dif t\\
+            \conj{y} &= \frac{1}{T}\int_{0}^{T} y\of{t} \dif t\\
+            \impl \conj{x} = \frac{c}{d}\quad &\quad \conj{y} = \frac{a}{b}
+        \end{align*}
+
+        \begin{proof}
+            \begin{align*}
+                \dot x &= ax - b xy\\
+                \impl \frac{\dot x}{x} &= a-by\\
+                \impl \frac{1}{T} \int_{0}^{T} \frac{\dot x}{x} \dif x &= \frac{1}{T}\pair{\ln x\of{T} - \ln x\of{0}} = 0\\
+                \impl \frac{1}{T} \int_{0}^{T} \pair{a - by} \dif t &= a - \frac{b}{T}\int_{0}^{T} y\of{t} \dif t\\
+                \conj{y} &= \frac{1}{T}\\
+                \int_{0}^{T} y'\of{t} \dif t &= \frac{a}{b}\qedhere
+            \end{align*}
+        \end{proof}
+    \end{lemma}
+
 
 \end{document}
