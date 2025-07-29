@@ -3120,5 +3120,99 @@
         \end{proof}
     \end{lemma}
 
+    \subsection{Differentialgleichungen mit Matrizen}
+
+    \marginnote{[29. Jul]} \textbf{1. Fall}: $\dot u = Au$, $u\of{0} = u_0$, $u: I \to\R^n$ mit $A$ als $n\times n$-Matrix. Dann lösen wir mit
+    \begin{align*}
+        u\of{t}  &= e^{At} u_0
+    \end{align*}
+
+    \begin{align*}
+        e^{x} &= \sum_{n=0}^{\infty} \frac{x^n}{n!}\tag{$x^0 = 1$}
+        \intertext{Sei $A$ eine $n\times n$-Matrix. Dann ist}
+        A^2 &= A \cdot A\\
+        A^3 &= A^2 \cdot A\\
+        A^{n+1} &= A^n \cdot A\\
+        A^0 &= \charfunc_{n}\tag{Identität}
+        \intertext{Definiere}
+        e^{A} &\coloneqq \sum_{n=0}^{\infty} \frac{A^n}{n!} = A^0 + A + \frac{A^2}{2} + \frac{A^3}{3!} + \ldots
+    \end{align*}
+    Es gilt
+    \begin{align*}
+        \norm{A} &= \norm{A}_{op} \coloneqq \sup_{\norm{u} = 1}\norm{A u}\\
+        \impl \norm{AB} &\leq \norm{A}\norm{B}\\
+        \impl \norm{A^n} &\leq \norm{A}^n\\
+        \impl \norm{ABu} = \norm{Aw} &\leq \norm{A}\norm{Bu}\tag{$w\coloneqq Bu$}\\
+        \sum_{n=0}^{\infty} \frac{\norm{A^n}}{n!} &\leq \sum_{n=0}^{\infty} \frac{\norm{A}^n}{n!} = \exp\of{\norm{A}} < \infty\\
+        \intertext{Das heißt wir haben Konvergenz. Außerdem ist}
+        \frac{\dif}{\dif t}e^{At} &= \frac{\dif}{\dif t}\sum_{n=0}^{\infty} \frac{(At)^n}{n!}\\
+        \impl Ae^{At} &= \sum_{n=0}^{\infty} \frac{\dif}{\dif t} \frac{A^n}{n!} t^n = \sum_{n=1}^{\infty} \frac{A^n}{(n-1)!}t^{n-1}\\
+        &= A \sum_{n=1}^{\infty} \frac{A^{n-1}}{(n-1)!}t^{n-1} = A \exp\of{At}
+        \intertext{Das heißt $\dot u = A u$ hat eine Lösung}
+        \impl u\of{t} &= e^{At} u_0
+    \end{align*}
+    Wie berechnen wir $\exp\of{A}$? Wenn $A$ symmetrisch ist, dann gilt
+    \begin{align*}
+        \exists T\in\R^{n\times n}\text{ invertierbar}\colon A &= T\text{Diag}\of{\lambda_1, \ldots, \lambda_n}T^{-1}\\
+        \impl e^{At} &= T e^{A}T^{-1} = T \text{Diag}\of{e^{\lambda_1}, \ldots, e^{\lambda_n}} T^{-1}
+    \end{align*}
+    Eigenschaften: \textit{(fehlen)}\\~\\
+    \noindent Sei $N\in\mL\of{\R^n, \R^n}$ nilpotent. Das heißt es gibt ein $n_0\in\N$, sodass $N^{n_0} = 0$. Dann ist
+    \begin{align*}
+        \exp\of{Nt} &= \charfunc + \sum_{n=0}^{\infty} \frac{N^n}{n!}t^n = \charfunc + \sum_{n=0}^{n_0 - 1} \frac{N^n}{n!}t^n
+    \end{align*}\\~\\
+    \noindent Seien $A, B\in\mL\of{\R^n, \R^n}$, sodass $A$ und $B$ kommutieren. Das heißt $AB = BA$. Dann kann man nachrechnen, dass
+    \begin{align*}
+        e^{(A+B)t} &= e^{At}e^{Bt}
+    \end{align*}
+    Das heißt, wenn wir $e^{Ct}$ berechnen wollen und sich $C = A + B$ durch zwei kommutierende Matrizen $A, B$ darstellen lässt, dann können wir die Matrixexponentiale einzeln berechnen.
+
+    \begin{beispiel}
+        $A$ habe Eigenwert $\lambda$ und habe Jordan-Block
+        \begin{align*}
+            \exists v\neq 0\colon \pair{A-\lambda}v &\neq 0,~\pair{A-\lambda}^2 = 0
+        \end{align*}
+        Sei außerdem $u$ der Eigenvektor zum Eigenwert $\lambda$, das heißt $Au = \lambda u$. Es ist
+        \begin{align*}
+            \exp\of{At} &= \exp\of{\pair{A-\lambda}t + \lambda t} = \exp\of{\lambda}\exp\of{\pair{A-\lambda}t}\\
+            \exp\of{At}u &= e^{\lambda t}\exp\of{\pair{A - \lambda}t}u = e^{\lambda t}u\\
+            \exp\of{At}v &= e^{\lambda t}\exp\of{\pair{A-\lambda}u??}v = e^{\lambda t}\pair{\pair{A - \lambda}vt + v}\\
+        \end{align*}
+        Bilder dazu: Bernd Aulbach, Seite 197
+    \end{beispiel}
+
+    Sei $\lambda$ Eigenwert in $A$ mit $\lambda = \alpha + i \beta$. Dann ist $\conj{\lambda} = \alpha - i\beta$ ein EW von $A$. Eigenvektor $u_0\in\C^n$ von $A$ bzgl. $\lambda$. Dann ist $u_0 = v_1 + i v_2$ mit $v_i\in\R^n$. Es ist
+    \begin{align*}
+        e^{At}u_0 &= e^{\pair{\alpha + i\beta}t}u_0\\
+        &= e^{\alpha t}e^{i\beta t}\pair{v_1 + i v_2}\\
+        &= e^{\alpha t}\pair{\cos \beta t + i \sin \beta t}\pair{v_1 + i v_2}\\
+        &= e^{\alpha t}\pair{\cos \beta t v_1 - \sin \beta t v_2} + ie^{\alpha t}\pair{\cos \beta t v_2 + \sin \beta t v_1}\eqqcolon \psi\of{t}
+    \end{align*}
+    $\phi\of{t}$ ist eine komplexe Funktion, die eine reelle Differentialgleichung löst. Dann löst aber auch $\conj{\phi\of{t}}$ die Gleichung und damit auch $\phi\of{t} + \conj{\phi\of{t}}$, was eine reelle Funktion ist. Das heißt wir kriegen
+    \begin{align*}
+        e^{\lambda t} \cdot\text{Streckung oder Drehung} + \text{polynomielle Faktoren (Jordan-Block)}
+    \end{align*}
+
+    (??)
+    \begin{align*}
+        \dot x &= f\of{x},~ f\of{x_{\ast}} = 0\\
+        f\of{x_{\ast}} &= Au + g\of{u}\\
+        \impl\dot u &= A u + g\of{u}\\
+        \dot u &= Au + h\of{t}\\
+        u\of{0} &= u_0
+        \intertext{Ansatz $u\of{t} = \exp\of{\lambda t}v\of{t}$}
+        \dot u &= A e^{At} v + e^{At}\dot v\\
+        \impl Au + h &= Ae^{At}v + h\\
+        \impl e^{At}\dot v &= h
+        \dot v\of{t} &= e^{-At}h\of{t}\\
+        v\of{t} &= \int_{0}^{t} e^{-As}h\of{s} \dif s\\
+        \impl u\of{t} &= e^{At}v = e^{At} \int_{0}^{t} e^{-As}h\of{s} \dif s\\
+        &= \int_{0}^{t} e^{A\pair{t-s}}h\of{s} \dif s\\
+        \impl u\of{t} &= e^{At}u_0 + \int_{0}^{t} e^{A\pair{t-s}}h\of{s} \dif s\tag{Variation der Konstanten}\\
+        h\of{s} &= g\of{u\of{s}}\\
+        \impl u\of{t} &= e^{At}u_0 + \int_{0}^{t} e^{A\pair{t-s}}g\of{u\of{s}} \dif s
+    \end{align*}
+    (??)
+
 
 \end{document}
